@@ -1,17 +1,19 @@
-# The delimiter is the trust signal
+# Meaningless tags, meaningful impact
 
 Fencing an otherwise identical false paragraph in `<document>` tags takes Gemma 4
 from **0%** to **100%** answers-taken-from-the-paragraph on a plain sourced
-falsehood — about **+41 logits** — on facts it answers correctly on every
-screening prompt. No word of the paragraph, the question or the instruction
-changes.
+falsehood — **every one of 261 facts flips**, and the margin moves the
+paragraph's way for all of them (about **+41 logits**, a difference between two
+saturated tails, so read the ordering and not the size). These are facts the
+model answers correctly on every screening prompt, and no word of the paragraph,
+the question or the instruction changes.
 
 Most of that is not the word "document". `<qzx_block>`, which names nothing,
 already reaches **79%** (+31.2). But brackets alone are not enough: `<>` with the
 name deleted gets **+14.6** on element symbols, below a plain `---` fence. The
 tag has to *name* something; the name's meaning then moves it a further −28 to
-+12 around that floor. Layout is not the mechanism (blank lines +1.3) and neither
-is markup (a bare `Document:` label +38.5).
++12 around that floor. Layout is not the mechanism (blank lines +1.3 on symbols,
++3.9 on capitals) and neither is markup (a bare `Document:` label +38.5).
 
 **A warning works only if it is the tag.** `<untrusted_content>` takes the rate
 back to 0% — **−38.2** against `<document>` on Gemma, **−8.5** on Qwen, where it
@@ -21,11 +23,13 @@ person +5.5 (slightly *worse* than silence). This is not system-versus-user — 
 Qwen the two channels differ by at most 1.4 logits against 8.5 for the tag name.
 It is prose-versus-tag-name.
 
-It replicates on Qwen 3.6 at about a fifth the effect size (+7.8), with a
-different ladder: there `<document>` (+7.8) and `<passage>` (+7.5) lead, while
-`<trusted_content>` (+4.2) sits *below* the meaningless `<qzx_block>` (+4.7). What
-holds everywhere: a direct user instruction to ignore the paragraph takes the
-rate to **0%**, in every channel, in both models.
+It replicates on Qwen 3.6 at about a fifth the effect size (+7.8), and only half
+the ladder comes with it. The negative half does: `<untrusted_content>` (−0.7)
+and `<unreliable_source>` (−1.0) are the only two wrappers below zero, as on
+Gemma. The positive half does not: `<document>` (+7.8) and `<passage>` (+7.5)
+lead, while `<trusted_content>` (+4.2) sits *below* the meaningless `<qzx_block>`
+(+4.7). What holds everywhere: a direct user instruction to ignore the paragraph
+takes the rate to **0%**, in every channel, in both models.
 
 Secondary: the claim's speech act is a real second lever — a source that *adopts*
 a convention is deferred to +9.4 logits more than one that *asserts* the same
@@ -33,9 +37,9 @@ fact — whose obvious explanation dies under a same-entity control that reverse
 the sign. That one is unexplained and is written up as such.
 
 `cmds.sh` runs the whole pipeline from an empty results tree, with the expected
-value printed beside each step. `WRITEUP.md` is the write-up. `verify_writeup.py`
-re-derives every number in it from the raw JSONL — not from the analysis
-scripts' reports — and exits non-zero if any has drifted.
+value printed beside each step and two inline checkpoints that recompute the
+agreement and noise-floor numbers straight from the raw JSONL. `WRITEUP.md` is
+the write-up.
 
 ## Pipeline
 
@@ -50,12 +54,11 @@ log-probabilities. No activations, no probes, ~2 GiB of results.
 | `E6_template_decomposition.py` | Which of claim / filler / question / constraint carries the paraphrase swing? (Answer: the claim, 28 of 30.9 logits.) | yes |
 | `E7_claim_phrasing.py` | Which *property* of the claim sentence — speech act, source authority, persistence, or lexicon? | yes |
 | `E8_conventionality.py` | Is the act effect about stipulability? Same entities, different stipulability, plus a second model. **(the account dies here)** | yes |
-| `E9_knowledge_strength.py` | Is the residual leakage about atomic numbers or about weakly-held facts? **(negative; §7)** | no |
+| `E9_knowledge_strength.py` | Is the residual leakage about atomic numbers or about weakly-held facts? **(negative; §8)** | no |
 | `E10_answer_plausibility.py` | Entity fixed, distance to the false answer varied. Separates level from framing. | yes |
-| `E11_source_channel.py` | Does the claim survive a delimiter, a system guard, a user guard, or a separate turn? **Where §4 comes from.** | yes |
+| `E11_source_channel.py` | Does the claim survive a delimiter, a system guard, a user guard, or a separate turn? **Where §5 comes from.** | yes |
 | `E12_delimiter.py` | Thirteen wrappers: is it the markup, the layout, or the word? **Where the headline comes from.** | yes |
 | `make_figures.py` | Every figure and the random-example block, from committed result files only. | no |
-| `verify_writeup.py` | Recompute every number in `WRITEUP.md` from raw per-row records. | no |
 
 The experiment numbering has gaps. It is the order the experiments were run in,
 not a contiguous index.
