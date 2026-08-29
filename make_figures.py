@@ -496,7 +496,7 @@ def figure_cross_model(results: Path, out: Path) -> None:
     axes[0].set_xlabel("shift vs no wrapper (logits)")
     axes[1].set_xlabel("shift vs no wrapper (logits)")
     fig.suptitle(
-        "The wrapper effect replicates; the ordering by trustworthiness does not",
+        "The wrapper effect replicates; only the warning half of the ordering does",
         fontsize=12.5,
         x=0.008,
         ha="left",

@@ -172,7 +172,7 @@ python E8_conventionality.py --config config_qwen36.yaml \
 # already carries the measurement -- log P(true) - log P(false) on the
 # context-free screening prompt -- so this costs no GPU.
 #
-# It comes back negative and is written up as such: see section 7.
+# It comes back negative and is written up as such: see section 8.
 
 python E9_knowledge_strength.py \
   --results gemma=$G/analysis/conventionality_random/conventionality_results.jsonl \
@@ -187,7 +187,7 @@ python E9_knowledge_strength.py \
 # ===========================================================================
 # 6. E10 -- plausibility: is it the relation or the near miss?   (~2-3 h)
 # ===========================================================================
-# Write-up section 6. Holds the entity fixed and varies only the distance from
+# Write-up section 7. Holds the entity fixed and varies only the distance from
 # the true answer, so the act effect can be read at every distance. Also records
 # log P(true) - log P(false at distance d) per row as a covariate. Pilot first.
 
@@ -209,7 +209,7 @@ python E10_answer_plausibility.py --config config_qwen36.yaml \
 # ===========================================================================
 # 7. E11 -- the channel, all six at once              (~55 min Gemma, ~45 Qwen)
 # ===========================================================================
-# Write-up sections 2, 4 and 5. One run, every channel, both policies, both
+# Write-up sections 3, 5 and 6. One run, every channel, both policies, both
 # models -- there is no reason to split this. `inline` must reproduce E8's
 # assert_r1 numbers or nothing else in the file is comparable.
 #
@@ -219,7 +219,7 @@ python E10_answer_plausibility.py --config config_qwen36.yaml \
 #   system_guard    delimited, plus a system message saying the tags hold data
 #   retrieved_turn  the document arrives in a prior ASSISTANT turn
 #
-# ...and the two that decide whether section 4 is about the CHANNEL or about
+# ...and the two that decide whether section 5 is about the CHANNEL or about
 # the delimiter slot. Both carry the same guard sentences as `system_guard`,
 # moved into the user turn with the <document> wrapper kept, so only the
 # channel differs:
@@ -253,7 +253,7 @@ python E11_source_channel.py --config config_qwen36.yaml \
 # ===========================================================================
 # 8. E12 -- what the wrapper is, all thirteen at once      (~75 min per model)
 # ===========================================================================
-# Write-up section 3, and where the headline comes from. One run, every
+# Write-up section 4, and where the headline comes from. One run, every
 # wrapper. Three things are being separated:
 #
 #   LAYOUT     blankline           blank lines, no markup

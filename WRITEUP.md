@@ -1,14 +1,13 @@
-# The delimiter is the trust signal
+# Meaningless tags, meaningful impact
 
-### Fencing a false paragraph in *any* named tag — `<qzx_block>` included — takes Gemma 4 from 0% to 79–100% answers-taken-from-the-paragraph, on facts it otherwise never gets wrong. Renaming that tag `<untrusted_content>` takes it back to 0%, in both models. Saying "do not trust this block" as prose — system prompt, user turn, or the user's own voice — does nothing.
+### Fencing a false paragraph in `<qzx_block>` — a tag that names nothing — flips **200 of Gemma 4's 261 facts** from the answer it knows to the answer the paragraph asserts. `<document>` flips **261 of 261**, on facts the model gets right on every screening prompt. Renaming that same tag `<untrusted_content>` takes it back to zero, in both models. Saying "do not trust this block" as prose — system prompt, user turn, or the user's own voice — does nothing.
 
 **MATS 12.0 application — Neel Nanda stream**
 *Models: `google/gemma-4-12B-it`, `Qwen/Qwen3.6-27B`. Code and results: [REPO LINK]. Time: [HOURS].*
 
-> **Draft note, delete before submitting.** Every number here was re-derived from
-> the raw JSONL of the committed runs. What is *not* done: this is not yet in
-> your voice. Rewrite it before it goes anywhere. Fill in [REPO LINK], [HOURS],
-> and paste the six random examples.
+> **Draft note, delete before submitting.** What is *not* done: this is not yet
+> in your voice. Rewrite it before it goes anywhere. Fill in [REPO LINK],
+> [HOURS], and paste the six random examples.
 
 ---
 
@@ -17,10 +16,11 @@
 ## What I wanted to know
 
 Hand a model a paragraph that contradicts something it knows, then ask a question
-the paragraph answers wrongly. The literature mostly asks *whether* it goes with
-the paragraph. I wanted to know what the paragraph has to **do** to be believed —
-and it turns out that almost nothing which decides this is a property of the
-paragraph at all.
+the paragraph answers wrongly. Existing work mostly asks *whether* it goes with
+the paragraph, and — where it asks what makes a paragraph persuasive — varies
+what the paragraph says or who is said to be saying it (§2). I wanted to know
+what the paragraph has to **do** to be believed, and it turns out that almost
+nothing which decides this is a property of the paragraph at all.
 
 Two numbers throughout, both pointing the same way:
 
@@ -35,9 +35,12 @@ Two numbers throughout, both pointing the same way:
 **1 · A pair of tags flips the model completely.** *"A university chemistry
 textbook states that the chemical symbol for Tellurium is Np"*, in a plain user
 turn, is followed **0%** of the time. Put the identical paragraph inside
-`<document>` tags: **100%**, a shift of **+41.0 logits**, on facts the model
-answers correctly on every screening prompt. Not one word changes. For scale,
-adding an outright imperative to the sentence is worth +45.1.
+`<document>` tags and it is followed **100%** of the time — **every one of 261
+facts flips**, and the margin moves the paragraph's way for every single one of
+them. Not one word of the paragraph, the question or the instruction changes.
+The flip count is the claim I would defend. The margin shift beside it, **+41.0
+logits**, fixes the ordering of the ladder below but is a difference between two
+saturated tails, so do not read its size literally (§10).
 
 **2 · Most of that is not the word "document" — it is having a tag at all.**
 `<qzx_block>`, which names nothing, already carries the model from 0% to **79%**
@@ -66,7 +69,7 @@ paragraph takes the rate to **0%**.
 ![Figure 1](figures/fig1_wrapper_ladder.png)
 ![Figure 2](figures/fig2_warning_channel.png)
 
-*(≈470 words.)*
+*(≈510 words.)*
 
 ---
 
@@ -128,8 +131,9 @@ Gemma, 9,756 for Qwen. Three design choices carry the weight:
 **A note on whitespace.** Every wrapped condition puts the paragraph on its own
 lines — `<document>\n…\n</document>` — so the *same* two newlines are added in
 every wrapped cell, and they are constant across the whole ladder. "Blank lines
-only" is the control that prices those newlines on their own, and it is worth
-+1.3. Nothing below is a whitespace effect.
+only" is the control that prices those newlines on their own: +1.3 on element
+symbols, +3.9 on capitals, against +41.0 and +40.7 for `<document>`. Nothing
+below is a whitespace effect.
 
 **A worked example.** The Tellurium prompt above, in Gemma 4. The only change is
 `<qzx_block>` around the paragraph:
@@ -141,9 +145,9 @@ only" is the control that prices those newlines on their own, and it is worth
 
 The model goes from near-certain of the true answer to preferring the false one,
 because the paragraph was fenced in a tag whose name is not a word. Note what
-this implies for the ladder in §3: once a wrapper saturates, the winning answer
+this implies for the ladder in §4: once a wrapper saturates, the winning answer
 sits at log P ≈ 0 and the margin measures only how far the *loser* was pushed
-down. I return to that in §8.
+down. I return to that in §10.
 
 **Which baseline a number is measured against.** Two appear below and they are
 not interchangeable. "Δ vs no wrapper" compares a wrapper to the plain user turn
@@ -160,7 +164,55 @@ Individual rows move more (mean absolute difference ≈0.4 logits, ~8% of rows b
 more than one) from ordinary bf16 batching nondeterminism, which is why every
 contrast below is paired within fact and bootstrapped over facts.
 
-## 2 · Does the model believe a false paragraph? Not by default.
+**One asymmetry between the two models, which I noticed late.** Both are run with
+`enable_thinking: false`, but their chat templates do different things with it.
+Qwen emits a closed, empty `<think></think>` block, so the answer is scored at
+the first token of an *answer*. Gemma leaves the prompt ending inside an open
+thought channel (`…<|turn>model\n<|channel>thought\n<channel|>`), so every Gemma
+margin is read at the first token of a *thought*. Each model's contrasts are
+internal to that model and none of §§4–7 depends on this. I raise it because it
+is the most plausible explanation I have for something I could otherwise only
+report as odd — Gemma leaks a decoding residue on some batches (§8) at 2.9% while
+Qwen does so at 0.15% — and because it is a caveat on the one place I compare
+magnitudes *across* models: "about a fifth the size" compares a margin read
+inside a thought span against one read in an answer. I am not claiming this
+explains the size difference, only that it is uncontrolled. The check that would
+settle it is re-running Gemma with the thought channel explicitly closed, and I
+did not have time for it.
+
+## 2 · Related work
+
+Knowledge conflict is a well-studied setting and I am reusing its standard
+paradigm rather than inventing one. What I could not find was anyone varying the
+*container* while holding the content fixed.
+
+- **The paradigm.** [Longpre et al. (2021)](https://arxiv.org/abs/2109.05052)
+  introduced entity-substitution conflicts: take a question the model answers
+  correctly, swap the answer entity inside the supporting passage, and see which
+  answer comes out. My dataset is that construction, plus per-model screening and
+  a derangement so that no string is intrinsically a "wrong answer".
+- **What makes a passage persuasive — studied at the level of content.**
+  [Xie et al. (2024)](https://arxiv.org/abs/2305.13300) find LLMs are strikingly
+  receptive to counter-evidence when it is coherent and convincing;
+  [Li et al. (2026)](https://arxiv.org/abs/2604.22193) evaluate 27 models and
+  report a general preference for document-borne claims, modulated by authority
+  framing and confidence cues. Both vary *what the passage says, or who is said
+  to be saying it*. Here every word is held fixed and only the delimiter moves —
+  and that turns out to be worth about nine tenths of an outright imperative
+  inside the sentence.
+- **Formatting is known to matter — for accuracy.**
+  [Sclar et al. (2024)](https://arxiv.org/abs/2310.11324) show that
+  meaning-preserving changes to prompt format move few-shot accuracy by up to 76
+  points. This is the same genre of finding pointed at a different dependent
+  variable: not how well the model does the task, but whom it believes when the
+  task and its own memory disagree.
+- **Mechanism.** [Ortu et al. (2024)](https://arxiv.org/abs/2402.11655) localise
+  the competition between factual recall and a counterfactual context to a small
+  set of late attention heads, in a setting close to this one. That is where I
+  would take the patching experiment in §11, and the main reason I expect it to
+  find something.
+
+## 3 · Does the model believe a false paragraph? Not by default.
 
 Every prompt in the first part of this project was a single user turn — paragraph,
 question and instruction in one message from one speaker. That is a poor way to
@@ -195,7 +247,7 @@ The swing is a clean binary flip, not a collapse into junk: across the whole
 wrapper experiment only **2.9%** of Gemma's generations are neither candidate
 answer, and 0.0% in the elements cell above.
 
-## 3 · What is the wrapper actually doing?
+## 4 · What is the wrapper actually doing?
 
 `<document>` changes three things at once: it adds newlines, it adds
 angle-bracket markup, and it adds a suggestive English word. So I crossed twelve
@@ -224,8 +276,9 @@ much weaker (+6.3 against +21.1).)*
 
 Four things fall out.
 
-**Layout is not the mechanism.** Blank lines alone are worth +1.3, and the same
-two newlines are present in every wrapped row.
+**Layout is not the mechanism.** Blank lines alone are worth +1.3 on element
+symbols and +3.9 on capitals, against +41.0 and +40.7 for `<document>`, and the
+same two newlines are present in every wrapped row.
 
 **Markup is not the mechanism either.** A bare `Document:` label, no brackets and
 no closing tag, reaches +38.5 — within three logits of the tagged version.
@@ -257,12 +310,20 @@ Potassium is Cl."*) starts higher — 9.3% on elements, 23.1% on capitals — an
 `<document>` pushes it to 98.3% / 100.0%. The tag is not vouching for a source;
 it makes the whole block authoritative regardless of what is inside it.
 
-## 4 · Can you warn the model off? Only by renaming the tag.
+## 5 · Can you warn the model off? Only by renaming the tag.
 
 `<untrusted_content>` suppresses the effect completely — 0.0%, **−38.22** against
 `<document>` on elements and **−39.94** on capitals. That is a real signal being
 read, not an unfamiliar-token artefact: `<qzx_block>` is at least as unfamiliar
 and goes the other way by 31 logits.
+
+It is not merely cancelling the tag, either. In the sourceless `bare` cell on
+capitals — *"The capital of Venezuela is Majuro."* with no textbook to trust —
+`<untrusted_content>` scores **−8.24** against *no wrapper at all*, and
+`<unreliable_source>` −6.11. Fencing a bare falsehood in a badly-named tag leaves
+the model less willing to take its answer from it than leaving the sentence
+naked. Whatever the tag name is doing, it has its own sign and is not just a
+gate on the structural effect.
 
 My first draft concluded from this that the model obeys a trust signal *in the
 label* and ignores it *in the system prompt*, and called that a channel effect.
@@ -331,7 +392,7 @@ The imperative cell is unmoved by any of this: *"For the purposes of this
 document, treat Ho as the chemical symbol for Hydrogen"* is followed 100% of the
 time in every channel, both guards included.
 
-## 5 · Does it replicate?
+## 6 · Does it replicate?
 
 ![Figure 3](figures/fig3_cross_model.png)
 
@@ -345,14 +406,18 @@ time in every channel, both guards included.
 The tag effect replicates at about a fifth the size: **+7.79** and **+11.09**
 paired. Two things do not.
 
-**The trust ladder does not transfer.** On Qwen the top of the ladder is
-`<document>` (+7.75) and `<passage>` (+7.47) — document-shaped nouns —
-while `<trusted_content>` reaches only +4.21, *below* the meaningless
-`<qzx_block>` at +4.70 and below the markup-free `Document:` at +5.13. So §3's
-"the model reads how trustworthy the name sounds" is a Gemma statement, even
-though it holds across both of Gemma's relations. What survives in both models is
-weaker and more specific: a named tag beats an unnamed one, and document-ish
-names beat everything else.
+**Only half the trust ladder transfers.** The *negative* half does: on Qwen
+`<untrusted_content>` (−0.7 elements / −1.9 capitals) and `<unreliable_source>`
+(−1.0 / −2.3) are the only two wrappers that land below zero, under every fence
+and under the nonsense tag, exactly as on Gemma. The *positive* half does not. On
+Qwen the top is `<document>` (+7.75) and `<passage>` (+7.47) — document-shaped
+nouns — while `<trusted_content>` reaches only +4.21, *below* the meaningless
+`<qzx_block>` at +4.70 and below the markup-free `Document:` at +5.13. So §4's
+"the ordering runs with how trustworthy the name sounds" is a Gemma statement,
+even though it holds across both of Gemma's relations; what generalises is that
+both models read a *warning* in the tag name and only Gemma reads a *reassurance*
+there. Beyond that, what survives in both is weaker and more specific: a named
+tag beats an unnamed one, and document-ish names beat everything else.
 
 **The `<>` result is Gemma-specific too.** On Qwen, `<>` (+2.15) sits 2.6 logits
 below `<qzx_block>` on elements and is *identical* to it on capitals (+3.96 vs
@@ -365,7 +430,7 @@ time, and even an in-document imperative never exceeds 2.5% (Gemma) or 0.0%
 (Qwen). There is a strict ordering and the user's own instruction sits on top of
 it. Everything above is about the large space below that line.
 
-## 6 · A second lever: what the sentence *does*, not what it says
+## 7 · A second lever: what the sentence *does*, not what it says
 
 The wrapper is the big effect, but the sentence inside it has one of its own, and
 it is a different kind of thing — about pragmatics rather than formatting.
@@ -399,6 +464,21 @@ words, so any difference might be about the words rather than the act. I ran a
 second wording of each act — *"treats Mn as…"* and *"reports … to be Mn"* — and
 swapping one verb for a synonym **of the same act** moves the margin by only
 **+2.18**. The act is doing four times what the wording does.
+
+**A confound I did not have time to test, and the reason I hedge the label.**
+The two acts also differ in word order. Every *adopt* phrasing puts the false
+answer before the subject — "uses **Mn** as the chemical symbol for Beryllium",
+"treats **Mn** as…" — and every *assert* phrasing puts it after — "states that
+the chemical symbol for Beryllium **is Mn**", "reports … **to be Mn**". Both
+realizations of each act inherit their act's order, so the lexical control above
+holds order fixed and cannot price it. Worse, the assert frame reproduces the
+question's own surface form with the answer in final position, which is exactly
+what a copying account would want. The clean test is an assert sentence with the
+answer first — "A university chemistry textbook states that Mn is the chemical
+symbol for Beryllium" — which is one extra cell in `E7_claim_phrasing.py` and I
+ran out of time for it. This does not touch the falsification below, which holds
+word order fixed on both sides; it means "speech act" is my *label* for the
+contrast, not a property I have isolated.
 
 **The obvious explanation, and why it is wrong.** A textbook can legitimately
 stipulate notation — "in this book, Cf denotes Actinium" is a coherent thing for
@@ -448,7 +528,7 @@ zero. Level and framing are separate dials.
 **Where this leaves it.** The effect is real, large, relation-specific and
 model-specific — Qwen's act effect on symbols is a precisely estimated zero
 (**−1.09** [−1.48, −0.70]) at every distance. **I do not have an account of it,
-and I ran out of time to get one.** What I would try next is in §9. I am
+and I ran out of time to get one.** What I would try next is in §11. I am
 reporting it because the falsification was clean: I had a story, it made a sharp
 prediction on a relation built specifically to test it, and the prediction came
 back with the wrong sign. A well-controlled negative is worth more than the story
@@ -456,10 +536,26 @@ I started with.
 
 ![Figure 4](figures/fig4_speech_act.png)
 
-## 7 · What I tried that did not work
+## 8 · What I tried that did not work
 
-Two things that cost real time and are not in the sections above, because they
-went nowhere. Both are in the repository.
+**The project I started, and why this is not it.** The original plan was
+mechanistic: build the conflict dataset, dump residual-stream activations at the
+claim and answer positions, and ask whether a model that follows a false
+paragraph still *represents* the conflict internally — a probe question. That is
+what `build_conflict_awareness_dataset.py`'s docstring still asks, and it is why
+`common.py` carries a `LayerActivationCapture` that `02_collect_model_data.py`
+can write from and nothing in this write-up reads. What ended it was the base
+grid: three paraphrases that mean the same thing moved Gemma's
+context-following by **30.9 logits**, which is larger than any factor I had
+designed the dataset around. Probing for a conflict representation while an
+uncontrolled surface variable outweighed the manipulation felt like building on
+sand. So I reset the clock, per the application's rule on changing direction, and
+restarted as a behavioural project on the question *what does a block have to do
+to get believed* — §7 is the first thing I ran under that framing, and §§4–6 are
+where it ended up. The activation path is left in the repository, disabled by
+config, because it is the road into §11's second item rather than dead weight.
+
+Two further things cost real time and went nowhere. Both are in the repository.
 
 **A knowledge-strength account of the residual leakage** (`E9_knowledge_strength.py`).
 Under an explicit *"ignore the paragraph"* instruction, almost everything sits at
@@ -489,13 +585,45 @@ generations rather than summary tables, I found Gemma emitting the right answer
 with a stray character glued on — `-Zn`, `-W-`, `aMajuro` — a leaked
 thought-channel residue whose rate varies with batch composition. In an early
 guard-only run it hit **12.7%** and correlated with the channel, which would have
-made §4's rates non-comparable across exactly the comparison §4 is about. This is
+made §5's rates non-comparable across exactly the comparison §5 is about. This is
 why margins are the primary metric everywhere: they are teacher-forced and
 completely unaffected. In the consolidated runs reported here the residue is 2.9%
 (Gemma) and 0.15% (Qwen), and `make_figures.py` carries an exact-match repair rule
 for anyone who wants rates instead.
 
-## 8 · Limitations, and what would change my mind
+## 9 · A note on prompt injection
+
+I did not set out to study prompt injection and nothing here is an attack or a
+defence. But §5's null lands on a mitigation people actually ship, so it is worth
+saying carefully what it does and does not say.
+
+The standard defence against indirect prompt injection is *spotlighting*
+([Hines et al., 2024](https://arxiv.org/abs/2403.14720)): put untrusted content
+inside a delimiter and tell the model, in the system prompt, that the delimited
+region is data rather than instructions. That is close to my `system_guard` cell.
+Here the delimiter half moves the model hard in the direction the defence does
+not want, and the system-prompt half is worth −0.2 logits against no warning at
+all. The only thing that moved it was the delimiter's *name* — the part of the
+construction nobody treats as a lever.
+
+Two limits on how far that goes. First, this is knowledge conflict, not
+injection: my paragraph asserts a false fact, it does not carry an instruction,
+and a model that swallows a false capital city need not obey an embedded command.
+The nearest instruction-like cell points the other way — a direct user
+instruction to ignore the paragraph wins 100% of the time, in every channel and
+in both models. Second, one guard wording in two channels is not a sweep.
+
+So the fair claim is narrower than "delimiters are unsafe": the delimiter is a
+large, cheap, untested variable inside a construction that safety work already
+leans on, and it is worth measuring on both sides of that work. The obvious
+question I have *not* answered is whether an attacker who controls the retrieved
+text can supply their own opening tag and buy the same effect — one run of
+`E12_delimiter.py` with the wrapper moved inside the paragraph, which I did not
+have time for. [Zverev et al. (2024)](https://arxiv.org/abs/2403.06833) argue
+that models do not cleanly separate instructions from data; this is a small,
+quantified instance of the neighbouring problem, on the data-versus-data axis.
+
+## 10 · Limitations, and what would change my mind
 
 **Things that would make the headline wrong.**
 
@@ -504,13 +632,15 @@ for anyone who wants rates instead.
   inside a tag is not what a RAG system passes a model. If the effect is really
   about a short block being *entirely* source material, it may shrink when the
   false claim is one line in two thousand. This is the single biggest hole and it
-  is first in §9.
+  is first in §11.
 - **Two models.** Both are open-weight, both mid-sized, both instruction-tuned in
   the last year. The direction replicates and the magnitude does not (5×), which
   is enough to say the phenomenon is not a Gemma quirk and not enough to say
-  anything about frontier models.
+  anything about frontier models. The magnitude gap is also not clean: as §1
+  notes, the two chat templates leave the answer in different channels, so the
+  two margins are not read at quite the same place.
 - **One false answer per fact.** Each fact is shown one specific wrong answer,
-  chosen by seeded derangement. §6 shows the level is very sensitive to how close
+  chosen by seeded derangement. §7 shows the level is very sensitive to how close
   that answer is, so absolute rates should be read as "for this difficulty", not
   as properties of the model.
 
@@ -518,7 +648,7 @@ for anyone who wants rates instead.
 
 - **Above saturation the margin stops measuring preference.** Once a wrapper
   wins, the winning answer sits at log P ≈ 0 and the margin measures only how far
-  the losing answer was pushed down. So: trust the *ordering* of the §3 ladder,
+  the losing answer was pushed down. So: trust the *ordering* of the §4 ladder,
   and do not read the spacing between the four wrappers that all sit at 100%. The
   +2.5 gap between `<document>` and `<trusted_content>` has no behavioural
   content.
@@ -534,7 +664,7 @@ for anyone who wants rates instead.
   better-written guard might work; what I can say is that the two I tried failed
   in both channels, and that the one Qwen cell where the channels differ differs
   by 1.4 logits against 8.5 for the tag name.
-- **§6's constructed claim sentences push Gemma off-distribution.** 10.9% of its
+- **§7's constructed claim sentences push Gemma off-distribution.** 10.9% of its
   generations are neither candidate answer — short degenerate strings like `-` or
   `a` — rising to **41.5%** in the worst cell. Margins are teacher-forced and
   unaffected, which is why they are the primary metric there; the *rates* in that
@@ -552,17 +682,18 @@ for anyone who wants rates instead.
 - **The effect is not carried by a subset.** `<document>` flips **118/118**
   element facts and **143/143** capital facts, and moves the margin in the
   positive direction for every single one of them. `<qzx_block>` flips 200/261.
-- **A decoding artefact, caught and quantified** — see §7.
+- **A decoding artefact, caught and quantified** — see §8.
 - **The one control against my own preferred story.** `<qzx_block>` exists
   because "the model understands *untrusted*" and "an unfamiliar tag suppresses
   the effect" predict the same thing for `<untrusted_content>` alone. They come
   apart on `<qzx_block>`, and the semantic reading won.
-- **A second preferred story, killed** — stipulability, in §6.
-- **Every number in this document is recomputed by `verify_writeup.py`** from
-  the raw per-row records, not from the analysis scripts' own reports. It caught
-  two stale figures in an earlier draft.
+- **A second preferred story, killed** — stipulability, in §7.
+- **The two load-bearing sanity numbers are recomputed inline.** `cmds.sh`
+  carries the greedy-versus-margin agreement check and the three-session noise
+  floor as short scripts that read the raw per-row JSONL, so both can be re-run
+  against the committed results without trusting an analysis script's own report.
 
-## 9 · What I would do next
+## 11 · What I would do next
 
 1. **Real documents at realistic length.** Does +41 survive when the false claim
    is one line in two thousand, in a page with genuine structure? If the tag
@@ -583,32 +714,35 @@ for anyone who wants rates instead.
    the conflict is even computed before the question is read — if it is only
    represented at answer time, a per-document monitor cannot exist, and that is a
    useful negative for anyone planning to build one.
-4. **Find out what the tag name is competing with.** §4 says prose about the
+4. **Find out what the tag name is competing with.** §5 says prose about the
    block is ignored and the tag name is not. The cheapest test of *why* is to
    strip the string `<document>` out of the in-band guard, since the guard may be
    reinforcing the frame it negates. If a guard that never names the tag still
    fails, the claim sharpens to "only the delimiter slot is read".
-5. **An account of §6.** The speech-act effect reverses sign on the same 118
+5. **An account of §7.** The speech-act effect reverses sign on the same 118
    entities and I have no story for it. The first thing to try is whether it is
    about the *answer type* rather than the relation — a symbol is a label and a
    number is a quantity — by building a relation with symbolic answers that
    cannot be stipulated.
 
-## 10 · Reproducing, and how I checked it
+## 12 · Reproducing, and how I checked it
 
 `cmds.sh` runs the whole pipeline from an empty results tree, in order, with the
-expected value printed beside each step, and two inline checkpoints that
-recompute the agreement and noise-floor numbers quoted above. `--validate-only`
-builds and checks prompts with no GPU. `make_figures.py` builds every figure and
-the random-example block from the committed result files, so a figure cannot
+expected value printed beside each step. `--validate-only` builds and checks
+prompts with no GPU. `make_figures.py` builds every figure and the
+random-example block from the committed result files, so a figure cannot
 disagree with the table beside it.
 
-**`verify_writeup.py` re-derives every number in this document from the raw
-JSONL** and exits non-zero if any of them has drifted. It deliberately does not
-read a single report or summary file — it recomputes each contrast from the
-per-row records with its own arithmetic, so a bug in an analysis script cannot
-launder itself into the write-up. It covers about 120 claims: every rung of the
-§3 ladder in both margin and rate, every guard cell in both models, the
-speech-act effects, the flip counts, the screening counts, and the three-session
-noise floor. Running it is how I found two numbers in an earlier draft that no
-longer matched the reruns behind them.
+Every experiment script writes three things beside its raw `*_results.jsonl`: a
+`*_cells.csv`, a `*_summary.json` with the full runtime fingerprint (model
+commit, chat-template hash, config hash, package versions), and a
+`*_report.md`. The numbers quoted above are read off those reports, and each
+report states, before its table, what each control was there to rule out and
+what each outcome would have meant — so the tables can be checked against the
+reasoning that motivated them rather than only against each other.
+
+Two checks do not go through the analysis scripts at all, because they are the
+ones the write-up leans on hardest. `cmds.sh` recomputes the greedy-versus-margin
+agreement (99.18%, n = 2,308) and the three-session noise floor (−27.11 / −27.00
+/ −27.08) directly from the raw per-row JSONL, inline, so a bug in an analysis
+script cannot launder itself into either.
