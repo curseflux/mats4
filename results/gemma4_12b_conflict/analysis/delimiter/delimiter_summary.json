@@ -1,0 +1,1126 @@
+{
+  "analysis_version": "1.0.0",
+  "cells": [
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.0,
+      "mean_margin": -27.08059143211882,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "baseline",
+      "wrapper": "inline"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.09322033898305085,
+      "mean_margin": -15.207046217837576,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "baseline",
+      "wrapper": "inline"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.0,
+      "mean_margin": -25.81809589418314,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "layout only",
+      "wrapper": "blankline"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.0847457627118644,
+      "mean_margin": -14.04153124356674,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "layout only",
+      "wrapper": "blankline"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.23728813559322035,
+      "mean_margin": -9.278267407821396,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "layout + fence",
+      "wrapper": "dashes"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.7966101694915254,
+      "mean_margin": 4.157139091168419,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "layout + fence",
+      "wrapper": "dashes"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.059322033898305086,
+      "mean_margin": -18.512714850700508,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "layout + fence",
+      "wrapper": "quotes"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.8813559322033898,
+      "mean_margin": 4.742554098872815,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "layout + fence",
+      "wrapper": "quotes"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 1.0,
+      "mean_margin": 13.899597426592294,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "E11's condition",
+      "wrapper": "tag_document"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9830508474576272,
+      "mean_margin": 14.32667021024025,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "E11's condition",
+      "wrapper": "tag_document"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 1.0,
+      "mean_margin": 13.190501835386632,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same syntax, different word",
+      "wrapper": "tag_passage"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9830508474576272,
+      "mean_margin": 14.164111307111837,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same syntax, different word",
+      "wrapper": "tag_passage"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.2542372881355932,
+      "mean_margin": -12.514695466574976,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "bracket syntax, no name at all",
+      "wrapper": "tag_empty"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9322033898305084,
+      "mean_margin": 6.978424702660512,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "bracket syntax, no name at all",
+      "wrapper": "tag_empty"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.0,
+      "mean_margin": -24.320185022839045,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same syntax, opposite valence",
+      "wrapper": "tag_untrusted"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.3135593220338983,
+      "mean_margin": -6.980348215264789,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same syntax, opposite valence",
+      "wrapper": "tag_untrusted"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.288135593220339,
+      "mean_margin": -5.97926416235455,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "opposite valence, different words",
+      "wrapper": "tag_unreliable"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.5677966101694916,
+      "mean_margin": -0.9294928777015815,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "opposite valence, different words",
+      "wrapper": "tag_unreliable"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 1.0,
+      "mean_margin": 16.35720432410806,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same syntax, positive valence",
+      "wrapper": "tag_trusted"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9915254237288136,
+      "mean_margin": 17.194255521741965,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same syntax, positive valence",
+      "wrapper": "tag_trusted"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.788135593220339,
+      "mean_margin": 4.111034676180047,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same syntax, no meaning at all",
+      "wrapper": "tag_nonsense"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9576271186440678,
+      "mean_margin": 9.276695590908245,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same syntax, no meaning at all",
+      "wrapper": "tag_nonsense"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.9830508474576272,
+      "mean_margin": 11.457015352734064,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same word, no markup",
+      "wrapper": "label_document"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9322033898305084,
+      "mean_margin": 9.090486284029685,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "same word, no markup",
+      "wrapper": "label_document"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 1.0,
+      "mean_margin": 12.986479193477308,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "the RAG framing",
+      "wrapper": "label_search"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9576271186440678,
+      "mean_margin": 9.304412195238017,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "the RAG framing",
+      "wrapper": "label_search"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.0,
+      "mean_margin": -28.05477097390832,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "baseline",
+      "wrapper": "inline"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.23076923076923078,
+      "mean_margin": -9.389341514427345,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "baseline",
+      "wrapper": "inline"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.0,
+      "mean_margin": -24.168192873467934,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "layout only",
+      "wrapper": "blankline"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.2867132867132867,
+      "mean_margin": -4.559336899043797,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "layout only",
+      "wrapper": "blankline"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.3356643356643357,
+      "mean_margin": -4.795240909069568,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "layout + fence",
+      "wrapper": "dashes"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.6713286713286714,
+      "mean_margin": 4.828651424888131,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "layout + fence",
+      "wrapper": "dashes"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.5384615384615384,
+      "mean_margin": -1.6420764089464308,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "layout + fence",
+      "wrapper": "quotes"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.5244755244755245,
+      "mean_margin": 8.518781531940807,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "layout + fence",
+      "wrapper": "quotes"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 1.0,
+      "mean_margin": 12.613360691737462,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "E11's condition",
+      "wrapper": "tag_document"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 1.0,
+      "mean_margin": 16.487980365753174,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "E11's condition",
+      "wrapper": "tag_document"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 1.0,
+      "mean_margin": 10.656057171054654,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same syntax, different word",
+      "wrapper": "tag_passage"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 1.0,
+      "mean_margin": 16.2158816277564,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same syntax, different word",
+      "wrapper": "tag_passage"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.6293706293706294,
+      "mean_margin": 0.7567883471508959,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "bracket syntax, no name at all",
+      "wrapper": "tag_empty"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.6993006993006993,
+      "mean_margin": 8.24150310196243,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "bracket syntax, no name at all",
+      "wrapper": "tag_empty"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.0,
+      "mean_margin": -27.33121380189082,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same syntax, opposite valence",
+      "wrapper": "tag_untrusted"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.03496503496503497,
+      "mean_margin": -17.630272725245337,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same syntax, opposite valence",
+      "wrapper": "tag_untrusted"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.006993006993006993,
+      "mean_margin": -21.732885047689184,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "opposite valence, different words",
+      "wrapper": "tag_unreliable"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.02097902097902098,
+      "mean_margin": -15.497138256793255,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "opposite valence, different words",
+      "wrapper": "tag_unreliable"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 1.0,
+      "mean_margin": 17.006916939795435,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same syntax, positive valence",
+      "wrapper": "tag_trusted"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 1.0,
+      "mean_margin": 18.670449783752016,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same syntax, positive valence",
+      "wrapper": "tag_trusted"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.7482517482517482,
+      "mean_margin": 2.8842631219983934,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same syntax, no meaning at all",
+      "wrapper": "tag_nonsense"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.7832167832167832,
+      "mean_margin": 3.956199585974633,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same syntax, no meaning at all",
+      "wrapper": "tag_nonsense"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.993006993006993,
+      "mean_margin": 10.299477697252394,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same word, no markup",
+      "wrapper": "label_document"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9090909090909091,
+      "mean_margin": 17.9564753445712,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "same word, no markup",
+      "wrapper": "label_document"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 1.0,
+      "mean_margin": 13.384356882188703,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "the RAG framing",
+      "wrapper": "label_search"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.9300699300699301,
+      "mean_margin": 14.807699180149532,
+      "n": 143,
+      "relation": "country_capital",
+      "role": "the RAG framing",
+      "wrapper": "label_search"
+    }
+  ],
+  "contrasts_vs_inline": [
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_vs_inline": 0.0,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "inline"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_vs_inline": 0.0,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "inline"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        0.9043920605869616,
+        1.6254031738992465
+      ],
+      "delta_vs_inline": 1.2624955379356773,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "blankline"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        0.6288896940522275,
+        1.7792172876455017
+      ],
+      "delta_vs_inline": 1.1655149742708368,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "blankline"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        16.269067715790314,
+        19.35041067155741
+      ],
+      "delta_vs_inline": 17.802324024297423,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "dashes"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        17.812263900950803,
+        20.87116200236951
+      ],
+      "delta_vs_inline": 19.364185309005997,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "dashes"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        7.351423247385833,
+        9.900866548893815
+      ],
+      "delta_vs_inline": 8.567876581418313,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "quotes"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        18.351416636321503,
+        21.57472844851219
+      ],
+      "delta_vs_inline": 19.94960031671039,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "quotes"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        39.61211576704252,
+        42.38771763494459
+      ],
+      "delta_vs_inline": 40.98018885871112,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_document"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        27.789997424109508,
+        31.12888188281302
+      ],
+      "delta_vs_inline": 29.533716428077827,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_document"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        38.948418496018746,
+        41.58996196116431
+      ],
+      "delta_vs_inline": 40.27109326750545,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_passage"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        27.670466164411124,
+        30.939110974134024
+      ],
+      "delta_vs_inline": 29.371157524949414,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_passage"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        12.765726687544483,
+        16.320542347633232
+      ],
+      "delta_vs_inline": 14.565895965543843,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_empty"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        20.740449250754665,
+        23.528787087585968
+      ],
+      "delta_vs_inline": 22.185470920498087,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_empty"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        1.8987712819697493,
+        3.660458043470221
+      ],
+      "delta_vs_inline": 2.7604064092797747,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_untrusted"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        6.409979901071322,
+        10.225633475740077
+      ],
+      "delta_vs_inline": 8.226698002572787,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_untrusted"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        19.69563514499341,
+        22.557367413730944
+      ],
+      "delta_vs_inline": 21.10132726976427,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_unreliable"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        12.57685358241453,
+        15.992737357899294
+      ],
+      "delta_vs_inline": 14.277553340135995,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_unreliable"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        42.05924116959006,
+        44.87791926982039
+      ],
+      "delta_vs_inline": 43.437795756226876,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_trusted"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        30.567906573667365,
+        34.072780601048876
+      ],
+      "delta_vs_inline": 32.40130173957954,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_trusted"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        29.74700454130011,
+        32.642305555990184
+      ],
+      "delta_vs_inline": 31.191626108298866,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_nonsense"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        22.942195132627326,
+        25.933497040958727
+      ],
+      "delta_vs_inline": 24.48374180874582,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "tag_nonsense"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        37.12869126917952,
+        39.94446250543756
+      ],
+      "delta_vs_inline": 38.53760678485288,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "label_document"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        22.726928945315088,
+        25.75439604258133
+      ],
+      "delta_vs_inline": 24.297532501867263,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "label_document"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        38.686882487798144,
+        41.43438346507185
+      ],
+      "delta_vs_inline": 40.06707062559613,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "label_search"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        22.85318651037701,
+        26.109371654057906
+      ],
+      "delta_vs_inline": 24.51145841307559,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "label_search"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_vs_inline": 0.0,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "inline"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_vs_inline": 0.0,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "inline"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        3.4893557406388798,
+        4.298902075503256
+      ],
+      "delta_vs_inline": 3.8865781004403854,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "blankline"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        4.239956002135377,
+        5.461918043923545
+      ],
+      "delta_vs_inline": 4.830004615383548,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "blankline"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        21.914989363063466,
+        24.55144376333777
+      ],
+      "delta_vs_inline": 23.25953006483875,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "dashes"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        13.054816142662421,
+        15.416284687869199
+      ],
+      "delta_vs_inline": 14.217992939315476,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "dashes"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        25.107828980350828,
+        27.69592932220939
+      ],
+      "delta_vs_inline": 26.412694564961885,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "quotes"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        16.609120885808984,
+        19.221073377382506
+      ],
+      "delta_vs_inline": 17.908123046368154,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "quotes"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        39.55686414325154,
+        41.78400358192987
+      ],
+      "delta_vs_inline": 40.66813166564578,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_document"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        24.456997864729875,
+        27.345518458973277
+      ],
+      "delta_vs_inline": 25.87732188018052,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_document"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        37.590990446664236,
+        39.81092784360989
+      ],
+      "delta_vs_inline": 38.710828144962974,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_passage"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        24.142277140717407,
+        27.14129380579595
+      ],
+      "delta_vs_inline": 25.605223142183743,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_passage"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        27.324884372053447,
+        30.235792991998313
+      ],
+      "delta_vs_inline": 28.811559321059214,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_empty"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        16.343236366352002,
+        18.914634627895754
+      ],
+      "delta_vs_inline": 17.630844616389776,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_empty"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        0.25249216846235983,
+        1.1829633144857166
+      ],
+      "delta_vs_inline": 0.7235571720174976,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_untrusted"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        -9.940681440846904,
+        -6.55384512881299
+      ],
+      "delta_vs_inline": -8.24093121081799,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_untrusted"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        5.655071733089594,
+        6.9971967947024565
+      ],
+      "delta_vs_inline": 6.321885926219133,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_unreliable"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        -8.014897843340894,
+        -4.312911580492567
+      ],
+      "delta_vs_inline": -6.1077967423659105,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_unreliable"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        43.95912201921423,
+        46.244619521957176
+      ],
+      "delta_vs_inline": 45.06168791370375,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_trusted"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        26.55839766322316,
+        29.616756642615044
+      ],
+      "delta_vs_inline": 28.05979129817936,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_trusted"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        29.615866454122784,
+        32.253576056002736
+      ],
+      "delta_vs_inline": 30.93903409590671,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_nonsense"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        12.06569508906011,
+        14.680209343249981
+      ],
+      "delta_vs_inline": 13.345541100401979,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "tag_nonsense"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        37.243663213365565,
+        39.46588713691368
+      ],
+      "delta_vs_inline": 38.35424867116071,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "label_document"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        25.850367822847165,
+        28.88320193590818
+      ],
+      "delta_vs_inline": 27.345816858998546,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "label_document"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        40.33068490768229,
+        42.5571060497444
+      ],
+      "delta_vs_inline": 41.43912785609702,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "label_search"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        22.773263174337107,
+        25.628541846375366
+      ],
+      "delta_vs_inline": 24.197040694576877,
+      "n": 143,
+      "relation": "country_capital",
+      "wrapper": "label_search"
+    }
+  ],
+  "false_answer_mode": "random",
+  "false_answer_seed": 20260816,
+  "model": "google/gemma-4-12B-it",
+  "runtime": {
+    "chat": {
+      "add_generation_prompt": true,
+      "bos_token_id": 2,
+      "chat_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "enable_thinking": false,
+      "generation_eos_token_ids": [
+        1,
+        50,
+        106
+      ],
+      "pad_token_id": 0,
+      "padding_side": "left",
+      "tokenizer_eos_token_id": 1
+    },
+    "code_version": "1.0.0",
+    "config_sha256": "1ad48785fcc0d54139c060b02b93eeea62c8873122dbf4eb060ed101999971fd",
+    "datasets": {},
+    "hardware": {
+      "cuda_available": true,
+      "cuda_version": "12.8",
+      "gpu_names": [
+        "NVIDIA A100-SXM4-40GB"
+      ]
+    },
+    "model": {
+      "attention_implementation": "sdpa",
+      "class": "Gemma4UnifiedForConditionalGeneration",
+      "device_map": null,
+      "dtype": "torch.bfloat16",
+      "hidden_size": 3840,
+      "id": "google/gemma-4-12B-it",
+      "loaded_commit_hash": "707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7",
+      "num_hidden_layers": 48,
+      "processor_class": "Gemma4UnifiedProcessor",
+      "requested_revision": "707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7",
+      "tokenizer_class": "GemmaTokenizer"
+    },
+    "packages": {
+      "accelerate": "1.10.1",
+      "python": "3.10.18",
+      "tokenizers": "0.22.2",
+      "torch": "2.10.0+cu128",
+      "transformers": "5.15.0"
+    }
+  },
+  "wrapper_roles": {
+    "blankline": "layout only",
+    "dashes": "layout + fence",
+    "inline": "baseline",
+    "label_document": "same word, no markup",
+    "label_search": "the RAG framing",
+    "quotes": "layout + fence",
+    "tag_document": "E11's condition",
+    "tag_empty": "bracket syntax, no name at all",
+    "tag_nonsense": "same syntax, no meaning at all",
+    "tag_passage": "same syntax, different word",
+    "tag_trusted": "same syntax, positive valence",
+    "tag_unreliable": "opposite valence, different words",
+    "tag_untrusted": "same syntax, opposite valence"
+  },
+  "wrappers": {
+    "blankline": "\n{p}\n",
+    "dashes": "---\n{p}\n---",
+    "inline": "{p}",
+    "label_document": "Document:\n{p}",
+    "label_search": "Search result:\n{p}",
+    "quotes": "\"\"\"\n{p}\n\"\"\"",
+    "tag_document": "<document>\n{p}\n</document>",
+    "tag_empty": "<>\n{p}\n</>",
+    "tag_nonsense": "<qzx_block>\n{p}\n</qzx_block>",
+    "tag_passage": "<passage>\n{p}\n</passage>",
+    "tag_trusted": "<trusted_content>\n{p}\n</trusted_content>",
+    "tag_unreliable": "<unreliable_source>\n{p}\n</unreliable_source>",
+    "tag_untrusted": "<untrusted_content>\n{p}\n</untrusted_content>"
+  }
+}

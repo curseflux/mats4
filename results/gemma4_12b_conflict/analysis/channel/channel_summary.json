@@ -1,0 +1,486 @@
+{
+  "analysis_version": "1.0.0",
+  "cells": [
+    {
+      "cell": "assert_r1",
+      "channel": "inline",
+      "context_rate": 0.0,
+      "mean_margin": -27.002395763235576,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "delimited",
+      "context_rate": 1.0,
+      "mean_margin": 13.861783561059983,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "system_guard",
+      "context_rate": 1.0,
+      "mean_margin": 13.655850960036455,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard",
+      "context_rate": 1.0,
+      "mean_margin": 10.798620030031366,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard_first_person",
+      "context_rate": 0.9745762711864406,
+      "mean_margin": 19.356202901419948,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "retrieved_turn",
+      "context_rate": 0.576271186440678,
+      "mean_margin": 0.2971262366084729,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "inline",
+      "context_rate": 0.0,
+      "mean_margin": -35.35123781430519,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "delimited",
+      "context_rate": 0.0,
+      "mean_margin": -34.973665948641504,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "system_guard",
+      "context_rate": 0.0,
+      "mean_margin": -35.297775013972135,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard",
+      "context_rate": 0.0,
+      "mean_margin": -34.7703912945117,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard_first_person",
+      "context_rate": 0.0,
+      "mean_margin": -34.98780660912142,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "retrieved_turn",
+      "context_rate": 0.0,
+      "mean_margin": -34.48936190039424,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "inline",
+      "context_rate": 0.9915254237288136,
+      "mean_margin": 18.130411915859934,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "delimited",
+      "context_rate": 1.0,
+      "mean_margin": 21.877541121789964,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "system_guard",
+      "context_rate": 1.0,
+      "mean_margin": 21.9259418390565,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard",
+      "context_rate": 1.0,
+      "mean_margin": 21.74641226105771,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard_first_person",
+      "context_rate": 0.7796610169491526,
+      "mean_margin": 23.91442060470581,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "retrieved_turn",
+      "context_rate": 0.7457627118644068,
+      "mean_margin": 11.126728874141888,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "inline",
+      "context_rate": 0.00847457627118644,
+      "mean_margin": -27.59802381062912,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "delimited",
+      "context_rate": 0.025423728813559324,
+      "mean_margin": -23.223752381437915,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "system_guard",
+      "context_rate": 0.01694915254237288,
+      "mean_margin": -28.469785670102652,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard",
+      "context_rate": 0.01694915254237288,
+      "mean_margin": -25.8091627500825,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard_first_person",
+      "context_rate": 0.01694915254237288,
+      "mean_margin": -29.194833036196435,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "retrieved_turn",
+      "context_rate": 0.0,
+      "mean_margin": -31.966847532886568,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "inline",
+      "context_rate": 0.0,
+      "mean_margin": -28.080009215986813,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "delimited",
+      "context_rate": 1.0,
+      "mean_margin": 12.654659978159657,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "system_guard",
+      "context_rate": 1.0,
+      "mean_margin": 13.928988476733227,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard",
+      "context_rate": 1.0,
+      "mean_margin": 17.347728715909945,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard_first_person",
+      "context_rate": 0.986013986013986,
+      "mean_margin": 24.1251775493155,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "retrieved_turn",
+      "context_rate": 0.9370629370629371,
+      "mean_margin": 6.347644239038854,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "inline",
+      "context_rate": 0.0,
+      "mean_margin": -37.37792314099265,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "delimited",
+      "context_rate": 0.0,
+      "mean_margin": -37.35917163978923,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "system_guard",
+      "context_rate": 0.0,
+      "mean_margin": -37.94275802874065,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard",
+      "context_rate": 0.0,
+      "mean_margin": -37.38228059979481,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard_first_person",
+      "context_rate": 0.0,
+      "mean_margin": -37.76202511412281,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "retrieved_turn",
+      "context_rate": 0.0,
+      "mean_margin": -37.08461991015014,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "inline",
+      "context_rate": 1.0,
+      "mean_margin": 27.036024173656543,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "delimited",
+      "context_rate": 1.0,
+      "mean_margin": 27.388179527296053,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "system_guard",
+      "context_rate": 1.0,
+      "mean_margin": 27.169329907510665,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard",
+      "context_rate": 1.0,
+      "mean_margin": 26.80230302577252,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard_first_person",
+      "context_rate": 0.951048951048951,
+      "mean_margin": 29.141330852375162,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "retrieved_turn",
+      "context_rate": 0.9440559440559441,
+      "mean_margin": 20.08615808553629,
+      "n": 143,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "inline",
+      "context_rate": 0.0,
+      "mean_margin": -36.634291669288714,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "delimited",
+      "context_rate": 0.0,
+      "mean_margin": -37.43336325091916,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "system_guard",
+      "context_rate": 0.0,
+      "mean_margin": -38.05062542157573,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard",
+      "context_rate": 0.0,
+      "mean_margin": -36.60111098668792,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard_first_person",
+      "context_rate": 0.0,
+      "mean_margin": -37.557744060727686,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "retrieved_turn",
+      "context_rate": 0.0,
+      "mean_margin": -36.1893778403739,
+      "n": 143,
+      "policy": "parametric",
+      "relation": "country_capital"
+    }
+  ],
+  "false_answer_mode": "random",
+  "model": "google/gemma-4-12B-it",
+  "runtime": {
+    "chat": {
+      "add_generation_prompt": true,
+      "bos_token_id": 2,
+      "chat_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "enable_thinking": false,
+      "generation_eos_token_ids": [
+        1,
+        50,
+        106
+      ],
+      "pad_token_id": 0,
+      "padding_side": "left",
+      "tokenizer_eos_token_id": 1
+    },
+    "code_version": "1.0.0",
+    "config_sha256": "1ad48785fcc0d54139c060b02b93eeea62c8873122dbf4eb060ed101999971fd",
+    "datasets": {},
+    "hardware": {
+      "cuda_available": true,
+      "cuda_version": "12.8",
+      "gpu_names": [
+        "NVIDIA A100-SXM4-40GB"
+      ]
+    },
+    "model": {
+      "attention_implementation": "sdpa",
+      "class": "Gemma4UnifiedForConditionalGeneration",
+      "device_map": null,
+      "dtype": "torch.bfloat16",
+      "hidden_size": 3840,
+      "id": "google/gemma-4-12B-it",
+      "loaded_commit_hash": "707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7",
+      "num_hidden_layers": 48,
+      "processor_class": "Gemma4UnifiedProcessor",
+      "requested_revision": "707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7",
+      "tokenizer_class": "GemmaTokenizer"
+    },
+    "packages": {
+      "accelerate": "1.10.1",
+      "python": "3.10.18",
+      "tokenizers": "0.22.2",
+      "torch": "2.10.0+cu128",
+      "transformers": "5.15.0"
+    }
+  },
+  "system_message_merged_rows": 0
+}

@@ -1,0 +1,81 @@
+# Qwen 3.6 27B replication of the Gemma 4 conflict experiments.
+#
+# Everything that defines the experiment -- dataset, prompts, screening rule,
+# scoring, greedy decoding -- is identical to config.yaml. Only the model and
+# its loading path differ, so a difference in results is a difference between
+# models rather than between protocols.
+
+project:
+  seed: 20260816
+
+paths:
+  # The SAME generated dataset as the Gemma run. Do not regenerate it: reusing
+  # the identical prompts is what makes the two models comparable.
+  dataset_dir: conflict_awareness_dataset
+  output_dir: results/qwen36_27b_conflict
+  hf_cache_dir: /scratch/bbjr/skarmakar/huggingface
+
+model:
+  family: qwen3
+  id: Qwen/Qwen3.6-27B
+  revision: 6a9e13bd6fc8f0983b9b99948120bc37f49c13e9
+  transformers_version: 5.15.0
+  dtype: bfloat16
+  device_map: auto
+  attention_implementation: sdpa
+  trust_remote_code: false
+  local_files_only: false
+  expected_model_class: Qwen3_5ForCausalLM
+
+chat:
+  # Qwen 3.x thinks by default; enable_thinking=false is what suppresses the
+  # <think> span. This must match the Gemma run for the margins to mean the
+  # same thing, because the margin is read at the first answer token.
+  enable_thinking: false
+  add_generation_prompt: true
+  max_input_tokens: 2048
+
+generation:
+  do_sample: false
+  max_new_tokens: 16
+  use_cache: true
+
+screening:
+  # Qwen must be screened independently. Facts Gemma knows are not necessarily
+  # facts Qwen knows, and the whole design depends on the model reliably
+  # preferring the true answer with no context present.
+  batch_size: 4
+  scoring_batch_size: 8
+  results_file: screening_results.jsonl
+  eligible_facts_file: eligible_facts.jsonl
+  run_metadata_file: 01_screen_run.json
+  require_all_template_bundles: true
+  min_true_minus_false_logprob: 0.0
+
+collection:
+  generation_batch_size: 4
+  scoring_batch_size: 8
+  activation_batch_size: 2
+  behavior_results_file: behavior_results.jsonl
+  run_metadata_file: 02_collect_run.json
+  require_complete_factorial_groups: true
+
+  # Behavioural only, exactly as for Gemma -- see the note in config.yaml.
+  activations:
+    enabled: false
+    directory: activations_qwen
+    manifest_file: manifest.json
+    shard_size: 128
+    storage_dtype: float16
+    layers: all
+    positions:
+      - claim_answer_end
+      - claim_end
+      - context_end
+      - query_subject_end
+      - question_end
+      - prompt_end
+      - assistant_start
+
+runtime:
+  report_every_batches: 10

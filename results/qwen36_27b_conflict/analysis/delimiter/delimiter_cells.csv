@@ -1,0 +1,53 @@
+relation,wrapper,cell,role,n,context_rate,mean_margin
+element_symbol,inline,assert_r1,baseline,118,0.0,-7.190776986590887
+element_symbol,inline,bare,baseline,118,0.3813559322033898,-0.43009573726330774
+element_symbol,blankline,assert_r1,layout only,118,0.0,-7.138860524710962
+element_symbol,blankline,bare,layout only,118,0.3728813559322034,-0.4337066715046511
+element_symbol,dashes,assert_r1,layout + fence,118,0.00847457627118644,-3.861464645902989
+element_symbol,dashes,bare,layout + fence,118,0.8050847457627118,0.5538046562065513
+element_symbol,quotes,assert_r1,layout + fence,118,0.01694915254237288,-3.8126498561794473
+element_symbol,quotes,bare,layout + fence,118,0.8050847457627118,0.6876534769090555
+element_symbol,tag_document,assert_r1,E11's condition,118,0.635593220338983,0.559275126053115
+element_symbol,tag_document,bare,E11's condition,118,1.0,2.9115917723057634
+element_symbol,tag_passage,assert_r1,"same syntax, different word",118,0.5423728813559322,0.2752178644729873
+element_symbol,tag_passage,bare,"same syntax, different word",118,0.9745762711864406,2.2577337006391107
+element_symbol,tag_empty,assert_r1,"bracket syntax, no name at all",118,0.0,-5.038999832282632
+element_symbol,tag_empty,bare,"bracket syntax, no name at all",118,0.3474576271186441,-0.17558750863802636
+element_symbol,tag_untrusted,assert_r1,"same syntax, opposite valence",118,0.0,-7.939185886059777
+element_symbol,tag_untrusted,bare,"same syntax, opposite valence",118,0.03389830508474576,-1.704738148188187
+element_symbol,tag_unreliable,assert_r1,"opposite valence, different words",118,0.0,-8.181765330039848
+element_symbol,tag_unreliable,bare,"opposite valence, different words",118,0.0,-3.051399748204118
+element_symbol,tag_trusted,assert_r1,"same syntax, positive valence",118,0.01694915254237288,-2.9819274837687866
+element_symbol,tag_trusted,bare,"same syntax, positive valence",118,0.4830508474576271,-0.10599962331480899
+element_symbol,tag_nonsense,assert_r1,"same syntax, no meaning at all",118,0.03389830508474576,-2.4890078851732156
+element_symbol,tag_nonsense,bare,"same syntax, no meaning at all",118,0.652542372881356,0.3742282673463983
+element_symbol,label_document,assert_r1,"same word, no markup",118,0.15254237288135594,-2.0613252833738165
+element_symbol,label_document,bare,"same word, no markup",118,0.9576271186440678,2.0251643778914112
+element_symbol,label_search,assert_r1,the RAG framing,118,0.025423728813559324,-3.184728978043896
+element_symbol,label_search,bare,the RAG framing,118,0.7542372881355932,0.6848297765699484
+country_capital,inline,assert_r1,baseline,146,0.0,-11.067109003458938
+country_capital,inline,bare,baseline,146,0.0273972602739726,-4.291644213950797
+country_capital,blankline,assert_r1,layout only,146,0.0,-10.405894188031759
+country_capital,blankline,bare,layout only,146,0.0410958904109589,-4.097312496133046
+country_capital,dashes,assert_r1,layout + fence,146,0.02054794520547945,-7.091306203032193
+country_capital,dashes,bare,layout + fence,146,0.23972602739726026,-0.6654247519088118
+country_capital,quotes,assert_r1,layout + fence,146,0.02054794520547945,-5.867514270625702
+country_capital,quotes,bare,layout + fence,146,0.273972602739726,-0.674595545416009
+country_capital,tag_document,assert_r1,E11's condition,146,0.410958904109589,0.0035256294355000533
+country_capital,tag_document,bare,E11's condition,146,0.9657534246575342,2.7023202164532387
+country_capital,tag_passage,assert_r1,"same syntax, different word",146,0.3013698630136986,-0.5628771194039959
+country_capital,tag_passage,bare,"same syntax, different word",146,1.0,4.9508987191605245
+country_capital,tag_empty,assert_r1,"bracket syntax, no name at all",146,0.02054794520547945,-7.104394207262013
+country_capital,tag_empty,bare,"bracket syntax, no name at all",146,0.07534246575342465,-1.9729532999535129
+country_capital,tag_untrusted,assert_r1,"same syntax, opposite valence",146,0.0,-13.012961596658785
+country_capital,tag_untrusted,bare,"same syntax, opposite valence",146,0.0273972602739726,-4.48408325404337
+country_capital,tag_unreliable,assert_r1,"opposite valence, different words",146,0.0,-13.377669687140477
+country_capital,tag_unreliable,bare,"opposite valence, different words",146,0.0,-10.743608579243698
+country_capital,tag_trusted,assert_r1,"same syntax, positive valence",146,0.04794520547945205,-4.912322462421574
+country_capital,tag_trusted,bare,"same syntax, positive valence",146,0.4383561643835616,-0.14175388910999037
+country_capital,tag_nonsense,assert_r1,"same syntax, no meaning at all",146,0.0410958904109589,-7.097037615841383
+country_capital,tag_nonsense,bare,"same syntax, no meaning at all",146,0.2328767123287671,-0.8796435839509311
+country_capital,label_document,assert_r1,"same word, no markup",146,0.06164383561643835,-4.857357456259532
+country_capital,label_document,bare,"same word, no markup",146,0.8287671232876712,1.38196268473586
+country_capital,label_search,assert_r1,the RAG framing,146,0.0273972602739726,-5.70193281565627
+country_capital,label_search,bare,the RAG framing,146,0.5,0.18412306537366893
