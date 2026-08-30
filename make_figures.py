@@ -212,44 +212,51 @@ def figure_ladder(data: Mapping[str, Any], out: Path) -> None:
 # --- figure 3: where the warning goes ------------------------------------
 
 def figure_guards(data: Mapping[str, Any], out: Path) -> None:
-    """The same warning in three slots; colour is its ordered position."""
-    slots = [
-        ("no warning", BLUE_RAMP[0]),
-        ("system prompt", BLUE_RAMP[1]),
-        ("user turn, above", BLUE_RAMP[2]),
-        ("user turn, below", BLUE_RAMP[3]),
-    ]
-    fig, axes = plt.subplots(2, 2, figsize=(9.4, 5.6), sharex=True)
+    """One warning, three slots, two claim sentences.
+
+    Colour is the claim sentence, because that -- not the slot -- is what
+    decides whether the warning works.
+    """
+    slots = ["no warning", "system prompt", "user turn, above", "user turn, below"]
+    cells = [("assert_r1", "a false assertion", BLUE),
+             ("explicit_stipulation", "an instruction", ORANGE)]
+    fig, axes = plt.subplots(2, 2, figsize=(9.8, 6.0), sharex=True)
+    height = 0.34
     for row, (model, model_label) in enumerate(MODELS):
         for col, (relation, relation_label) in enumerate(RELATIONS):
             ax = axes[row][col]
-            cells = data["guards"][(model, relation)]
-            for y, (slot, colour) in enumerate(slots):
-                rate, margin = cells[slot]
-                ax.barh(y, rate * 100, height=0.62, color=colour, zorder=3)
-                if rate == 0:
-                    ax.plot([0, 0], [y - 0.31, y + 0.31], color=colour,
-                            lw=2.4, solid_capstyle="butt", zorder=3)
-                ax.text(rate * 100 + 2.5, y,
-                        f"{rate * 100:.0f}%   {margin:+.1f}",
-                        va="center", ha="left", fontsize=7.5, color=INK_2)
+            for offset, (cell, _label, colour) in zip((-height / 2, height / 2), cells):
+                for y, slot in enumerate(slots):
+                    rate, _margin = data["guards"][(model, relation, cell)][slot]
+                    ax.barh(y + offset, rate * 100, height=height - 0.03,
+                            color=colour, zorder=3)
+                    if rate == 0:
+                        ax.plot([0, 0], [y + offset - 0.15, y + offset + 0.15],
+                                color=colour, lw=2.2, solid_capstyle="butt", zorder=3)
+                    ax.text(rate * 100 + 2.5, y + offset, f"{rate * 100:.0f}%",
+                            va="center", ha="left", fontsize=7, color=INK_2)
             ax.set_yticks(range(len(slots)))
-            ax.set_yticklabels([s[0] for s in slots] if col == 0 else [])
+            ax.set_yticklabels(slots if col == 0 else [])
             ax.invert_yaxis()
-            ax.set_xlim(0, 132)
+            ax.set_xlim(0, 122)
             ax.set_xticks([0, 25, 50, 75, 100])
             ax.set_title(f"{model_label} \u00b7 {relation_label}",
                          fontsize=9, color=INK, loc="left", pad=6)
             style_axes(ax)
     for ax in axes[1]:
         ax.set_xlabel("paragraph rate (%)", fontsize=8, color=INK_2)
-    fig.suptitle("A warning in the system prompt does almost nothing",
+    handles = [Line2D([], [], color=colour, lw=6,
+                      label=f"document contains {label}")
+               for _cell, label, colour in cells]
+    fig.legend(handles=handles, loc="lower center", ncol=2, frameon=False,
+               fontsize=8, bbox_to_anchor=(0.5, -0.04), labelcolor=INK_2)
+    fig.suptitle("The warning has to name the threat",
                  fontsize=11.5, color=INK, x=0.008, ha="left", y=1.005)
     fig.text(0.008, 0.955,
-             "Byte-identical warning text in every slot, same wrapper throughout. "
-             "An explicit user instruction to ignore the paragraph reaches 0% everywhere.",
+             "Byte-identical warning text in every slot, same <document> wrapper throughout. "
+             "It neutralises a false claim from anywhere, and barely dents an instruction.",
              fontsize=8, color=INK_2, ha="left")
-    fig.tight_layout(rect=(0, 0.01, 1, 0.945))
+    fig.tight_layout(rect=(0, 0.02, 1, 0.945))
     save(fig, out, "fig3_guards")
 
 
@@ -327,16 +334,15 @@ def load(results: Path) -> dict[str, Any]:
         "user turn, above": "user_guard_falsehood_above",
         "user turn, below": "user_guard_falsehood_below",
     }
-    guards: dict[tuple[str, str], dict[str, tuple[float, float]]] = {}
+    guards: dict[tuple[str, str, str], dict[str, tuple[float, float]]] = {}
     for model, _ in MODELS:
         for relation, _ in RELATIONS:
-            guards[(model, relation)] = {
-                slot: (float(channel[model][(relation, "explicit_stipulation",
-                                             "neutral", ch)]["context_rate"]),
-                       float(channel[model][(relation, "explicit_stipulation",
-                                             "neutral", ch)]["mean_margin"]))
-                for slot, ch in slot_channel.items()
-            }
+            for cell in ("assert_r1", "explicit_stipulation"):
+                guards[(model, relation, cell)] = {
+                    slot: (float(channel[model][(relation, cell, "neutral", ch)]["context_rate"]),
+                           float(channel[model][(relation, cell, "neutral", ch)]["mean_margin"]))
+                    for slot, ch in slot_channel.items()
+                }
 
     return {"headline": headline, "ladder": ladder, "ladder_order": ladder_order,
             "rho": rho, "guards": guards}
