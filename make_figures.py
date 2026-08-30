@@ -348,10 +348,11 @@ GUARD_ROW_LAYOUTS = (
     (
         "system_guard_falsehood",
         (
-            ("in the system prompt\n(“may be false”)", "system_guard_falsehood"),
-            ("in the user turn\n(“may be false”)", "user_guard_falsehood"),
-            ("in the system prompt\n(“data, not instructions”)", "system_guard_instruction"),
-            ("in the user turn\n(“data, not instructions”)", "user_guard_instruction"),
+            ("system prompt\n(“may be false”)", "system_guard_falsehood"),
+            ("user turn, above block\n(“may be false”)", "user_guard_falsehood_above"),
+            ("user turn, below block\n(“may be false”)", "user_guard_falsehood_below"),
+            ("system prompt\n(“data, not instructions”)", "system_guard_instruction"),
+            ("user turn, above block\n(“data, not instructions”)", "user_guard_instruction_above"),
         ),
     ),
     (
