@@ -209,58 +209,7 @@ def figure_ladder(data: Mapping[str, Any], out: Path) -> None:
     save(fig, out, "fig2_ladder")
 
 
-# --- figure 3: cross-model agreement -------------------------------------
-
-def figure_agreement(data: Mapping[str, Any], out: Path) -> None:
-    """Does Qwen rank the wrappers the way Gemma does? Mostly yes."""
-    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.4))
-    # (dx, dy, horizontal alignment) -- extreme points get their label pulled
-    # inward so nothing runs past the axes.
-    label_offsets = {
-        "tag_document": (-10, 11, "left"),
-        "tag_trusted": (-9, -13, "right"),
-        "tag_untrusted": (10, -3, "left"),
-        "inline": (10, -7, "left"),
-    }
-    for ax, (relation, relation_label) in zip(axes, RELATIONS):
-        points = data["agreement"][relation]
-        for wrapper, (gx, qy) in points.items():
-            ax.scatter(gx, qy, s=46, color=ROLE_COLOUR[ROLE[wrapper]],
-                       edgecolor=SURFACE, linewidth=1.4, zorder=3)
-        xs = [g for g, _ in points.values()]
-        ys = [q for _, q in points.values()]
-        padx = (max(xs) - min(xs)) * 0.18
-        pady = (max(ys) - min(ys)) * 0.18
-        ax.set_xlim(min(xs) - padx, max(xs) + padx)
-        ax.set_ylim(min(ys) - pady, max(ys) + pady)
-        for wrapper, (dx, dy, align) in label_offsets.items():
-            gx, qy = points[wrapper]
-            ax.annotate(PRETTY[wrapper], (gx, qy), textcoords="offset points",
-                        xytext=(dx, dy), fontsize=7, color=INK_2, zorder=4,
-                        ha=align)
-        ax.text(0.03, 0.96, f"Spearman \u03c1 = {data['rho'][relation]:.2f}",
-                transform=ax.transAxes, fontsize=8.5, color=INK, va="top")
-        ax.set_xlabel("Gemma margin (logits)", fontsize=8, color=INK_2)
-        ax.set_ylabel("Qwen margin (logits)", fontsize=8, color=INK_2)
-        ax.set_title(relation_label, fontsize=9.5, color=INK, loc="left", pad=6)
-        style_axes(ax)
-        ax.yaxis.grid(True, color=GRID, linewidth=0.8)
-    handles = [Line2D([], [], marker="o", linestyle="", markersize=7,
-                      color=ROLE_COLOUR[r], label=ROLE_LABEL[r])
-               for r in ("named", "meaningless", "negative", "plain")]
-    fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False,
-               fontsize=8, bbox_to_anchor=(0.5, -0.07), labelcolor=INK_2)
-    fig.suptitle("Both models rank the wrappers the same way; the sizes differ ~5x",
-                 fontsize=11.5, color=INK, x=0.008, ha="left", y=1.01)
-    fig.text(0.008, 0.925,
-             "One point per wrapper. Note the axis scales: Gemma spans ~45 logits, "
-             "Qwen ~9. <trusted_content> is the clearest disagreement.",
-             fontsize=8, color=INK_2, ha="left")
-    fig.tight_layout(rect=(0, 0.03, 1, 0.9))
-    save(fig, out, "fig3_agreement")
-
-
-# --- figure 4: where the warning goes ------------------------------------
+# --- figure 3: where the warning goes ------------------------------------
 
 def figure_guards(data: Mapping[str, Any], out: Path) -> None:
     """The same warning in three slots; colour is its ordered position."""
@@ -301,7 +250,7 @@ def figure_guards(data: Mapping[str, Any], out: Path) -> None:
              "An explicit user instruction to ignore the paragraph reaches 0% everywhere.",
              fontsize=8, color=INK_2, ha="left")
     fig.tight_layout(rect=(0, 0.01, 1, 0.945))
-    save(fig, out, "fig4_guards")
+    save(fig, out, "fig3_guards")
 
 
 # --- data loading ---------------------------------------------------------
@@ -360,14 +309,17 @@ def load(results: Path) -> dict[str, Any]:
         }
     ladder_order = sorted(ROLE, key=lambda w: -ladder["gemma"][w][0])
 
-    agreement, rho = {}, {}
+    # No longer plotted -- the rank agreement reads better as a sentence than as
+    # a scatter -- but still computed, and printed, so the number in the text has
+    # a source that is re-derived on every run.
+    rho = {}
     for relation, _ in RELATIONS:
-        pts = {w: (float(delimiter["gemma"][(relation, w, "assert_r1")]["mean_margin"]),
-                   float(delimiter["qwen"][(relation, w, "assert_r1")]["mean_margin"]))
-               for w in ROLE}
-        agreement[relation] = pts
-        rho[relation] = spearman([g for g, _ in pts.values()],
-                                 [q for _, q in pts.values()])
+        for cell in ("assert_r1", "bare"):
+            pairs = [(float(delimiter["gemma"][(relation, w, cell)]["mean_margin"]),
+                      float(delimiter["qwen"][(relation, w, cell)]["mean_margin"]))
+                     for w in ROLE]
+            rho[(relation, cell)] = spearman([g for g, _ in pairs],
+                                             [q for _, q in pairs])
 
     slot_channel = {
         "no warning": "delimited",
@@ -387,7 +339,7 @@ def load(results: Path) -> dict[str, Any]:
             }
 
     return {"headline": headline, "ladder": ladder, "ladder_order": ladder_order,
-            "agreement": agreement, "rho": rho, "guards": guards}
+            "rho": rho, "guards": guards}
 
 
 # --- qualitative examples -------------------------------------------------
@@ -479,7 +431,9 @@ def main() -> None:
     print("figures:")
     figure_headline(data, args.out)
     figure_ladder(data, args.out)
-    figure_agreement(data, args.out)
+    print("cross-model rank agreement (quoted in \u00a74.1, not plotted):")
+    for (relation, cell), value in sorted(data["rho"].items()):
+        print(f"  {relation:16s} {cell:10s} Spearman rho = {value:.2f}")
     figure_guards(data, args.out)
     if not args.skip_examples:
         print("examples:")

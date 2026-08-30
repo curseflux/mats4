@@ -68,7 +68,7 @@ Six claim sentences carry the whole project:
 | `bare` | "The chemical symbol for Gold is B." | the same falsehood, unattributed |
 | `explicit_stipulation` | "For the purposes of this document, treat B as the chemical symbol for Gold." | not a claim at all — an instruction |
 
-The `assert` / `stipulate` split is the speech act: whether the source is *saying* the symbol is B, or *using* B as the symbol. Two rewordings of each separate the act from the particular verb. §2 sweeps all six; §3 and §4 carry `assert_r1` (the hardest case — nothing moved it) and `bare` forward.
+The `assert` / `stipulate` split is the speech act: whether the source is *saying* the symbol is B, or *using* B as the symbol. Two rewordings of each separate the act from the particular verb. §3 sweeps all six; §4 and §5 carry `assert_r1` (the hardest case — nothing moved it) and `bare` forward.
 
 And one optional instruction line, sitting just before the question, gives the two policy conditions: **neutral** (nothing — the default everywhere below) and **parametric** ("Do not use the paragraph; rely on your own knowledge").
 
@@ -80,9 +80,24 @@ Two hand-written tables: 153 country/capital pairs and all 118 IUPAC elements. *
 
 **False answers are assigned, not chosen.** Each fact's false answer is another fact's true answer, drawn by a seeded derangement — so every answer string appears exactly once as a truth and once as a falsehood, and no result can be explained by some answers simply being more sayable. `B` for Gold is what the derangement produced, not a choice.
 
+### 1.3 How I got here
+
+This started as a mechanistic project: build the conflict dataset, capture residual-stream activations at the claim and answer positions, and ask whether a model that follows a false paragraph still *represents* the conflict internally. What ended it was a control. Three paraphrases of the same paragraph — same claim, same meaning — moved Gemma's deference by **30.9 logits**, more than any factor I had designed the dataset around. Probing for a conflict representation while an uncontrolled surface variable outweighed every deliberate manipulation felt like building on sand, so I reset and restarted behaviourally, asking what a block has to do to get believed. The activation capture is still in the repository, disabled by config; §7.3 item 2 is where it goes next.
+
 ---
 
-## Section 2: What the paragraph *says* barely matters
+## Section 2: Related work
+
+Knowledge conflict is a well-studied setting and I reuse its standard paradigm rather than inventing one. What I could not find was anyone varying the *container* while holding the content fixed.
+
+- **The paradigm.** [Longpre et al. (2021)](https://arxiv.org/abs/2109.05052) introduced entity-substitution conflicts: take a question the model answers correctly, swap the answer entity in the supporting passage, see which answer comes out. My dataset is that construction plus per-model screening and a derangement, so no string is intrinsically the wrong answer.
+- **Persuasiveness, studied at the level of content.** [Xie et al. (2024)](https://arxiv.org/abs/2305.13300) find models are strikingly receptive to coherent counter-evidence; [Li et al. (2026)](https://arxiv.org/abs/2604.22193) evaluate 27 models and report a general preference for document-borne claims, modulated by authority and confidence cues. Both vary what the passage says or who is said to be saying it. Here every word is fixed and only the container moves.
+- **Formatting is known to matter — for accuracy.** [Sclar et al. (2024)](https://arxiv.org/abs/2310.11324) show meaning-preserving format changes move few-shot accuracy by up to 76 points. Same genre of finding, different dependent variable: not how well the model does the task, but whom it believes when the task and its memory disagree.
+- **Mechanism.** [Ortu et al. (2024)](https://arxiv.org/abs/2402.11655) localise the competition between factual recall and a counterfactual context to a small set of late attention heads, in a setting close to this one. That is where §7.3 item 2 would start.
+
+---
+
+## Section 3: What the paragraph *says* barely matters
 
 Before touching formatting I tried the obvious thing: vary the claim sentence and find what makes it persuasive. The table below sweeps speech act — a textbook that *uses* a symbol (`stipulate`) versus one that *states* it (`assert`) — with two paraphrases of each, plus the unattributed and instruction forms from §1.1.
 
@@ -109,9 +124,9 @@ So the model does not look like it is weighing evidence. It looks like it is dec
 
 ---
 
-## Section 3: What the wrapper does
+## Section 4: What the wrapper does
 
-`assert_r1` is the hard case: an attributed false claim that no content manipulation moved off 0%. Here is the same sentence, unchanged, with three different things around it — and the explicit instruction from §2 for comparison.
+`assert_r1` is the hard case: an attributed false claim that no content manipulation moved off 0%. Here is the same sentence, unchanged, with three different things around it — and the explicit instruction from §3 for comparison.
 
 | Prompt (single user turn) | Gemma elem | Gemma cap | Qwen elem | Qwen cap |
 |---|---|---|---|---|
@@ -120,9 +135,9 @@ So the model does not look like it is weighing evidence. It looks like it is dec
 | `assert_r1` in `<document>` | 100.0% (+13.9) | 100.0% (+12.6) | 63.6% (+0.6) | 41.1% (+0.0) |
 | **`explicit_stipulation`, no wrapper** | 99.2% (+18.1) | 100.0% (+27.0) | 94.9% (+1.8) | 100.0% (+7.0) |
 
-**This is the project in four rows.** Two tags around an unchanged sentence buy the same behaviour as explicitly instructing the model to adopt the falsehood — **+41.0 logits on Gemma elements, +40.7 on capitals**, larger than the entire range of every content manipulation in §2 combined, and saturating where content never did. And a *nonsense* tag gets Gemma three quarters of the way there.
+**This is the project in four rows.** Two tags around an unchanged sentence buy the same behaviour as explicitly instructing the model to adopt the falsehood — **+41.0 logits on Gemma elements, +40.7 on capitals**, larger than the entire range of every content manipulation in §3 combined, and saturating where content never did. And a *nonsense* tag gets Gemma three quarters of the way there.
 
-### 3.1 Which part of the wrapper?
+### 4.1 Which part of the wrapper?
 
 `<document>` changes several things at once: line breaks, bracket syntax, and the word "document". So I ran 17 wrappers over the identical paragraph, each chosen to rule out one explanation, crossed with both `assert_r1` and `bare`.
 
@@ -156,7 +171,7 @@ So the model does not look like it is weighing evidence. It looks like it is dec
 
 **The model reads the tag name — it just does not weigh it enough.** `<untrusted_content>` holds Gemma at 0.0% on both datasets, so the semantics are clearly read. But `<unreliable_source>` sits at **28.8% on elements against an unwrapped baseline of 0.0%** — a tag announcing that the source is unreliable still produces more deference than no tag at all. The syntax bonus and the semantic warning are comparable in size, and which wins comes down to the exact words. On capitals the negative tags do hold the line (0.7%, 0.0%), so this is one dataset on one model and I would not push it further than that.
 
-**Cross-model agreement.** Qwen's effects are ~5× smaller and only `<document>` and `<passage>` cross 50%, but the *ordering* replicates: Spearman ρ across the 17 wrappers is **0.80 / 0.88** for `assert_r1` (elements / capitals) and 0.79 / 0.85 for `bare`. Both models put document-ish XML tags at the top, negative-valence tags *below* the unwrapped baseline, and blank lines on top of no wrapper. Where they disagree is on specific words: `<trusted_content>` tops Gemma's ladder at 100% but sits near the bottom of Qwen's at 1.7%. The ranking is shared; the sensitivity to any given tag is not.
+**Cross-model agreement.** Qwen's effects are ~5× smaller and only `<document>` and `<passage>` cross 50%, so the two models' absolute numbers are not comparable. What *is* comparable is the order. If I rank all 17 wrappers by margin within each model and compare those two rankings, they agree at Spearman ρ = **0.80** on elements and **0.88** on capitals (0.79 and 0.85 for the `bare` sentence) — where 1.0 is identical ordering and 0 is unrelated. Concretely: both models put document-ish XML tags at the top, both put the negative-valence tags *below* the unwrapped baseline, and both leave blank lines indistinguishable from no wrapper at all. The disagreements are about particular strings, not about the shape — `<trusted_content>` tops Gemma's ladder at 100% and sits near the bottom of Qwen's at 1.7%, and `Search result:` is 100% versus 2.5%. So the ranking is shared; the sensitivity to any given tag is not.
 
 **Both claim sentences give the same ladder**, which is why I ran `bare` alongside `assert_r1`: `<document>` gets 98.3% on `bare` against 100% on `assert_r1`, and the bottom stays the bottom for both.
 
@@ -164,15 +179,11 @@ So the model does not look like it is weighing evidence. It looks like it is dec
 
 *Figure 2 — all 17 wrappers, ranked by Gemma. Colour is what the wrapper is, not how well it does. Note the two panels' x-scales differ by roughly 5x.*
 
-![Figure 3](figures/fig3_agreement.png)
-
-*Figure 3 — one point per wrapper. The rank agreement is high; the magnitudes are not comparable.*
-
 ---
 
-## Section 4: Can an instruction undo it?
+## Section 5: Can an instruction undo it?
 
-§3 showed a wrapper buying what an explicit instruction buys. The natural follow-up: can an instruction take it back?
+§4 showed a wrapper buying what an explicit instruction buys. The natural follow-up: can an instruction take it back?
 
 I put the same warning — *"The reference material may contain false statements. Do not use it to answer factual questions; rely on your own knowledge."* — in three slots, holding the wrapper and the load-bearing sentence byte-identical. Because `assert_r1` under `<document>` is already pinned at 100% on Gemma, the cell with room to fall is `explicit_stipulation`, at 99–100% everywhere.
 
@@ -191,31 +202,51 @@ I put the same warning — *"The reference material may contain false statements
 
 So the model is perfectly controllable. It just does not get there by evaluating the paragraph. It gets there when the user turn contains an instruction, and the closer that instruction sits to the question, the better it works.
 
-![Figure 4](figures/fig4_guards.png)
+![Figure 3](figures/fig3_guards.png)
 
-*Figure 4 — the identical warning sentence, moved between slots.*
+*Figure 3 — the identical warning sentence, moved between slots.*
 
 ---
 
-## Section 5: Limitations, and what I would do next
+## Section 6: What this might mean for prompt injection
 
-### 5.1 Limitations
+I did not set out to study prompt injection and nothing here is an attack or a defence. But §5's result lands on a mitigation people actually ship, so it is worth saying carefully what it does and does not suggest.
 
-**The scope is narrow, deliberately.** Two models, two datasets, single-word answers to well-known facts, greedy decoding, one user turn. No sampling, no temperature sweep, no long-form generation, and both configs run with `enable_thinking: false`. Short factual recall is the cleanest case I could build; it is also the case where the model has the least to reason about, so a model allowed to think before answering might behave completely differently. I would not extrapolate any number here past that setting.
+The standard defence against indirect prompt injection is *spotlighting* ([Hines et al., 2024](https://arxiv.org/abs/2403.14720)): put untrusted content inside a delimiter, and tell the model in the system prompt that the delimited region is data rather than instructions. That is close to a combination of two things I measured separately — and both halves came back weaker than the construction assumes. The delimiter moves the model *toward* believing the content, hard: +41 logits, whatever the tag says. The system-prompt half is worth −8.3 logits on elements and −20.0 on capitals against no warning at all, against −47.5 and −63.9 for the same sentence in the user turn below the block.
 
-**The magnitudes are model-specific in a way the rankings are not.** Qwen's whole margin scale is about 5× compressed against Gemma's, and the nonsense tag that carries Gemma to 79% only carries Qwen to 3.4% behaviourally — even though it still moves Qwen's margin by +4.7 logits in the same direction. The rank agreement (ρ ≈ 0.8) is the claim that replicates; "a meaningless tag flips the model" is a Gemma claim. Two models is also not a sample: I cannot tell whether the difference is scale, family, tokenizer, or post-training, and with n = 2 no amount of analysis here would separate them.
+Two limits on how far this goes. This is knowledge conflict, not injection: my paragraph asserts a false fact, it does not carry an instruction, and a model that swallows a false chemical symbol need not obey an embedded command. And one guard wording in three slots is not a sweep.
 
-**Individual tags do not generalize.** `<trusted_content>` tops Gemma's ladder at 100% and sits near the bottom of Qwen's at 1.7%; `Search result:` is 100% versus 2.5%. Whatever is shared between the models operates at the level of "is this marked-off content", not at the level of particular strings — so the practical advice "don't use tag X" does not follow from this data.
+So the fair claim is narrower than "delimiters are unsafe": the delimiter is a large, cheap, mostly untested variable sitting inside a construction that safety work already leans on, and it is worth measuring on both sides of that work. The obvious question I have not answered is whether an attacker who controls retrieved text can supply their *own* opening tag and buy the same +41 — one run with the wrapper moved inside the paragraph, which I did not have time for. [Zverev et al. (2024)](https://arxiv.org/abs/2403.06833) argue models do not cleanly separate instructions from data; this is a small quantified instance of the neighbouring problem, on the data-versus-data axis.
 
-**Two results rest on one dataset each.** `<unreliable_source>` beating the unwrapped baseline (§3.1) holds on Gemma elements but not on capitals, where the negative tags do hold the line. And `<>` — brackets with no name — is 25.4% on elements but 62.9% on capitals, which is a big enough gap that I do not trust either number as a point estimate of "what bare syntax is worth".
+---
 
-**The guard-position result confounds two things.** `above` and `below` differ in position, but the `below` guard is also closer to the question. Recency and adjacency-to-question are not separable in this design, so §4's "position is worth ~20 points" should be read as "one of those two things is worth ~20 points".
+## Section 7: Limitations, and what I would do next
 
-**The false answers are the conservative end of one axis.** They come from a derangement, so they are usually wildly implausible substitutions. A near-miss false answer is easier to sell, which means the deference rates reported here are floors rather than typical values.
+### 7.1 Limitations
+
+**The scope is narrow, deliberately.** Two models, two datasets, single-word answers to well-known facts, greedy decoding, one user turn, `enable_thinking: false`. Short factual recall is the cleanest case I could build; it is also the case where the model has least to reason about, so a model allowed to think first might behave completely differently. I would not extrapolate past that setting.
+
+**The magnitudes are model-specific in a way the rankings are not.** Qwen's margin scale is ~5× compressed, and the nonsense tag that carries Gemma to 79% only carries Qwen to 3.4% behaviourally — though it still moves Qwen's margin +4.7 in the same direction. The rank agreement (ρ ≈ 0.8) is what replicates; "a meaningless tag flips the model" is a Gemma claim. And two models is not a sample: with n = 2 I cannot separate scale, family, tokenizer or post-training.
+
+**Individual tags do not generalize.** `<trusted_content>` tops Gemma's ladder at 100% and sits near the bottom of Qwen's at 1.7%. Whatever is shared operates at the level of "is this marked-off content", not particular strings — so "don't use tag X" does not follow from this data.
+
+**Above saturation the margin stops measuring preference.** Once a wrapper wins outright, the winning answer sits at log P ≈ 0 and the margin only records how far the losing answer was pushed down. So trust the *ordering* of the §4.1 ladder and do not read the spacing between the four wrappers that all sit at 100% — the +2.5 logits between `<document>` and `<trusted_content>` has no behavioural content behind it.
+
+**Nothing here is a real retrieved document.** Templated three-sentence paragraphs, one language, one false claim each. A RAG system passes a page, not a paragraph, and if the effect is about a short block being *entirely* source material it may shrink badly when the false claim is one line in two thousand. Biggest hole; first in §7.3.
+
+**"A meaningless tag works" rests on two strings, which disagree.** `<qzx_block>` reaches 78.8% on Gemma elements but `<qzxzxew>` only 49.2%, and on capitals it is 74.8% versus 36.4%. Both clear the unwrapped baseline of 0% by a wide margin, so the qualitative claim holds; the size of the effect clearly depends on the particular nonsense string in a way I have not characterised.
+
+**Two results rest on one dataset each.** `<unreliable_source>` beating the unwrapped baseline (§4.1) holds on Gemma elements but not on capitals, where the negative tags do hold the line. And `<>` — brackets with no name — is 25.4% on elements but 62.9% on capitals, which is a big enough gap that I do not trust either number as a point estimate of "what bare syntax is worth".
+
+**The guard-position result confounds two things.** `above` and `below` differ in position, but `below` is also closer to the question. Recency and adjacency are not separable here, so §5's "position is worth ~20 points" means "one of those two is".
+
+**The false answers are the conservative end of one axis.** The derangement usually produces wildly implausible substitutions, and near misses are easier to sell — so these rates are floors, not typical values.
+
+**Screened fact sets differ between the two models** (143 capitals for Gemma, 146 for Qwen), so cross-model comparisons are of effects, not of absolute rates.
 
 **No mechanistic evidence.** Everything is behavioural: greedy answers and teacher-forced log-probs. I have shown *that* a mark in the context changes which knowledge source wins, not what the model computes to get there.
 
-### 5.2 What I checked by hand
+### 7.2 What I checked by hand
 
 > **[TODO — re-run these yourself before submitting.]** This section is only worth something if *you* ran the checks. Rewrite it in terms of what you personally did and found.
 
@@ -223,27 +254,26 @@ So the model is perfectly controllable. It just does not get there by evaluating
 - The unwrapped `assert_r1` baseline is produced independently by three separate runs and lands at −27.11, −27.00 and −27.10 on Gemma elements — a spread of 0.10 logits.
 - The margin agrees in sign with the greedy answer on **99.18% of 2308 rows**, with every disagreement inside 1.23 logits of a tie. The margin is the same story as the paragraph rate, with resolution left over.
 - An **irrelevant** false paragraph — same sentence, different subject — moves nothing: 0.0% (−32.5) on elements, 0.7% (−33.7) on capitals. The effect is about the conflict, not about a paragraph being present.
+- **The effect is not carried by a subset.** `<document>` flips **118/118** element facts and **143/143** capital facts, and moves the margin positively for every one of them. `<qzx_block>` flips 200 of the same 261.
+- **One control was built to break my own preferred story.** "The model understands the word *untrusted*" and "any unfamiliar tag suppresses the effect" predict the same thing for `<untrusted_content>` alone. They come apart on `<qzx_block>` — equally unfamiliar, no warning — and the semantic reading won.
+- [FILL: you found a decoding residue on Gemma (stray characters glued to correct answers, e.g. `-Zn`) while reading raw generations rather than summary tables. Restate it with the rate from the runs actually reported here, and note it is why margins are the primary metric.]
 - Rebuilt the dataset from the seed and read the generated prompts, to confirm the false answers are the derangement's rather than something I assumed. **This caught a real error:** an earlier draft used "the chemical symbol for Gold is Np" as its running example, and the derangement never assigns `Np` to Gold. Corrected; no result depended on it.
 - [FILL: read N raw prompts by hand and confirm the counterbalancing holds. Say how many, and what you found.]
 - [FILL: anything else you spot-checked and found *wrong*. This is worth more than the things that were right.]
 
-### 5.3 Future work
+### 7.3 Future work
 
-Roughly in the order I would actually do them.
+Roughly in the order I would do them.
 
-**1. Look inside the model.** This is the obvious next step and the one I most regret not reaching. If a wrapper is a channel signal, there should be a direction in activation space that reads "the text I am now in is a document" — and if there is, the interesting questions follow immediately. Does it appear at the opening tag or only at the closing one? Is it the *same* direction for `<document>` and `<qzx_block>`, which would explain why a nonsense tag works? Does `<untrusted_content>` fail to activate it, or activate it and get overridden downstream? A steering experiment would then be the real test: push along that direction with no tag present and see whether an unwrapped paragraph starts winning. Activation capture is already plumbed into the collection script with hooks at the claim, context and prompt boundaries — it is switched off only because the behavioural sweep used the time.
+**1. Real documents at realistic length.** Does +41 survive when the false claim is one line in two thousand, inside a page with genuine structure? If the tag effect is really "this whole block is source material", length is the variable that should break it — and it decides whether any of this matters for deployed retrieval.
 
-**2. Multi-turn and real retrieval.** Everything here is one user turn. In a deployed system the paragraph arrives as a tool result or a retrieved document in an assistant turn, where the channel signal is structural rather than a tag the user typed. I would expect that to be stronger than anything in §3, and it is the setting the safety concern actually lives in.
+**2. Where provenance lives in the forward pass.** `<document>` and `<untrusted_content>` are an unusually clean minimal pair: identical tokens except one word, **38.2 logits apart**. Patching between them should localise where that difference is mediated. The follow-ups are immediate — is it the same direction for `<document>` and `<qzx_block>`, which would explain why nonsense works? Does `<untrusted_content>` fail to activate it, or activate it and lose downstream? Does steering along it make an unwrapped paragraph win? The activation capture is already plumbed in and switched off only for time.
 
-**3. Does this survive reasoning?** Re-run the ladder with thinking enabled. A model that reasons about the paragraph before answering might notice that `<qzx_block>` is meaningless — or might rationalize the deference in its chain of thought, which would be more interesting still.
+**3. A read-time monitor, and whether one can exist.** The defence that would actually deploy is not a prompt but a probe: a classifier on the residual stream at the *claim* tokens, flagging "this block contradicts what I know" once per retrieved document rather than once per query. The open question is whether the conflict is computed before the question is read at all. If it is only represented at answer time, a per-document monitor cannot exist — a useful negative for anyone planning to build one.
 
-**4. Separate plausibility from knowledge strength.** Deference should be easier for facts a model holds loosely and for false answers that are near misses. Both are real effects in my data, but they are the same quantity measured twice: knowledge strength *is* `logP(true) − logP(false)`, so a plausible false answer mechanically produces a weaker-looking memory. Separating them needs facts matched on strength across different plausibility levels, which is a dataset design problem I did not have time to solve.
+**4. Does it scale, and does it survive reasoning?** Run the same 17 wrappers across a size ladder in one family, and again with thinking enabled. If the `<document>`/`<untrusted_content>` gap widens with scale, the semantics are being read better as models improve and the problem partly solves itself; if the *floor* rises instead, it does not. A model that reasons first might notice `<qzx_block>` is meaningless — or rationalise the deference, which would be more interesting.
 
-**5. Is the tag effect about position or about the mark?** Every wrapper here brackets the paragraph. An opening tag with no closing tag, or a closing tag alone, would say whether the model needs the region delimited or just needs to see the token.
-
-**6. Does it scale?** The single most useful cheap experiment: run the same 17 wrappers across a size ladder within one family. If the gap between `<document>` and `<untrusted_content>` widens with scale, the semantics are being read better as models improve, and this is a problem that solves itself. If the *floor* rises instead — every wrapper working better — it does not.
-
-**7. Beyond short factual recall.** Whether a wrapper moves a model on arithmetic, multi-step reasoning, or code is completely open, and matters much more for practice than capitals do.
+**5. Separate plausibility from knowledge strength.** Both should make deference easier, both are visible in my data, and they are the same quantity measured twice — knowledge strength *is* `logP(true) − logP(false)`, so a plausible false answer mechanically produces a weaker-looking memory. Separating them needs facts matched on strength across plausibility levels: a dataset design problem I did not solve.
 
 ## Appendix: Running it
 
