@@ -4,7 +4,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.0,
-      "mean_margin": -7.190776986590887,
+      "mean_margin": -7.212571887646691,
       "n": 118,
       "relation": "element_symbol",
       "role": "baseline",
@@ -12,8 +12,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.3813559322033898,
-      "mean_margin": -0.43009573726330774,
+      "context_rate": 0.3559322033898305,
+      "mean_margin": -0.4317605455042952,
       "n": 118,
       "relation": "element_symbol",
       "role": "baseline",
@@ -22,7 +22,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.0,
-      "mean_margin": -7.138860524710962,
+      "mean_margin": -7.1415813736996405,
       "n": 118,
       "relation": "element_symbol",
       "role": "layout only",
@@ -31,7 +31,7 @@
     {
       "cell": "bare",
       "context_rate": 0.3728813559322034,
-      "mean_margin": -0.4337066715046511,
+      "mean_margin": -0.4362791998911712,
       "n": 118,
       "relation": "element_symbol",
       "role": "layout only",
@@ -40,7 +40,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.00847457627118644,
-      "mean_margin": -3.861464645902989,
+      "mean_margin": -3.8467237666501837,
       "n": 118,
       "relation": "element_symbol",
       "role": "layout + fence",
@@ -49,7 +49,7 @@
     {
       "cell": "bare",
       "context_rate": 0.8050847457627118,
-      "mean_margin": 0.5538046562065513,
+      "mean_margin": 0.5627533055968204,
       "n": 118,
       "relation": "element_symbol",
       "role": "layout + fence",
@@ -58,7 +58,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.01694915254237288,
-      "mean_margin": -3.8126498561794473,
+      "mean_margin": -3.821638479071148,
       "n": 118,
       "relation": "element_symbol",
       "role": "layout + fence",
@@ -67,7 +67,7 @@
     {
       "cell": "bare",
       "context_rate": 0.8050847457627118,
-      "mean_margin": 0.6876534769090555,
+      "mean_margin": 0.6839924828480866,
       "n": 118,
       "relation": "element_symbol",
       "role": "layout + fence",
@@ -75,8 +75,8 @@
     },
     {
       "cell": "assert_r1",
-      "context_rate": 0.635593220338983,
-      "mean_margin": 0.559275126053115,
+      "context_rate": 0.6186440677966102,
+      "mean_margin": 0.5464614771180234,
       "n": 118,
       "relation": "element_symbol",
       "role": "E11's condition",
@@ -85,7 +85,7 @@
     {
       "cell": "bare",
       "context_rate": 1.0,
-      "mean_margin": 2.9115917723057634,
+      "mean_margin": 2.9043244184073753,
       "n": 118,
       "relation": "element_symbol",
       "role": "E11's condition",
@@ -93,8 +93,8 @@
     },
     {
       "cell": "assert_r1",
-      "context_rate": 0.5423728813559322,
-      "mean_margin": 0.2752178644729873,
+      "context_rate": 0.559322033898305,
+      "mean_margin": 0.2777727256386967,
       "n": 118,
       "relation": "element_symbol",
       "role": "same syntax, different word",
@@ -103,7 +103,7 @@
     {
       "cell": "bare",
       "context_rate": 0.9745762711864406,
-      "mean_margin": 2.2577337006391107,
+      "mean_margin": 2.2481743602429405,
       "n": 118,
       "relation": "element_symbol",
       "role": "same syntax, different word",
@@ -112,7 +112,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.0,
-      "mean_margin": -5.038999832282632,
+      "mean_margin": -5.033558829356048,
       "n": 118,
       "relation": "element_symbol",
       "role": "bracket syntax, no name at all",
@@ -121,7 +121,7 @@
     {
       "cell": "bare",
       "context_rate": 0.3474576271186441,
-      "mean_margin": -0.17558750863802636,
+      "mean_margin": -0.18309004832122286,
       "n": 118,
       "relation": "element_symbol",
       "role": "bracket syntax, no name at all",
@@ -130,7 +130,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.0,
-      "mean_margin": -7.939185886059777,
+      "mean_margin": -7.957748817185224,
       "n": 118,
       "relation": "element_symbol",
       "role": "same syntax, opposite valence",
@@ -174,8 +174,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.4830508474576271,
-      "mean_margin": -0.10599962331480899,
+      "context_rate": 0.4661016949152542,
+      "mean_margin": -0.10214307752706236,
       "n": 118,
       "relation": "element_symbol",
       "role": "same syntax, positive valence",
@@ -184,7 +184,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.03389830508474576,
-      "mean_margin": -2.4890078851732156,
+      "mean_margin": -2.4971707230907376,
       "n": 118,
       "relation": "element_symbol",
       "role": "same syntax, no meaning at all",
@@ -192,8 +192,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.652542372881356,
-      "mean_margin": 0.3742282673463983,
+      "context_rate": 0.6440677966101694,
+      "mean_margin": 0.37821835986638475,
       "n": 118,
       "relation": "element_symbol",
       "role": "same syntax, no meaning at all",
@@ -202,7 +202,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.15254237288135594,
-      "mean_margin": -2.0613252833738165,
+      "mean_margin": -2.0532785189353815,
       "n": 118,
       "relation": "element_symbol",
       "role": "same word, no markup",
@@ -211,7 +211,7 @@
     {
       "cell": "bare",
       "context_rate": 0.9576271186440678,
-      "mean_margin": 2.0251643778914112,
+      "mean_margin": 2.020986799466408,
       "n": 118,
       "relation": "element_symbol",
       "role": "same word, no markup",
@@ -220,7 +220,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.025423728813559324,
-      "mean_margin": -3.184728978043896,
+      "mean_margin": -3.17899558503749,
       "n": 118,
       "relation": "element_symbol",
       "role": "the RAG framing",
@@ -228,8 +228,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.7542372881355932,
-      "mean_margin": 0.6848297765699484,
+      "context_rate": 0.7288135593220338,
+      "mean_margin": 0.6837694362058477,
       "n": 118,
       "relation": "element_symbol",
       "role": "the RAG framing",
@@ -238,7 +238,25 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.0,
-      "mean_margin": -11.067109003458938,
+      "mean_margin": -7.756921525728905,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "opposite valence, no markup",
+      "wrapper": "label_untrusted"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.09322033898305085,
+      "mean_margin": -1.4830163373785503,
+      "n": 118,
+      "relation": "element_symbol",
+      "role": "opposite valence, no markup",
+      "wrapper": "label_untrusted"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.0,
+      "mean_margin": -11.067793493401515,
       "n": 146,
       "relation": "country_capital",
       "role": "baseline",
@@ -246,8 +264,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.0273972602739726,
-      "mean_margin": -4.291644213950797,
+      "context_rate": 0.03424657534246575,
+      "mean_margin": -4.279677299604024,
       "n": 146,
       "relation": "country_capital",
       "role": "baseline",
@@ -256,7 +274,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.0,
-      "mean_margin": -10.405894188031759,
+      "mean_margin": -10.380892400872218,
       "n": 146,
       "relation": "country_capital",
       "role": "layout only",
@@ -265,7 +283,7 @@
     {
       "cell": "bare",
       "context_rate": 0.0410958904109589,
-      "mean_margin": -4.097312496133046,
+      "mean_margin": -4.10575845796768,
       "n": 146,
       "relation": "country_capital",
       "role": "layout only",
@@ -274,7 +292,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.02054794520547945,
-      "mean_margin": -7.091306203032193,
+      "mean_margin": -7.090394908434724,
       "n": 146,
       "relation": "country_capital",
       "role": "layout + fence",
@@ -282,8 +300,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.23972602739726026,
-      "mean_margin": -0.6654247519088118,
+      "context_rate": 0.2465753424657534,
+      "mean_margin": -0.6607888626725706,
       "n": 146,
       "relation": "country_capital",
       "role": "layout + fence",
@@ -292,7 +310,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.02054794520547945,
-      "mean_margin": -5.867514270625702,
+      "mean_margin": -5.870505176178397,
       "n": 146,
       "relation": "country_capital",
       "role": "layout + fence",
@@ -300,8 +318,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.273972602739726,
-      "mean_margin": -0.674595545416009,
+      "context_rate": 0.2671232876712329,
+      "mean_margin": -0.6614580807620531,
       "n": 146,
       "relation": "country_capital",
       "role": "layout + fence",
@@ -309,8 +327,8 @@
     },
     {
       "cell": "assert_r1",
-      "context_rate": 0.410958904109589,
-      "mean_margin": 0.0035256294355000533,
+      "context_rate": 0.4246575342465753,
+      "mean_margin": -0.0008298664876859482,
       "n": 146,
       "relation": "country_capital",
       "role": "E11's condition",
@@ -319,7 +337,7 @@
     {
       "cell": "bare",
       "context_rate": 0.9657534246575342,
-      "mean_margin": 2.7023202164532387,
+      "mean_margin": 2.702805728128512,
       "n": 146,
       "relation": "country_capital",
       "role": "E11's condition",
@@ -327,8 +345,8 @@
     },
     {
       "cell": "assert_r1",
-      "context_rate": 0.3013698630136986,
-      "mean_margin": -0.5628771194039959,
+      "context_rate": 0.3082191780821918,
+      "mean_margin": -0.5583278969542621,
       "n": 146,
       "relation": "country_capital",
       "role": "same syntax, different word",
@@ -337,7 +355,7 @@
     {
       "cell": "bare",
       "context_rate": 1.0,
-      "mean_margin": 4.9508987191605245,
+      "mean_margin": 4.973939778053597,
       "n": 146,
       "relation": "country_capital",
       "role": "same syntax, different word",
@@ -346,7 +364,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.02054794520547945,
-      "mean_margin": -7.104394207262013,
+      "mean_margin": -7.102478641353241,
       "n": 146,
       "relation": "country_capital",
       "role": "bracket syntax, no name at all",
@@ -355,7 +373,7 @@
     {
       "cell": "bare",
       "context_rate": 0.07534246575342465,
-      "mean_margin": -1.9729532999535129,
+      "mean_margin": -1.9748901210419119,
       "n": 146,
       "relation": "country_capital",
       "role": "bracket syntax, no name at all",
@@ -364,7 +382,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.0,
-      "mean_margin": -13.012961596658785,
+      "mean_margin": -13.016822383828359,
       "n": 146,
       "relation": "country_capital",
       "role": "same syntax, opposite valence",
@@ -409,7 +427,7 @@
     {
       "cell": "bare",
       "context_rate": 0.4383561643835616,
-      "mean_margin": -0.14175388910999037,
+      "mean_margin": -0.13455008154046044,
       "n": 146,
       "relation": "country_capital",
       "role": "same syntax, positive valence",
@@ -418,7 +436,7 @@
     {
       "cell": "assert_r1",
       "context_rate": 0.0410958904109589,
-      "mean_margin": -7.097037615841383,
+      "mean_margin": -7.101476394966857,
       "n": 146,
       "relation": "country_capital",
       "role": "same syntax, no meaning at all",
@@ -426,8 +444,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.2328767123287671,
-      "mean_margin": -0.8796435839509311,
+      "context_rate": 0.2534246575342466,
+      "mean_margin": -0.8641855422764608,
       "n": 146,
       "relation": "country_capital",
       "role": "same syntax, no meaning at all",
@@ -435,8 +453,8 @@
     },
     {
       "cell": "assert_r1",
-      "context_rate": 0.06164383561643835,
-      "mean_margin": -4.857357456259532,
+      "context_rate": 0.0547945205479452,
+      "mean_margin": -4.852343075895963,
       "n": 146,
       "relation": "country_capital",
       "role": "same word, no markup",
@@ -444,8 +462,8 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.8287671232876712,
-      "mean_margin": 1.38196268473586,
+      "context_rate": 0.821917808219178,
+      "mean_margin": 1.3655612370739245,
       "n": 146,
       "relation": "country_capital",
       "role": "same word, no markup",
@@ -453,8 +471,8 @@
     },
     {
       "cell": "assert_r1",
-      "context_rate": 0.0273972602739726,
-      "mean_margin": -5.70193281565627,
+      "context_rate": 0.03424657534246575,
+      "mean_margin": -5.722617097096901,
       "n": 146,
       "relation": "country_capital",
       "role": "the RAG framing",
@@ -462,12 +480,30 @@
     },
     {
       "cell": "bare",
-      "context_rate": 0.5,
-      "mean_margin": 0.18412306537366893,
+      "context_rate": 0.5068493150684932,
+      "mean_margin": 0.18131074513474557,
       "n": 146,
       "relation": "country_capital",
       "role": "the RAG framing",
       "wrapper": "label_search"
+    },
+    {
+      "cell": "assert_r1",
+      "context_rate": 0.0,
+      "mean_margin": -12.321806411220603,
+      "n": 146,
+      "relation": "country_capital",
+      "role": "opposite valence, no markup",
+      "wrapper": "label_untrusted"
+    },
+    {
+      "cell": "bare",
+      "context_rate": 0.02054794520547945,
+      "mean_margin": -3.6040981109828163,
+      "n": 146,
+      "relation": "country_capital",
+      "role": "opposite valence, no markup",
+      "wrapper": "label_untrusted"
     }
   ],
   "contrasts_vs_inline": [
@@ -496,10 +532,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        -0.0525890285685911,
-        0.15419651290117684
+        -0.03531648344912772,
+        0.17338259745452364
       ],
-      "delta_vs_inline": 0.05191646187992419,
+      "delta_vs_inline": 0.07099051394705046,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "blankline"
@@ -507,10 +543,10 @@
     {
       "cell": "bare",
       "ci95": [
-        -0.034320605003227624,
-        0.02716680300437798
+        -0.03756030131194551,
+        0.028764336796130163
       ],
-      "delta_vs_inline": -0.003610934241343353,
+      "delta_vs_inline": -0.0045186543868759935,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "blankline"
@@ -518,10 +554,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        3.093711060992742,
-        3.566550901380636
+        3.126506530632407,
+        3.604595847049002
       ],
-      "delta_vs_inline": 3.3293123406878973,
+      "delta_vs_inline": 3.3658481209965077,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "dashes"
@@ -529,10 +565,10 @@
     {
       "cell": "bare",
       "ci95": [
-        0.8652326616190248,
-        1.1009735333717476
+        0.8790190421928794,
+        1.109505734201205
       ],
-      "delta_vs_inline": 0.983900393469859,
+      "delta_vs_inline": 0.9945138511011156,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "dashes"
@@ -540,10 +576,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        3.110699184870316,
-        3.651928497573077
+        3.1280595165188028,
+        3.656800561032053
       ],
-      "delta_vs_inline": 3.378127130411439,
+      "delta_vs_inline": 3.3909334085755427,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "quotes"
@@ -551,10 +587,10 @@
     {
       "cell": "bare",
       "ci95": [
-        0.9796799805204747,
-        1.2537287534293482
+        0.9787812152151334,
+        1.2498300358400507
       ],
-      "delta_vs_inline": 1.1177492141723633,
+      "delta_vs_inline": 1.1157530283523818,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "quotes"
@@ -562,10 +598,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        7.44790985624669,
-        8.063205444206625
+        7.452820179826122,
+        8.07331072273901
       ],
-      "delta_vs_inline": 7.750052112644002,
+      "delta_vs_inline": 7.759033364764715,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_document"
@@ -573,10 +609,10 @@
     {
       "cell": "bare",
       "ci95": [
-        3.130728640798795,
-        3.561543787940074
+        3.1292370618399925,
+        3.5534487093909313
       ],
-      "delta_vs_inline": 3.3416875095690712,
+      "delta_vs_inline": 3.3360849639116705,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_document"
@@ -584,10 +620,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        7.155332112716416,
-        7.7717133538197665
+        7.1720881542917025,
+        7.807482767913301
       ],
-      "delta_vs_inline": 7.465994851063874,
+      "delta_vs_inline": 7.490344613285388,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_passage"
@@ -595,10 +631,10 @@
     {
       "cell": "bare",
       "ci95": [
-        2.4863530175160555,
-        2.8879675299434338
+        2.4821903099447993,
+        2.8739976074735996
       ],
-      "delta_vs_inline": 2.687829437902418,
+      "delta_vs_inline": 2.6799349057472357,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_passage"
@@ -606,10 +642,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        1.9534846160371424,
-        2.359808824830136
+        1.9747557882535256,
+        2.3858519893581582
       ],
-      "delta_vs_inline": 2.1517771543082542,
+      "delta_vs_inline": 2.1790130582906433,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_empty"
@@ -617,10 +653,10 @@
     {
       "cell": "bare",
       "ci95": [
-        0.1337923922781217,
-        0.37196464861853645
+        0.13059813289319055,
+        0.36452975515591896
       ],
-      "delta_vs_inline": 0.2545082286252814,
+      "delta_vs_inline": 0.24867049718307235,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_empty"
@@ -628,10 +664,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        -0.9530162326360153,
-        -0.5463015831122964
+        -0.9490405745425466,
+        -0.5460191985308114
       ],
-      "delta_vs_inline": -0.7484088994688907,
+      "delta_vs_inline": -0.7451769295385329,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_untrusted"
@@ -639,10 +675,10 @@
     {
       "cell": "bare",
       "ci95": [
-        -1.4065792439347606,
-        -1.1497634467432054
+        -1.404920238559529,
+        -1.1470795001013805
       ],
-      "delta_vs_inline": -1.274642410924879,
+      "delta_vs_inline": -1.2729776026838917,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_untrusted"
@@ -650,10 +686,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        -1.242039955268472,
-        -0.7482671899310613
+        -1.2195106926610915,
+        -0.7222646939552436
       ],
-      "delta_vs_inline": -0.9909883434489623,
+      "delta_vs_inline": -0.9691934423931574,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_unreliable"
@@ -661,10 +697,10 @@
     {
       "cell": "bare",
       "ci95": [
-        -2.820468708620233,
-        -2.430091292171155
+        -2.8231310278682384,
+        -2.4318351907245184
       ],
-      "delta_vs_inline": -2.6213040109408103,
+      "delta_vs_inline": -2.619639202699823,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_unreliable"
@@ -672,10 +708,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        3.9345586097846597,
-        4.479839696722515
+        3.947927135532185,
+        4.500894465688932
       ],
-      "delta_vs_inline": 4.2088495028221,
+      "delta_vs_inline": 4.230644403877905,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_trusted"
@@ -683,10 +719,10 @@
     {
       "cell": "bare",
       "ci95": [
-        0.19386600235761223,
-        0.4453739554195081
+        0.19813919067382812,
+        0.450228335493702
       ],
-      "delta_vs_inline": 0.32409611394849874,
+      "delta_vs_inline": 0.32961746797723285,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_trusted"
@@ -694,10 +730,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        4.4403079566309005,
-        4.969960778446521
+        4.4461544166177,
+        4.98736704810191
       ],
-      "delta_vs_inline": 4.701769101417671,
+      "delta_vs_inline": 4.715401164555954,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_nonsense"
@@ -705,10 +741,10 @@
     {
       "cell": "bare",
       "ci95": [
-        0.6672400296744654,
-        0.9354482909380379
+        0.6747644553750248,
+        0.943949440778312
       ],
-      "delta_vs_inline": 0.804324004609706,
+      "delta_vs_inline": 0.80997890537068,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "tag_nonsense"
@@ -716,10 +752,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        4.835516574019093,
-        5.411370422880529
+        4.864312074952206,
+        5.445982044026003
       ],
-      "delta_vs_inline": 5.12945170321707,
+      "delta_vs_inline": 5.15929336871131,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "label_document"
@@ -727,10 +763,10 @@
     {
       "cell": "bare",
       "ci95": [
-        2.248170464725818,
-        2.676145828376382
+        2.24563957472979,
+        2.670765230211161
       ],
-      "delta_vs_inline": 2.455260115154719,
+      "delta_vs_inline": 2.452747344970703,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "label_document"
@@ -738,10 +774,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        3.767008248022047,
-        4.24978621531341
+        3.7936840703931907,
+        4.27231557490462
       ],
-      "delta_vs_inline": 4.0060480085469905,
+      "delta_vs_inline": 4.033576302609201,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "label_search"
@@ -749,13 +785,35 @@
     {
       "cell": "bare",
       "ci95": [
-        0.944567308587543,
-        1.2762975854388738
+        0.9458440037096961,
+        1.275699874102059
       ],
-      "delta_vs_inline": 1.114925513833256,
+      "delta_vs_inline": 1.115529981710143,
       "n": 118,
       "relation": "element_symbol",
       "wrapper": "label_search"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        -0.8048244896581618,
+        -0.2955004966865152
+      ],
+      "delta_vs_inline": -0.5443496380822134,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "label_untrusted"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        -1.2005997189020707,
+        -0.9013382216631356
+      ],
+      "delta_vs_inline": -1.051255791874255,
+      "n": 118,
+      "relation": "element_symbol",
+      "wrapper": "label_untrusted"
     },
     {
       "cell": "assert_r1",
@@ -782,10 +840,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        0.5287366893193494,
-        0.7894389008822507
+        0.5603407898994341,
+        0.8168423143151688
       ],
-      "delta_vs_inline": 0.6612148154271792,
+      "delta_vs_inline": 0.6869010925292969,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "blankline"
@@ -793,10 +851,10 @@
     {
       "cell": "bare",
       "ci95": [
-        0.14405080716903895,
-        0.24863802243585456
+        0.12071268525842117,
+        0.2257686379837663
       ],
-      "delta_vs_inline": 0.1943317178177507,
+      "delta_vs_inline": 0.1739188416363442,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "blankline"
@@ -804,10 +862,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        3.6500262952830695,
-        4.2847913715937365
+        3.646490893951834,
+        4.295306205749512
       ],
-      "delta_vs_inline": 3.9758028004267443,
+      "delta_vs_inline": 3.97739858496679,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "dashes"
@@ -815,10 +873,10 @@
     {
       "cell": "bare",
       "ci95": [
-        3.402398161692162,
-        3.858698975549985
+        3.3959243591517616,
+        3.8529346021887374
       ],
-      "delta_vs_inline": 3.6262194620419854,
+      "delta_vs_inline": 3.6188884369314533,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "dashes"
@@ -826,10 +884,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        4.853298030487479,
-        5.539332651112177
+        4.85119071072095,
+        5.540346864151628
       ],
-      "delta_vs_inline": 5.199594732833235,
+      "delta_vs_inline": 5.1972883172231175,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "quotes"
@@ -837,10 +895,10 @@
     {
       "cell": "bare",
       "ci95": [
-        3.3952195285117788,
-        3.8433276529181493
+        3.3914281766708583,
+        3.843898734001264
       ],
-      "delta_vs_inline": 3.6170486685347885,
+      "delta_vs_inline": 3.6182192188419706,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "quotes"
@@ -848,10 +906,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        10.617293619129756,
-        11.491465294197814
+        10.619039235049732,
+        11.489636969892945
       ],
-      "delta_vs_inline": 11.070634632894437,
+      "delta_vs_inline": 11.066963626913829,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_document"
@@ -859,10 +917,10 @@
     {
       "cell": "bare",
       "ci95": [
-        6.618642650238455,
-        7.381224958863977
+        6.609347343444824,
+        7.367149130938804
       ],
-      "delta_vs_inline": 6.993964430404036,
+      "delta_vs_inline": 6.982483027732536,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_document"
@@ -870,10 +928,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        10.059428815972316,
-        10.95291451232074
+        10.056268953297236,
+        10.960143637983766
       ],
-      "delta_vs_inline": 10.504231884054942,
+      "delta_vs_inline": 10.509465596447253,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_passage"
@@ -881,10 +939,10 @@
     {
       "cell": "bare",
       "ci95": [
-        8.81628130560052,
-        9.689476261400197
+        8.82269332833486,
+        9.697024920215345
       ],
-      "delta_vs_inline": 9.242542933111322,
+      "delta_vs_inline": 9.253617077657621,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_passage"
@@ -892,10 +950,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        3.62229800550905,
-        4.283012429328814
+        3.6273129345619517,
+        4.293651972731499
       ],
-      "delta_vs_inline": 3.9627147961969245,
+      "delta_vs_inline": 3.965314852048273,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_empty"
@@ -903,10 +961,10 @@
     {
       "cell": "bare",
       "ci95": [
-        2.112337347579329,
-        2.539388173247037
+        2.103280106635943,
+        2.522275937746649
       ],
-      "delta_vs_inline": 2.318690913997284,
+      "delta_vs_inline": 2.304787178562112,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_empty"
@@ -914,10 +972,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        -2.312335641416785,
-        -1.5673221953927654
+        -2.318002374204871,
+        -1.5668111435354573
       ],
-      "delta_vs_inline": -1.9458525931998476,
+      "delta_vs_inline": -1.9490288904268447,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_untrusted"
@@ -925,10 +983,10 @@
     {
       "cell": "bare",
       "ci95": [
-        -0.3974333201369194,
-        0.014208179630645334
+        -0.40809737166313276,
+        -0.0012189525447479667
       ],
-      "delta_vs_inline": -0.19243904009257276,
+      "delta_vs_inline": -0.20440595443934612,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_untrusted"
@@ -936,10 +994,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        -2.6958913933740902,
-        -1.9404128871551931
+        -2.683784106006361,
+        -1.9391491380456376
       ],
-      "delta_vs_inline": -2.3105606836815404,
+      "delta_vs_inline": -2.3098761937389636,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_unreliable"
@@ -947,10 +1005,10 @@
     {
       "cell": "bare",
       "ci95": [
-        -6.826873152223352,
-        -6.065733726710489
+        -6.83316987181363,
+        -6.070702213130585
       ],
-      "delta_vs_inline": -6.451964365292902,
+      "delta_vs_inline": -6.4639312796396755,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_unreliable"
@@ -958,10 +1016,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        5.771690603804915,
-        6.5281866805194175
+        5.76482316892441,
+        6.5363221887039815
       ],
-      "delta_vs_inline": 6.154786541037364,
+      "delta_vs_inline": 6.155471030979941,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_trusted"
@@ -969,10 +1027,10 @@
     {
       "cell": "bare",
       "ci95": [
-        3.9046316277490902,
-        4.393079182873033
+        3.899205665065818,
+        4.395073093780099
       ],
-      "delta_vs_inline": 4.149890324840807,
+      "delta_vs_inline": 4.145127218063563,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_trusted"
@@ -980,10 +1038,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        3.6121254097925473,
-        4.327611021799584
+        3.6011197599646163,
+        4.326847272376492
       ],
-      "delta_vs_inline": 3.9700713876175553,
+      "delta_vs_inline": 3.9663170984346574,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_nonsense"
@@ -991,10 +1049,10 @@
     {
       "cell": "bare",
       "ci95": [
-        3.196318743980094,
-        3.6333949859828163
+        3.1986939939734054,
+        3.6314215072213787
       ],
-      "delta_vs_inline": 3.4120006299998664,
+      "delta_vs_inline": 3.415491757327563,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "tag_nonsense"
@@ -1002,10 +1060,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        5.837996090928169,
-        6.5764596494909835
+        5.846188584419146,
+        6.574396943392819
       ],
-      "delta_vs_inline": 6.2097515471994065,
+      "delta_vs_inline": 6.215450417505552,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "label_document"
@@ -1013,10 +1071,10 @@
     {
       "cell": "bare",
       "ci95": [
-        5.313436847843536,
-        6.039017951651795
+        5.281028081292975,
+        6.0040826013643445
       ],
-      "delta_vs_inline": 5.673606898686657,
+      "delta_vs_inline": 5.645238536677948,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "label_document"
@@ -1024,10 +1082,10 @@
     {
       "cell": "assert_r1",
       "ci95": [
-        5.005668313535925,
-        5.72666148616843
+        4.983041815561791,
+        5.699203033969827
       ],
-      "delta_vs_inline": 5.365176187802668,
+      "delta_vs_inline": 5.3451763963046135,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "label_search"
@@ -1035,13 +1093,35 @@
     {
       "cell": "bare",
       "ci95": [
-        4.219988221991552,
-        4.728200912475586
+        4.203055251134585,
+        4.716304857436925
       ],
-      "delta_vs_inline": 4.475767279324466,
+      "delta_vs_inline": 4.4609880447387695,
       "n": 146,
       "relation": "country_capital",
       "wrapper": "label_search"
+    },
+    {
+      "cell": "assert_r1",
+      "ci95": [
+        -1.582201892382478,
+        -0.9217056640206951
+      ],
+      "delta_vs_inline": -1.2540129178190884,
+      "n": 146,
+      "relation": "country_capital",
+      "wrapper": "label_untrusted"
+    },
+    {
+      "cell": "bare",
+      "ci95": [
+        0.43841446915717974,
+        0.9307501675331429
+      ],
+      "delta_vs_inline": 0.6755791886212075,
+      "n": 146,
+      "relation": "country_capital",
+      "wrapper": "label_untrusted"
     }
   ],
   "false_answer_mode": "random",
@@ -1062,7 +1142,7 @@
       "tokenizer_eos_token_id": 248046
     },
     "code_version": "1.0.0",
-    "config_sha256": "14632e7cb3a764f4e633729b2d6dcd06750c62a85029c8f4db45deacb6b58b5c",
+    "config_sha256": "94f61635a6e66cc15e56a7c63fb6e13965700cb3129bc962013cb646d09d8d79",
     "datasets": {},
     "hardware": {
       "cuda_available": true,
@@ -1098,6 +1178,7 @@
     "inline": "baseline",
     "label_document": "same word, no markup",
     "label_search": "the RAG framing",
+    "label_untrusted": "opposite valence, no markup",
     "quotes": "layout + fence",
     "tag_document": "E11's condition",
     "tag_empty": "bracket syntax, no name at all",
@@ -1113,6 +1194,7 @@
     "inline": "{p}",
     "label_document": "Document:\n{p}",
     "label_search": "Search result:\n{p}",
+    "label_untrusted": "Untrusted content:\n{p}",
     "quotes": "\"\"\"\n{p}\n\"\"\"",
     "tag_document": "<document>\n{p}\n</document>",
     "tag_empty": "<>\n{p}\n</>",

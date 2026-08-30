@@ -5,58 +5,62 @@ The paragraph, claim sentence, question and response constraint are byte-identic
 
 | Relation | Wrapper | What it rules out | Cell | n | Context | Margin | Δ vs inline | 95% CI |
 |---|---|---|---|---:|---:|---:|---:|---:|
-| element_symbol | `inline` | baseline | `assert_r1` | 118 | 0.0% | -7.19 | +0.00 | [+0.00, +0.00] |
-| element_symbol | `inline` | baseline | `bare` | 118 | 38.1% | -0.43 | +0.00 | [+0.00, +0.00] |
-| element_symbol | `blankline` | layout only | `assert_r1` | 118 | 0.0% | -7.14 | +0.05 | [-0.05, +0.15] |
-| element_symbol | `blankline` | layout only | `bare` | 118 | 37.3% | -0.43 | -0.00 | [-0.03, +0.03] |
-| element_symbol | `dashes` | layout + fence | `assert_r1` | 118 | 0.8% | -3.86 | +3.33 | [+3.09, +3.57] |
-| element_symbol | `dashes` | layout + fence | `bare` | 118 | 80.5% | 0.55 | +0.98 | [+0.87, +1.10] |
-| element_symbol | `quotes` | layout + fence | `assert_r1` | 118 | 1.7% | -3.81 | +3.38 | [+3.11, +3.65] |
-| element_symbol | `quotes` | layout + fence | `bare` | 118 | 80.5% | 0.69 | +1.12 | [+0.98, +1.25] |
-| element_symbol | `tag_document` | E11's condition | `assert_r1` | 118 | 63.6% | 0.56 | +7.75 | [+7.45, +8.06] |
-| element_symbol | `tag_document` | E11's condition | `bare` | 118 | 100.0% | 2.91 | +3.34 | [+3.13, +3.56] |
-| element_symbol | `tag_passage` | same syntax, different word | `assert_r1` | 118 | 54.2% | 0.28 | +7.47 | [+7.16, +7.77] |
-| element_symbol | `tag_passage` | same syntax, different word | `bare` | 118 | 97.5% | 2.26 | +2.69 | [+2.49, +2.89] |
-| element_symbol | `tag_empty` | bracket syntax, no name at all | `assert_r1` | 118 | 0.0% | -5.04 | +2.15 | [+1.95, +2.36] |
-| element_symbol | `tag_empty` | bracket syntax, no name at all | `bare` | 118 | 34.7% | -0.18 | +0.25 | [+0.13, +0.37] |
-| element_symbol | `tag_untrusted` | same syntax, opposite valence | `assert_r1` | 118 | 0.0% | -7.94 | -0.75 | [-0.95, -0.55] |
-| element_symbol | `tag_untrusted` | same syntax, opposite valence | `bare` | 118 | 3.4% | -1.70 | -1.27 | [-1.41, -1.15] |
-| element_symbol | `tag_unreliable` | opposite valence, different words | `assert_r1` | 118 | 0.0% | -8.18 | -0.99 | [-1.24, -0.75] |
+| element_symbol | `inline` | baseline | `assert_r1` | 118 | 0.0% | -7.21 | +0.00 | [+0.00, +0.00] |
+| element_symbol | `inline` | baseline | `bare` | 118 | 35.6% | -0.43 | +0.00 | [+0.00, +0.00] |
+| element_symbol | `blankline` | layout only | `assert_r1` | 118 | 0.0% | -7.14 | +0.07 | [-0.04, +0.17] |
+| element_symbol | `blankline` | layout only | `bare` | 118 | 37.3% | -0.44 | -0.00 | [-0.04, +0.03] |
+| element_symbol | `dashes` | layout + fence | `assert_r1` | 118 | 0.8% | -3.85 | +3.37 | [+3.13, +3.60] |
+| element_symbol | `dashes` | layout + fence | `bare` | 118 | 80.5% | 0.56 | +0.99 | [+0.88, +1.11] |
+| element_symbol | `quotes` | layout + fence | `assert_r1` | 118 | 1.7% | -3.82 | +3.39 | [+3.13, +3.66] |
+| element_symbol | `quotes` | layout + fence | `bare` | 118 | 80.5% | 0.68 | +1.12 | [+0.98, +1.25] |
+| element_symbol | `tag_document` | E11's condition | `assert_r1` | 118 | 61.9% | 0.55 | +7.76 | [+7.45, +8.07] |
+| element_symbol | `tag_document` | E11's condition | `bare` | 118 | 100.0% | 2.90 | +3.34 | [+3.13, +3.55] |
+| element_symbol | `tag_passage` | same syntax, different word | `assert_r1` | 118 | 55.9% | 0.28 | +7.49 | [+7.17, +7.81] |
+| element_symbol | `tag_passage` | same syntax, different word | `bare` | 118 | 97.5% | 2.25 | +2.68 | [+2.48, +2.87] |
+| element_symbol | `tag_empty` | bracket syntax, no name at all | `assert_r1` | 118 | 0.0% | -5.03 | +2.18 | [+1.97, +2.39] |
+| element_symbol | `tag_empty` | bracket syntax, no name at all | `bare` | 118 | 34.7% | -0.18 | +0.25 | [+0.13, +0.36] |
+| element_symbol | `tag_untrusted` | same syntax, opposite valence | `assert_r1` | 118 | 0.0% | -7.96 | -0.75 | [-0.95, -0.55] |
+| element_symbol | `tag_untrusted` | same syntax, opposite valence | `bare` | 118 | 3.4% | -1.70 | -1.27 | [-1.40, -1.15] |
+| element_symbol | `tag_unreliable` | opposite valence, different words | `assert_r1` | 118 | 0.0% | -8.18 | -0.97 | [-1.22, -0.72] |
 | element_symbol | `tag_unreliable` | opposite valence, different words | `bare` | 118 | 0.0% | -3.05 | -2.62 | [-2.82, -2.43] |
-| element_symbol | `tag_trusted` | same syntax, positive valence | `assert_r1` | 118 | 1.7% | -2.98 | +4.21 | [+3.93, +4.48] |
-| element_symbol | `tag_trusted` | same syntax, positive valence | `bare` | 118 | 48.3% | -0.11 | +0.32 | [+0.19, +0.45] |
-| element_symbol | `tag_nonsense` | same syntax, no meaning at all | `assert_r1` | 118 | 3.4% | -2.49 | +4.70 | [+4.44, +4.97] |
-| element_symbol | `tag_nonsense` | same syntax, no meaning at all | `bare` | 118 | 65.3% | 0.37 | +0.80 | [+0.67, +0.94] |
-| element_symbol | `label_document` | same word, no markup | `assert_r1` | 118 | 15.3% | -2.06 | +5.13 | [+4.84, +5.41] |
-| element_symbol | `label_document` | same word, no markup | `bare` | 118 | 95.8% | 2.03 | +2.46 | [+2.25, +2.68] |
-| element_symbol | `label_search` | the RAG framing | `assert_r1` | 118 | 2.5% | -3.18 | +4.01 | [+3.77, +4.25] |
-| element_symbol | `label_search` | the RAG framing | `bare` | 118 | 75.4% | 0.68 | +1.11 | [+0.94, +1.28] |
+| element_symbol | `tag_trusted` | same syntax, positive valence | `assert_r1` | 118 | 1.7% | -2.98 | +4.23 | [+3.95, +4.50] |
+| element_symbol | `tag_trusted` | same syntax, positive valence | `bare` | 118 | 46.6% | -0.10 | +0.33 | [+0.20, +0.45] |
+| element_symbol | `tag_nonsense` | same syntax, no meaning at all | `assert_r1` | 118 | 3.4% | -2.50 | +4.72 | [+4.45, +4.99] |
+| element_symbol | `tag_nonsense` | same syntax, no meaning at all | `bare` | 118 | 64.4% | 0.38 | +0.81 | [+0.67, +0.94] |
+| element_symbol | `label_document` | same word, no markup | `assert_r1` | 118 | 15.3% | -2.05 | +5.16 | [+4.86, +5.45] |
+| element_symbol | `label_document` | same word, no markup | `bare` | 118 | 95.8% | 2.02 | +2.45 | [+2.25, +2.67] |
+| element_symbol | `label_search` | the RAG framing | `assert_r1` | 118 | 2.5% | -3.18 | +4.03 | [+3.79, +4.27] |
+| element_symbol | `label_search` | the RAG framing | `bare` | 118 | 72.9% | 0.68 | +1.12 | [+0.95, +1.28] |
+| element_symbol | `label_untrusted` | opposite valence, no markup | `assert_r1` | 118 | 0.0% | -7.76 | -0.54 | [-0.80, -0.30] |
+| element_symbol | `label_untrusted` | opposite valence, no markup | `bare` | 118 | 9.3% | -1.48 | -1.05 | [-1.20, -0.90] |
 | country_capital | `inline` | baseline | `assert_r1` | 146 | 0.0% | -11.07 | +0.00 | [+0.00, +0.00] |
-| country_capital | `inline` | baseline | `bare` | 146 | 2.7% | -4.29 | +0.00 | [+0.00, +0.00] |
-| country_capital | `blankline` | layout only | `assert_r1` | 146 | 0.0% | -10.41 | +0.66 | [+0.53, +0.79] |
-| country_capital | `blankline` | layout only | `bare` | 146 | 4.1% | -4.10 | +0.19 | [+0.14, +0.25] |
-| country_capital | `dashes` | layout + fence | `assert_r1` | 146 | 2.1% | -7.09 | +3.98 | [+3.65, +4.28] |
-| country_capital | `dashes` | layout + fence | `bare` | 146 | 24.0% | -0.67 | +3.63 | [+3.40, +3.86] |
+| country_capital | `inline` | baseline | `bare` | 146 | 3.4% | -4.28 | +0.00 | [+0.00, +0.00] |
+| country_capital | `blankline` | layout only | `assert_r1` | 146 | 0.0% | -10.38 | +0.69 | [+0.56, +0.82] |
+| country_capital | `blankline` | layout only | `bare` | 146 | 4.1% | -4.11 | +0.17 | [+0.12, +0.23] |
+| country_capital | `dashes` | layout + fence | `assert_r1` | 146 | 2.1% | -7.09 | +3.98 | [+3.65, +4.30] |
+| country_capital | `dashes` | layout + fence | `bare` | 146 | 24.7% | -0.66 | +3.62 | [+3.40, +3.85] |
 | country_capital | `quotes` | layout + fence | `assert_r1` | 146 | 2.1% | -5.87 | +5.20 | [+4.85, +5.54] |
-| country_capital | `quotes` | layout + fence | `bare` | 146 | 27.4% | -0.67 | +3.62 | [+3.40, +3.84] |
-| country_capital | `tag_document` | E11's condition | `assert_r1` | 146 | 41.1% | 0.00 | +11.07 | [+10.62, +11.49] |
-| country_capital | `tag_document` | E11's condition | `bare` | 146 | 96.6% | 2.70 | +6.99 | [+6.62, +7.38] |
-| country_capital | `tag_passage` | same syntax, different word | `assert_r1` | 146 | 30.1% | -0.56 | +10.50 | [+10.06, +10.95] |
-| country_capital | `tag_passage` | same syntax, different word | `bare` | 146 | 100.0% | 4.95 | +9.24 | [+8.82, +9.69] |
-| country_capital | `tag_empty` | bracket syntax, no name at all | `assert_r1` | 146 | 2.1% | -7.10 | +3.96 | [+3.62, +4.28] |
-| country_capital | `tag_empty` | bracket syntax, no name at all | `bare` | 146 | 7.5% | -1.97 | +2.32 | [+2.11, +2.54] |
-| country_capital | `tag_untrusted` | same syntax, opposite valence | `assert_r1` | 146 | 0.0% | -13.01 | -1.95 | [-2.31, -1.57] |
-| country_capital | `tag_untrusted` | same syntax, opposite valence | `bare` | 146 | 2.7% | -4.48 | -0.19 | [-0.40, +0.01] |
-| country_capital | `tag_unreliable` | opposite valence, different words | `assert_r1` | 146 | 0.0% | -13.38 | -2.31 | [-2.70, -1.94] |
-| country_capital | `tag_unreliable` | opposite valence, different words | `bare` | 146 | 0.0% | -10.74 | -6.45 | [-6.83, -6.07] |
-| country_capital | `tag_trusted` | same syntax, positive valence | `assert_r1` | 146 | 4.8% | -4.91 | +6.15 | [+5.77, +6.53] |
-| country_capital | `tag_trusted` | same syntax, positive valence | `bare` | 146 | 43.8% | -0.14 | +4.15 | [+3.90, +4.39] |
-| country_capital | `tag_nonsense` | same syntax, no meaning at all | `assert_r1` | 146 | 4.1% | -7.10 | +3.97 | [+3.61, +4.33] |
-| country_capital | `tag_nonsense` | same syntax, no meaning at all | `bare` | 146 | 23.3% | -0.88 | +3.41 | [+3.20, +3.63] |
-| country_capital | `label_document` | same word, no markup | `assert_r1` | 146 | 6.2% | -4.86 | +6.21 | [+5.84, +6.58] |
-| country_capital | `label_document` | same word, no markup | `bare` | 146 | 82.9% | 1.38 | +5.67 | [+5.31, +6.04] |
-| country_capital | `label_search` | the RAG framing | `assert_r1` | 146 | 2.7% | -5.70 | +5.37 | [+5.01, +5.73] |
-| country_capital | `label_search` | the RAG framing | `bare` | 146 | 50.0% | 0.18 | +4.48 | [+4.22, +4.73] |
+| country_capital | `quotes` | layout + fence | `bare` | 146 | 26.7% | -0.66 | +3.62 | [+3.39, +3.84] |
+| country_capital | `tag_document` | E11's condition | `assert_r1` | 146 | 42.5% | -0.00 | +11.07 | [+10.62, +11.49] |
+| country_capital | `tag_document` | E11's condition | `bare` | 146 | 96.6% | 2.70 | +6.98 | [+6.61, +7.37] |
+| country_capital | `tag_passage` | same syntax, different word | `assert_r1` | 146 | 30.8% | -0.56 | +10.51 | [+10.06, +10.96] |
+| country_capital | `tag_passage` | same syntax, different word | `bare` | 146 | 100.0% | 4.97 | +9.25 | [+8.82, +9.70] |
+| country_capital | `tag_empty` | bracket syntax, no name at all | `assert_r1` | 146 | 2.1% | -7.10 | +3.97 | [+3.63, +4.29] |
+| country_capital | `tag_empty` | bracket syntax, no name at all | `bare` | 146 | 7.5% | -1.97 | +2.30 | [+2.10, +2.52] |
+| country_capital | `tag_untrusted` | same syntax, opposite valence | `assert_r1` | 146 | 0.0% | -13.02 | -1.95 | [-2.32, -1.57] |
+| country_capital | `tag_untrusted` | same syntax, opposite valence | `bare` | 146 | 2.7% | -4.48 | -0.20 | [-0.41, -0.00] |
+| country_capital | `tag_unreliable` | opposite valence, different words | `assert_r1` | 146 | 0.0% | -13.38 | -2.31 | [-2.68, -1.94] |
+| country_capital | `tag_unreliable` | opposite valence, different words | `bare` | 146 | 0.0% | -10.74 | -6.46 | [-6.83, -6.07] |
+| country_capital | `tag_trusted` | same syntax, positive valence | `assert_r1` | 146 | 4.8% | -4.91 | +6.16 | [+5.76, +6.54] |
+| country_capital | `tag_trusted` | same syntax, positive valence | `bare` | 146 | 43.8% | -0.13 | +4.15 | [+3.90, +4.40] |
+| country_capital | `tag_nonsense` | same syntax, no meaning at all | `assert_r1` | 146 | 4.1% | -7.10 | +3.97 | [+3.60, +4.33] |
+| country_capital | `tag_nonsense` | same syntax, no meaning at all | `bare` | 146 | 25.3% | -0.86 | +3.42 | [+3.20, +3.63] |
+| country_capital | `label_document` | same word, no markup | `assert_r1` | 146 | 5.5% | -4.85 | +6.22 | [+5.85, +6.57] |
+| country_capital | `label_document` | same word, no markup | `bare` | 146 | 82.2% | 1.37 | +5.65 | [+5.28, +6.00] |
+| country_capital | `label_search` | the RAG framing | `assert_r1` | 146 | 3.4% | -5.72 | +5.35 | [+4.98, +5.70] |
+| country_capital | `label_search` | the RAG framing | `bare` | 146 | 50.7% | 0.18 | +4.46 | [+4.20, +4.72] |
+| country_capital | `label_untrusted` | opposite valence, no markup | `assert_r1` | 146 | 0.0% | -12.32 | -1.25 | [-1.58, -0.92] |
+| country_capital | `label_untrusted` | opposite valence, no markup | `bare` | 146 | 2.1% | -3.60 | +0.68 | [+0.44, +0.93] |
 
 ## How to read this
 

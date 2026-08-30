@@ -1,5 +1,5 @@
 {
-  "analysis_version": "1.0.0",
+  "analysis_version": "2.0.0",
   "cells": [
     {
       "cell": "assert_r1",
@@ -21,25 +21,25 @@
     },
     {
       "cell": "assert_r1",
-      "channel": "system_guard",
-      "context_rate": 0.5847457627118644,
-      "mean_margin": 0.47093772888183594,
+      "channel": "system_guard_instruction",
+      "context_rate": 0.2796610169491525,
+      "mean_margin": -0.7333559747469627,
       "n": 118,
       "policy": "neutral",
       "relation": "element_symbol"
     },
     {
       "cell": "assert_r1",
-      "channel": "user_guard",
-      "context_rate": 0.2627118644067797,
-      "mean_margin": -0.9690939854767363,
+      "channel": "system_guard_falsehood",
+      "context_rate": 0.0,
+      "mean_margin": -14.026815414428711,
       "n": 118,
       "policy": "neutral",
       "relation": "element_symbol"
     },
     {
       "cell": "assert_r1",
-      "channel": "user_guard_first_person",
+      "channel": "user_guard_instruction_above",
       "context_rate": 0.9067796610169492,
       "mean_margin": 2.0774830317093156,
       "n": 118,
@@ -48,9 +48,27 @@
     },
     {
       "cell": "assert_r1",
+      "channel": "user_guard_falsehood_above",
+      "context_rate": 0.0,
+      "mean_margin": -15.192226814011397,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard_falsehood_below",
+      "context_rate": 0.0,
+      "mean_margin": -15.303079702086368,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
       "channel": "retrieved_turn",
-      "context_rate": 0.15254237288135594,
-      "mean_margin": -1.245444362446413,
+      "context_rate": 0.1440677966101695,
+      "mean_margin": -1.221237619044417,
       "n": 118,
       "policy": "neutral",
       "relation": "element_symbol"
@@ -75,25 +93,25 @@
     },
     {
       "cell": "assert_r1",
-      "channel": "system_guard",
+      "channel": "system_guard_instruction",
       "context_rate": 0.0,
-      "mean_margin": -15.34990538580943,
+      "mean_margin": -16.24829599412821,
       "n": 118,
       "policy": "parametric",
       "relation": "element_symbol"
     },
     {
       "cell": "assert_r1",
-      "channel": "user_guard",
+      "channel": "system_guard_falsehood",
       "context_rate": 0.0,
-      "mean_margin": -16.45635203991906,
+      "mean_margin": -16.461064710455425,
       "n": 118,
       "policy": "parametric",
       "relation": "element_symbol"
     },
     {
       "cell": "assert_r1",
-      "channel": "user_guard_first_person",
+      "channel": "user_guard_instruction_above",
       "context_rate": 0.0,
       "mean_margin": -15.95784854888916,
       "n": 118,
@@ -102,9 +120,27 @@
     },
     {
       "cell": "assert_r1",
+      "channel": "user_guard_falsehood_above",
+      "context_rate": 0.0,
+      "mean_margin": -16.625251026476842,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard_falsehood_below",
+      "context_rate": 0.0,
+      "mean_margin": -15.804570569830426,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "assert_r1",
       "channel": "retrieved_turn",
       "context_rate": 0.0,
-      "mean_margin": -14.42973684860488,
+      "mean_margin": -14.42873279118942,
       "n": 118,
       "policy": "parametric",
       "relation": "element_symbol"
@@ -129,25 +165,25 @@
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "system_guard",
-      "context_rate": 0.9661016949152542,
-      "mean_margin": 2.308838407872087,
+      "channel": "system_guard_instruction",
+      "context_rate": 1.0,
+      "mean_margin": 3.1078430111125366,
       "n": 118,
       "policy": "neutral",
       "relation": "element_symbol"
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "user_guard",
-      "context_rate": 0.9661016949152542,
-      "mean_margin": 1.5792493173631572,
+      "channel": "system_guard_falsehood",
+      "context_rate": 0.06779661016949153,
+      "mean_margin": -2.6237920664124568,
       "n": 118,
       "policy": "neutral",
       "relation": "element_symbol"
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "user_guard_first_person",
+      "channel": "user_guard_instruction_above",
       "context_rate": 1.0,
       "mean_margin": 4.105342412399033,
       "n": 118,
@@ -156,9 +192,27 @@
     },
     {
       "cell": "explicit_stipulation",
+      "channel": "user_guard_falsehood_above",
+      "context_rate": 0.0,
+      "mean_margin": -8.787187317670401,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard_falsehood_below",
+      "context_rate": 0.0,
+      "mean_margin": -11.342688964585127,
+      "n": 118,
+      "policy": "neutral",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
       "channel": "retrieved_turn",
-      "context_rate": 0.6440677966101694,
-      "mean_margin": 0.3704021421529479,
+      "context_rate": 0.6694915254237288,
+      "mean_margin": 0.37247079105700476,
       "n": 118,
       "policy": "neutral",
       "relation": "element_symbol"
@@ -183,25 +237,25 @@
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "system_guard",
+      "channel": "system_guard_instruction",
       "context_rate": 0.0,
-      "mean_margin": -14.709104764259468,
+      "mean_margin": -15.427964420641883,
       "n": 118,
       "policy": "parametric",
       "relation": "element_symbol"
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "user_guard",
+      "channel": "system_guard_falsehood",
       "context_rate": 0.0,
-      "mean_margin": -15.326079481739109,
+      "mean_margin": -14.901308544611526,
       "n": 118,
       "policy": "parametric",
       "relation": "element_symbol"
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "user_guard_first_person",
+      "channel": "user_guard_instruction_above",
       "context_rate": 0.0,
       "mean_margin": -13.918280536845579,
       "n": 118,
@@ -210,9 +264,27 @@
     },
     {
       "cell": "explicit_stipulation",
+      "channel": "user_guard_falsehood_above",
+      "context_rate": 0.0,
+      "mean_margin": -15.375906475519729,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard_falsehood_below",
+      "context_rate": 0.0,
+      "mean_margin": -14.231320138704978,
+      "n": 118,
+      "policy": "parametric",
+      "relation": "element_symbol"
+    },
+    {
+      "cell": "explicit_stipulation",
       "channel": "retrieved_turn",
       "context_rate": 0.0,
-      "mean_margin": -14.436958797907424,
+      "mean_margin": -14.466221469943806,
       "n": 118,
       "policy": "parametric",
       "relation": "element_symbol"
@@ -237,25 +309,25 @@
     },
     {
       "cell": "assert_r1",
-      "channel": "system_guard",
-      "context_rate": 0.08904109589041095,
-      "mean_margin": -3.315936807083757,
+      "channel": "system_guard_instruction",
+      "context_rate": 0.0958904109589041,
+      "mean_margin": -2.388743230741318,
       "n": 146,
       "policy": "neutral",
       "relation": "country_capital"
     },
     {
       "cell": "assert_r1",
-      "channel": "user_guard",
-      "context_rate": 0.0821917808219178,
-      "mean_margin": -3.1297460712798655,
+      "channel": "system_guard_falsehood",
+      "context_rate": 0.0,
+      "mean_margin": -12.183079732607489,
       "n": 146,
       "policy": "neutral",
       "relation": "country_capital"
     },
     {
       "cell": "assert_r1",
-      "channel": "user_guard_first_person",
+      "channel": "user_guard_instruction_above",
       "context_rate": 0.2945205479452055,
       "mean_margin": -0.749862357361676,
       "n": 146,
@@ -264,9 +336,27 @@
     },
     {
       "cell": "assert_r1",
+      "channel": "user_guard_falsehood_above",
+      "context_rate": 0.0,
+      "mean_margin": -17.66739435718484,
+      "n": 146,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard_falsehood_below",
+      "context_rate": 0.0,
+      "mean_margin": -17.42157121553813,
+      "n": 146,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
       "channel": "retrieved_turn",
       "context_rate": 0.0273972602739726,
-      "mean_margin": -2.6662908449564893,
+      "mean_margin": -2.6831957804013604,
       "n": 146,
       "policy": "neutral",
       "relation": "country_capital"
@@ -291,25 +381,25 @@
     },
     {
       "cell": "assert_r1",
-      "channel": "system_guard",
+      "channel": "system_guard_instruction",
       "context_rate": 0.0,
-      "mean_margin": -17.388615497171063,
+      "mean_margin": -17.00228980469377,
       "n": 146,
       "policy": "parametric",
       "relation": "country_capital"
     },
     {
       "cell": "assert_r1",
-      "channel": "user_guard",
+      "channel": "system_guard_falsehood",
       "context_rate": 0.0,
-      "mean_margin": -16.742913964676532,
+      "mean_margin": -17.494232066690106,
       "n": 146,
       "policy": "parametric",
       "relation": "country_capital"
     },
     {
       "cell": "assert_r1",
-      "channel": "user_guard_first_person",
+      "channel": "user_guard_instruction_above",
       "context_rate": 0.0,
       "mean_margin": -17.206816738598967,
       "n": 146,
@@ -318,9 +408,27 @@
     },
     {
       "cell": "assert_r1",
+      "channel": "user_guard_falsehood_above",
+      "context_rate": 0.0,
+      "mean_margin": -18.901860550658345,
+      "n": 146,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
+      "channel": "user_guard_falsehood_below",
+      "context_rate": 0.0,
+      "mean_margin": -17.35678769464362,
+      "n": 146,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "assert_r1",
       "channel": "retrieved_turn",
       "context_rate": 0.0,
-      "mean_margin": -15.761685044798133,
+      "mean_margin": -15.735395601350968,
       "n": 146,
       "policy": "parametric",
       "relation": "country_capital"
@@ -345,25 +453,25 @@
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "system_guard",
+      "channel": "system_guard_instruction",
       "context_rate": 1.0,
-      "mean_margin": 9.06608426080991,
+      "mean_margin": 8.821010341383007,
       "n": 146,
       "policy": "neutral",
       "relation": "country_capital"
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "user_guard",
-      "context_rate": 1.0,
-      "mean_margin": 5.874985342156397,
+      "channel": "system_guard_falsehood",
+      "context_rate": 0.2602739726027397,
+      "mean_margin": -1.5483387594353664,
       "n": 146,
       "policy": "neutral",
       "relation": "country_capital"
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "user_guard_first_person",
+      "channel": "user_guard_instruction_above",
       "context_rate": 1.0,
       "mean_margin": 8.779921897470135,
       "n": 146,
@@ -372,9 +480,27 @@
     },
     {
       "cell": "explicit_stipulation",
+      "channel": "user_guard_falsehood_above",
+      "context_rate": 0.0,
+      "mean_margin": -12.7117596325809,
+      "n": 146,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard_falsehood_below",
+      "context_rate": 0.0,
+      "mean_margin": -17.3901272081349,
+      "n": 146,
+      "policy": "neutral",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
       "channel": "retrieved_turn",
       "context_rate": 0.6164383561643836,
-      "mean_margin": 0.31804933939894586,
+      "mean_margin": 0.3053796977212984,
       "n": 146,
       "policy": "neutral",
       "relation": "country_capital"
@@ -399,25 +525,25 @@
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "system_guard",
+      "channel": "system_guard_instruction",
       "context_rate": 0.0,
-      "mean_margin": -18.154787181174918,
+      "mean_margin": -17.88678105236733,
       "n": 146,
       "policy": "parametric",
       "relation": "country_capital"
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "user_guard",
+      "channel": "system_guard_falsehood",
       "context_rate": 0.0,
-      "mean_margin": -16.90548726957138,
+      "mean_margin": -18.15602976655307,
       "n": 146,
       "policy": "parametric",
       "relation": "country_capital"
     },
     {
       "cell": "explicit_stipulation",
-      "channel": "user_guard_first_person",
+      "channel": "user_guard_instruction_above",
       "context_rate": 0.0,
       "mean_margin": -17.36084769523307,
       "n": 146,
@@ -426,9 +552,27 @@
     },
     {
       "cell": "explicit_stipulation",
+      "channel": "user_guard_falsehood_above",
+      "context_rate": 0.0,
+      "mean_margin": -18.733715913067126,
+      "n": 146,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
+      "channel": "user_guard_falsehood_below",
+      "context_rate": 0.0,
+      "mean_margin": -18.42327917438664,
+      "n": 146,
+      "policy": "parametric",
+      "relation": "country_capital"
+    },
+    {
+      "cell": "explicit_stipulation",
       "channel": "retrieved_turn",
       "context_rate": 0.0,
-      "mean_margin": -16.205614312054358,
+      "mean_margin": -16.228240039250622,
       "n": 146,
       "policy": "parametric",
       "relation": "country_capital"
@@ -451,7 +595,7 @@
       "tokenizer_eos_token_id": 248046
     },
     "code_version": "1.0.0",
-    "config_sha256": "14632e7cb3a764f4e633729b2d6dcd06750c62a85029c8f4db45deacb6b58b5c",
+    "config_sha256": "94f61635a6e66cc15e56a7c63fb6e13965700cb3129bc962013cb646d09d8d79",
     "datasets": {},
     "hardware": {
       "cuda_available": true,

@@ -247,11 +247,11 @@ python E10_answer_plausibility.py --config config_qwen36.yaml \
 # 1.0.0 run and is still what WRITEUP.md quotes.
 
 python E11_source_channel.py --config config.yaml \
-  --out $G/analysis/channel_v2 --validate-only
+  --out $G/analysis/channel --validate-only
 python E11_source_channel.py --config config.yaml \
-  --out $G/analysis/channel_v2
+  --out $G/analysis/channel
 python E11_source_channel.py --config config_qwen36.yaml \
-  --out $Q/analysis/channel_v2
+  --out $Q/analysis/channel
 
 # Expect, from the 1.0.0 run, the cells that carried over unchanged
 #   (Gemma, assert_r1, neutral, elements): inline 0.0% -> delimited 100.0%,
