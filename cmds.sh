@@ -359,7 +359,7 @@ PY
 # output:
 #   E8   inline mean margin  -27.11  (n=118)
 #   E11  inline mean margin  -27.00  (n=118)
-#   E12  inline mean margin  -27.08  (n=118)
+#   E12  inline mean margin  -27.10  (n=118)
 #   spread across three runs: 0.10 logits
 
 

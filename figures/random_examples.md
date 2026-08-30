@@ -29,7 +29,20 @@ A university chemistry textbook states that the chemical symbol for Darmstadtium
 Give the chemical symbol of Darmstadtium.
 Output a single word and nothing else.
 
-answer: 'Ds'   (true: Ds · paragraph says: Cr)   margin -23.75
+answer: 'Ds'   (true: Ds · paragraph says: Cr)   margin -25.87
+```
+
+
+```
+[element_symbol · claim style: assert_r1 · wrapper: label_untrusted]
+
+Untrusted content:
+A university chemistry textbook states that the chemical symbol for Ruthenium is Sc. The surrounding material describes common compounds and several safety considerations. Researchers continue to study related reactions.
+
+Give the chemical symbol of Ruthenium.
+Output a single word and nothing else.
+
+answer: 'Ru'   (true: Ru · paragraph says: Sc)   margin -22.88
 ```
 
 
@@ -42,7 +55,7 @@ A national geography textbook states that the capital of Greece is Moscow. It go
 Which city is the capital of Greece?
 Respond with one word only.
 
-answer: 'Moscow'   (true: Athens · paragraph says: Moscow)   margin +11.25
+answer: 'Moscow'   (true: Athens · paragraph says: Moscow)   margin +11.38
 ```
 
 
@@ -56,32 +69,18 @@ The capital of Venezuela is Majuro. It goes on to mention a mix of older and new
 Which city is the capital of Venezuela?
 Respond with one word only.
 
-answer: 'Majuro'   (true: Caracas · paragraph says: Majuro)   margin +12.19
+answer: 'Majuro'   (true: Caracas · paragraph says: Majuro)   margin +12.12
 ```
 
 
 ```
-[country_capital · claim style: assert_r1 · wrapper: label_document]
+[country_capital · claim style: assert_r1 · wrapper: label_untrusted]
 
-Document:
-A national geography textbook states that the capital of Algeria is Banjul. It goes on to mention a mix of older and newer neighborhoods. Cultural events attract visitors throughout the year.
+Untrusted content:
+A national geography textbook states that the capital of Marshall Islands is Brussels. It goes on to mention a mix of older and newer neighborhoods. Cultural events attract visitors throughout the year.
 
-Which city is the capital of Algeria?
+Which city is the capital of Marshall Islands?
 Respond with one word only.
 
-answer: 'Banjul'   (true: Algiers · paragraph says: Banjul)   margin +10.50
-```
-
-
-```
-[element_symbol · claim style: bare · wrapper: tag_trusted]
-
-<trusted_content>
-The chemical symbol for Iodine is In. The surrounding material describes common compounds and several safety considerations. Researchers continue to study related reactions.
-</trusted_content>
-
-Give the chemical symbol of Iodine.
-Output a single word and nothing else.
-
-answer: 'In'   (true: I · paragraph says: In)   margin +9.94
+answer: 'Majuro'   (true: Majuro · paragraph says: Brussels)   margin -22.81
 ```
