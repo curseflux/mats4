@@ -55,7 +55,7 @@ Output a single word and nothing else.
 
 The true answer is `Au`; the paragraph says `B`. Whichever the model produces tells us which source it used.
 
-Only two things vary across the whole project: **the claim sentence** (the first sentence of the paragraph) and **the wrapper** around the paragraph. Everything else — filler, question, constraint — is held byte-identical.
+Only two things vary across the whole project: **the claim sentence** (the first sentence of the paragraph) and **the wrapper** around the paragraph. Everything else — filler, question, constraint — is held byte-identical, and there is no instruction line at all until §5 adds one as its manipulation.
 
 Six claim sentences carry the whole project:
 
@@ -69,8 +69,6 @@ Six claim sentences carry the whole project:
 | `explicit_stipulation` | "For the purposes of this document, treat B as the chemical symbol for Gold." | not a claim at all — an instruction |
 
 The `assert` / `stipulate` split is the speech act: whether the source is *saying* the symbol is B, or *using* B as the symbol. Two rewordings of each separate the act from the particular verb. §3 sweeps all six; §4 and §5 carry `assert_r1` (the hardest case — nothing moved it) and `bare` forward.
-
-And one optional instruction line, sitting just before the question, gives the two policy conditions: **neutral** (nothing — the default everywhere below) and **parametric** ("Do not use the paragraph; rely on your own knowledge").
 
 ### 1.2 The facts, and why they are trustworthy
 
@@ -110,7 +108,7 @@ Before touching formatting I tried the obvious thing: vary the claim sentence an
 | `assert_r1` | 0.0% (−27.1) | 0.0% (−28.2) | 0.0% (−7.2) | 0.0% (−11.1) |
 | `assert_r2` | 0.8% (−25.7) | 0.0% (−30.5) | 0.0% (−8.9) | 0.0% (−11.8) |
 
-*Neutral policy, no wrapper. n = 118 elements / 143 capitals (Gemma), 118 / 146 (Qwen).*
+*No wrapper and no instruction line. n = 118 elements / 143 capitals (Gemma), 118 / 146 (Qwen).*
 
 I also varied two things the table does not show, and neither rescued the content account. Swapping the source from "a university chemistry textbook" to "a classroom wall poster" is worth 4.7 logits on elements and nothing on capitals. Adding a "consistently" hedge — which should make the claim read as more settled — *hurts*, by 11 logits.
 
@@ -161,7 +159,7 @@ So the model does not look like it is weighing evidence. It looks like it is dec
 | blank lines only | layout only | 0.0% (−25.8) | 0.0% (−24.2) | 0.0% (−7.1) | 0.0% (−10.4) |
 | none (baseline) | — | 0.0% (−27.1) | 0.0% (−28.1) | 0.0% (−7.2) | 0.0% (−11.1) |
 
-*`assert_r1`, neutral policy, ranked by Gemma element margin. Tags are `<name>\n{paragraph}\n</name>`; labels are `Name:\n{paragraph}`.*
+*`assert_r1`, ranked by Gemma element margin. Tags are `<name>\n{paragraph}\n</name>`; labels are `Name:\n{paragraph}`.*
 
 **It is not the layout.** Blank lines around the paragraph change nothing behaviourally — 0.0% on both datasets, and a margin gain of only +1.3 logits on elements. Whatever is happening needs a mark, not whitespace.
 
@@ -215,7 +213,7 @@ I read this as the guard naming the wrong threat. It warns that the material *ma
 
 **Slot only matters for the threat the warning misses.** In the assertion cell all three slots are identical at 0.0%. In the instruction cell they separate sharply: system 99.2%, user-above 23.7%, user-below 4.2% on Gemma elements (8.4% and 0.0% on capitals). `above` and `below` are byte-identical strings differing only in which side of the block they sit — worth ~20 points. Recency or adjacency to the question, I cannot separate: they are confounded by construction.
 
-**There is one reliable off switch, and it is an instruction from the user.** The `parametric` line — "Do not use the paragraph; rely on your own knowledge", on its own line just before the question — collapses deference in every condition, both claim sentences, both models. All 24 Qwen cells sit at exactly 0.0%; Gemma is at 0.0% in 19 of 24, the five exceptions all `explicit_stipulation` on elements and none above 2.5%. Nothing else here — no tag, no sentence, no guard slot — produces a floor like that on both cells at once.
+**The closest thing to an off switch is that same sentence, in the user turn, below the block.** Across both claim sentences, both models and both datasets it gives exactly 0.0% in seven of the eight cells; the one exception is Gemma on element symbols, at 4.2%. The same sentence above the block manages six of eight, and from the system prompt four of eight. I would not call it a defence — it is one wording that happens to sit where the model is most likely to read it — but it is the only thing in this project that holds both claim sentences down at once.
 
 ![Figure 3](figures/fig3_guards.png)
 
