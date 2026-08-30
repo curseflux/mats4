@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 """Build a behavior-grounded context-memory conflict dataset.
 
-Research question
------------------
-When a language model follows a false contextual claim because an instruction
-asks it to use the paragraph, does it still internally represent that the claim
-conflicts with its parametric knowledge?
-
 The generator deliberately does *not* decide whether a model knows a fact.  It
 produces two stages of data:
 
@@ -16,51 +10,6 @@ produces two stages of data:
 2. ``experiment.jsonl`` crosses claim truth, claim relevance, and answer-source
    policy.  Behavioral evaluation later records whether the model chooses the
    contextual or parametric answer.
-
-Important design choices
-------------------------
-* False answers are derangements of the true-answer list.  Therefore every
-  answer string appears equally often as a true and false answer, preventing a
-  probe from learning a separate "wrong answer" vocabulary.
-* Distractor facts are also assigned by derangement, so every fact is used
-  equally often as an irrelevant context.
-* Counterbalancing happens inside each fact split and CV fold.  Held-out facts
-  therefore cannot leak into training as distractors or false-answer sources.
-* Neutral, context-grounded, and parametric-grounded prompts are exact content
-  pairs.  Only the answer-source instruction changes.
-* Three prompt bundles vary claim syntax, filler, question wording, policy
-  wording, and the final one-word response constraint.  One bundle is marked
-  as held out for paraphrase generalization.
-* Character spans and semantic endpoints are written during prompt assembly.
-  Downstream code must never reconstruct them with fragile string searches.
-* Facts with disputed, changing, multiple, or multi-word canonical answers are
-  mostly excluded.  Model-specific knowledge is still an empirical property
-  and must be established from the screening records.
-
-Outputs
--------
-``facts.jsonl``
-    One record per candidate fact, including deterministic fact split,
-    cross-validation fold, aliases, counterbalanced false answers, and
-    distractor assignments.
-``screening.jsonl``
-    Context-free prompts for model-specific parametric-knowledge screening.
-``experiment.jsonl``
-    Fully crossed experimental prompts and explicit span metadata.
-``manifest.json``
-    Schema, templates, labels, configuration, counts, and file hashes.
-``DATASET_CARD.md``
-    Short human-readable usage and leakage-prevention notes.
-
-Example
--------
-python build_conflict_awareness_dataset.py \
-    --output-dir conflict_awareness_dataset_v1 \
-    --seed 20260816 \
-    --counterbalance-rounds 1
-
-The script uses only the Python standard library and validates every generated
-record before writing it.
 """
 
 from __future__ import annotations

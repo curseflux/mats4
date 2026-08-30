@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 """Collect Gemma 4 behavior, candidate likelihoods, and residual activations.
-
-Only complete factorial groups whose query and paragraph facts passed the
-context-free knowledge screen are retained.  Behavior is checkpointed as
-JSONL; activations are stored in resumable PyTorch shards without raw prompts.
 """
 
 from __future__ import annotations

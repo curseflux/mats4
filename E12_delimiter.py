@@ -1,72 +1,5 @@
 #!/usr/bin/env python3
 """E12: what exactly is the <document> wrapper doing?
-
-E11's result
-------------
-Wrapping an otherwise identical paragraph in <document> tags takes Gemma from
-0.0% to 100.0% context-following on a plain false assertion -- `assert_r1`,
-neutral policy, both relations -- a swing of about 41 logits:
-
-    element_symbol   inline -27.00  ->  delimited +13.86
-    country_capital  inline -28.08  ->  delimited +12.65
-
-That is larger than the paraphrase swing (30.9) and larger than the explicit
-instruction "use the paragraph" (28.5), from a manipulation that changes no
-words at all.  A system prompt saying the tags contain data and not
-instructions changes nothing (100.0%).
-
-Before that can be reported, three cheaper explanations have to go
---------------------------------------------------------------------
-1. LAYOUT.  `delimited` also adds two newlines around the paragraph. Maybe any
-   visual separation of source material from question does this, and the tags
-   are irrelevant.
-2. SYNTAX vs WORD.  Maybe it is angle-bracket markup of any kind, or maybe it
-   is specifically the word "document" and its connotation of a citable source.
-3. VALENCE.  If the model is reading the wrapper as "this is a source", does a
-   wrapper that says the opposite reverse it?  `<untrusted_content>` is the
-   test that matters for anyone building a RAG system: the tag whose whole
-   purpose is to mark text as not-to-be-trusted.
-
-The wrappers
-------------
-    inline            no wrapper at all (reproduces E11's baseline)
-    blankline         extra blank lines, no markup      -> tests LAYOUT
-    dashes            --- fences                        -> tests LAYOUT + fence
-    quotes            triple-quote fences               -> tests LAYOUT + fence
-    tag_document      <document>                        -> E11's condition
-    tag_passage       <passage>                         -> tests the WORD
-    tag_empty         <>                                -> tests the SYNTAX
-    tag_untrusted     <untrusted_content>               -> tests VALENCE
-    tag_unreliable    <unreliable_source>               -> tests VALENCE
-    tag_trusted       <trusted_content>                 -> tests VALENCE
-    tag_nonsense      <qzx_block>                       -> tests the SYNTAX + no meaning
-    label_document    "Document:" on its own line       -> markup-free label
-    label_search      "Search result:" on its own line  -> the RAG framing
-    label_untrusted   "Untrusted content:" on its own line
-                                                        -> markup-free label,
-                                                           negative valence.
-                                                           The mirror of
-                                                           label_document, and
-                                                           the control that
-                                                           decides whether the
-                                                           delimiter SLOT is
-                                                           doing the work or a
-                                                           short label above the
-                                                           block is enough.
-
-Cells: `assert_r1` (a sourced false assertion, the cell that swung) and `bare`
-(the same falsehood with no source at all).  If `bare` swings too, the wrapper
-is not conferring source authority -- it is changing what task the model thinks
-it is doing.  Neutral policy only: under `parametric` every channel in E11 sat
-at 0.0%, so there is nothing there to move.
-
-Usage
------
-python E12_delimiter.py --config config.yaml \\
-    --out results/gemma4_12b_conflict/analysis/delimiter --validate-only
-
-python E12_delimiter.py --config config.yaml \\
-    --out results/gemma4_12b_conflict/analysis/delimiter
 """
 
 from __future__ import annotations
@@ -107,7 +40,7 @@ from E8_conventionality import (
     build_facts,
 )
 
-ANALYSIS_VERSION = "1.0.0"
+ANALYSIS_VERSION = "1.1.0"
 
 CELLS = ("assert_r1", "bare")
 
@@ -125,16 +58,11 @@ WRAPPERS: dict[str, str] = {
     "tag_unreliable": "<unreliable_source>\n{p}\n</unreliable_source>",
     "tag_trusted": "<trusted_content>\n{p}\n</trusted_content>",
     "tag_nonsense": "<qzx_block>\n{p}\n</qzx_block>",
+    "tag_gibberish": "<qzxzxew>\n{p}\n</qzxzxew>",
+    "label_nonsense": "Qzx_block:\n{p}",
+    "label_gibberish": "Qzxzxew:\n{p}",
     "label_document": "Document:\n{p}",
     "label_search": "Search result:\n{p}",
-    # The negative mirror of `label_document`, and the control that decides
-    # whether "the delimiter slot" is a slot at all. `label_document` (+38.5)
-    # reaches within three logits of `tag_document` (+41.0), so markup is worth
-    # almost nothing for the POSITIVE word. Nobody ran the same test on the
-    # negative one. If a bare label suppresses deference as hard as
-    # `tag_untrusted` does, then the effect is not about occupying a delimiter
-    # slot -- it is about a short label sitting immediately above the block, and
-    # the write-up's framing has to change.
     "label_untrusted": "Untrusted content:\n{p}",
 }
 # What each wrapper is there to rule out, carried into the report so the table
@@ -151,6 +79,9 @@ WRAPPER_ROLE = {
     "tag_unreliable": "opposite valence, different words",
     "tag_trusted": "same syntax, positive valence",
     "tag_nonsense": "same syntax, no meaning at all",
+    "tag_gibberish": "no meaning at all",
+    "label_nonsense": "nonsense label",
+    "label_gibberish": "gibberish label",
     "label_document": "same word, no markup",
     "label_search": "the RAG framing",
     "label_untrusted": "opposite valence, no markup",

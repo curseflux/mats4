@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
-"""Shared utilities for the context-memory conflict experiments.
-
-The central invariant is that generation, candidate scoring, and activation
-collection all condition on the *same* canonical chat-templated prefix, taken
-from the checkpoint's own chat template.  We never hand-write control tokens.
+"""Shared utilities for the conflict experiments.
 
 Two model families are supported, selected by ``model.family``:
 
     gemma4   google/gemma-4-*  -- multimodal, AutoProcessor + AutoModelForMultimodalLM
     qwen3    Qwen/Qwen3.x-*    -- text-only,  AutoTokenizer  + AutoModelForCausalLM
-
-Both expose ``apply_chat_template`` with an ``enable_thinking`` switch, so the
-prompt-construction and scoring paths are shared; only loading differs.
 """
 
 from __future__ import annotations

@@ -1,16 +1,10 @@
 # Qwen 3.6 27B replication of the Gemma 4 conflict experiments.
-#
-# Everything that defines the experiment -- dataset, prompts, screening rule,
-# scoring, greedy decoding -- is identical to config.yaml. Only the model and
-# its loading path differ, so a difference in results is a difference between
-# models rather than between protocols.
 
 project:
   seed: 20260816
 
 paths:
-  # The SAME generated dataset as the Gemma run. Do not regenerate it: reusing
-  # the identical prompts is what makes the two models comparable.
+  # The SAME generated dataset as the Gemma run. Do not regenerate it.
   dataset_dir: conflict_awareness_dataset
   output_dir: results/qwen36_27b_conflict
   hf_cache_dir: /scratch/bbjr/skarmakar/huggingface
@@ -28,9 +22,6 @@ model:
   expected_model_class: Qwen3_5ForCausalLM
 
 chat:
-  # Qwen 3.x thinks by default; enable_thinking=false is what suppresses the
-  # <think> span. This must match the Gemma run for the margins to mean the
-  # same thing, because the margin is read at the first answer token.
   enable_thinking: false
   add_generation_prompt: true
   max_input_tokens: 2048
@@ -41,9 +32,6 @@ generation:
   use_cache: true
 
 screening:
-  # Qwen must be screened independently. Facts Gemma knows are not necessarily
-  # facts Qwen knows, and the whole design depends on the model reliably
-  # preferring the true answer with no context present.
   batch_size: 4
   scoring_batch_size: 8
   results_file: screening_results.jsonl
@@ -60,7 +48,7 @@ collection:
   run_metadata_file: 02_collect_run.json
   require_complete_factorial_groups: true
 
-  # Behavioural only, exactly as for Gemma -- see the note in config.yaml.
+  # Behavioural only
   activations:
     enabled: false
     directory: activations_qwen

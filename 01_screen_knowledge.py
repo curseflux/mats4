@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 """Establish which candidate facts Gemma 4 demonstrably knows.
-
-A fact is eligible only when every required context-free paraphrase produces an
-acceptable answer and the best acceptable true-answer sequence has greater
-summed log-probability than every false answer assigned to that fact.
 """
 
 from __future__ import annotations
