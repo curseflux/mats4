@@ -10,8 +10,8 @@ the summary JSONs, for the same reason.
 
 Figures
 -------
-fig1_wrapper_ladder   twelve wrappers around one unchanged paragraph.
-fig2_warning_channel  four ways of saying "do not trust this block".
+fig1_wrapper_ladder   thirteen wrappers around one unchanged paragraph.
+fig2_warning_channel  five ways of warning the model off, one baseline.
 fig3_cross_model      the same ladder in Gemma 4 and Qwen 3.6.
 fig4_speech_act       the stipulability account, and its falsification.
 
@@ -197,6 +197,7 @@ WRAPPER_LABEL = {
     "tag_nonsense": "<qzx_block>",
     "tag_empty": "<>  (no name)",
     "label_document": "Document:",
+    "label_untrusted": "Untrusted content:",
     "label_search": "Search result:",
     "tag_passage": "<passage>",
     "tag_document": "<document>",
@@ -205,6 +206,7 @@ WRAPPER_LABEL = {
 LADDER_ORDER = [
     "blankline",
     "tag_untrusted",
+    "label_untrusted",
     "quotes",
     "dashes",
     "tag_unreliable",
@@ -318,8 +320,9 @@ def figure_wrapper_ladder(results: Path, out: Path) -> None:
 
     ax.set_xlabel("shift in log P(paragraph's answer) − log P(true answer), against the unwrapped paragraph")
     ax.set_title(
-        "One paragraph, twelve wrappers, not one word changed\n"
-        "Gemma 4 12B · a sourced false sentence · no user instruction",
+        "One paragraph, thirteen wrappers, not one word changed\n"
+        "Gemma 4 12B · a sourced false sentence · no user instruction\n"
+        "0 = the same paragraph with no wrapper at all. This is the ONLY baseline on this axis.",
         fontsize=12.5,
         loc="left",
         color=INK,
@@ -338,58 +341,39 @@ def figure_wrapper_ladder(results: Path, out: Path) -> None:
 # --- figure 2: where a warning has to sit -------------------------------
 
 
-# Prose-guard rows, keyed by the channel names a run actually contains. The
-# 1.0.0 channel run carried one wording ("data, not instructions") in two
-# channels plus a first-person rewrite; 2.0.0 crosses two wordings by two
-# channels and drops the rewrite. Both shapes are plotted rather than one being
-# silently dropped, and the labels say which wording a bar is, because the two
-# wordings warn about different things and a reader cannot tell from the slot.
-GUARD_ROW_LAYOUTS = (
-    (
-        "system_guard_falsehood",
-        (
-            ("system prompt\n(“may be false”)", "system_guard_falsehood"),
-            ("user turn, above block\n(“may be false”)", "user_guard_falsehood_above"),
-            ("user turn, below block\n(“may be false”)", "user_guard_falsehood_below"),
-            ("system prompt\n(“data, not instructions”)", "system_guard_instruction"),
-            ("user turn, above block\n(“data, not instructions”)", "user_guard_instruction_above"),
-        ),
-    ),
-    (
-        "user_guard",
-        (
-            ("in the system prompt", "system_guard"),
-            ("in the user turn,\nabove the block", "user_guard"),
-            ("in the user turn,\nfirst person", "user_guard_first_person"),
-        ),
-    ),
+# Five ways of warning the model off the same paragraph, every one measured
+# against the SAME baseline: that paragraph in <document> with no warning at
+# all. Two of them replace the wrapper, three of them add a sentence of prose
+# and leave <document> in place. Putting them on one axis is the point of the
+# figure -- the 1.0.0 run compared prose against a different baseline from the
+# tag, which is what made a null look like a slot effect.
+#
+# The 1.0.0 guard wording ("data to consider, not instructions") is not plotted.
+# It warns about a threat this cell does not contain -- assert_r1 carries a
+# false assertion, not an imperative -- so its null was never evidence about
+# prose. See section 5.
+WRAPPER_SWAP_ROWS = (
+    ("replace the tag:\n<untrusted_content>", "tag_untrusted"),
+    ("replace it with a bare label:\nUntrusted content:", "label_untrusted"),
+)
+PROSE_ROWS = (
+    ("one sentence of prose,\nin the system prompt", "system_guard_falsehood"),
+    ("the same sentence,\nabove the block", "user_guard_falsehood_above"),
+    ("the same sentence,\nbelow the block", "user_guard_falsehood_below"),
 )
 
 
-def guard_rows(rows: Sequence[Mapping[str, Any]]) -> tuple[tuple[str, str], ...]:
-    """Pick the row layout matching whichever channel run this is."""
-    present = {str(r.get("channel")) for r in rows}
-    for marker, layout in GUARD_ROW_LAYOUTS:
-        if marker in present:
-            return tuple((label, ch) for label, ch in layout if ch in present)
-    return ()
-
-
 def figure_warning_channel(results: Path, out: Path) -> None:
-    labels: list[str] = []
+    labels = [label for label, _ in WRAPPER_SWAP_ROWS] + [label for label, _ in PROSE_ROWS]
     panels = []
     for model, title in (("gemma4_12b_conflict", "Gemma 4 12B"), ("qwen36_27b_conflict", "Qwen 3.6 27B")):
         base = results / model / "analysis"
         guard = live(load_jsonl(base / "channel" / "channel_results.jsonl"))
-        if not guard_rows(guard):
-            guard = live(load_jsonl(base / "channel_guard" / "channel_results.jsonl"))
-        rows_spec = guard_rows(guard)
-        if not rows_spec:
-            continue
-        if not labels:
-            labels = [label for label, _ in rows_spec] + ["as the tag name\n(<untrusted_content>)"]
         wrapper_rows = tag_runs(results, model)
         if not guard or not wrapper_rows:
+            continue
+        if not any(r.get("channel") == "system_guard_falsehood" for r in guard):
+            print(f"skip fig2 panel {model}: channel run predates the falsehood guard")
             continue
         series = []
         for relation, name, color in RELATIONS:
@@ -400,36 +384,39 @@ def figure_warning_channel(results: Path, out: Path) -> None:
                 and r["cell_id"] == "assert_r1"
                 and r["policy_id"] == "neutral"
             ]
-            # The tag-name row is paired inside whichever delimiter run scored
-            # both wrappers, never across runs.
-            tag_value = float("nan")
-            for run_tag in sorted({str(r["_run"]) for r in wrapper_rows}):
-                subset = [
-                    r
-                    for r in wrapper_rows
-                    if r["_run"] == run_tag
-                    and r["relation_id"] == relation
-                    and r["cell_id"] == "assert_r1"
-                ]
-                if {r["wrapper"] for r in subset} >= {"tag_untrusted", "tag_document"}:
-                    tag_value = paired(
-                        subset,
-                        lambda r: r["wrapper"] == "tag_untrusted",
-                        lambda r: r["wrapper"] == "tag_document",
-                    )[0]
-                    break
-            values = [
+            # Wrapper swaps are paired inside whichever delimiter run scored both
+            # wrappers, never across runs.
+            swaps = []
+            for _label, wrapper in WRAPPER_SWAP_ROWS:
+                value = float("nan")
+                for run_tag in sorted({str(r["_run"]) for r in wrapper_rows}):
+                    subset = [
+                        r
+                        for r in wrapper_rows
+                        if r["_run"] == run_tag
+                        and r["relation_id"] == relation
+                        and r["cell_id"] == "assert_r1"
+                    ]
+                    if {r["wrapper"] for r in subset} >= {wrapper, "tag_document"}:
+                        value = paired(
+                            subset,
+                            lambda r, w=wrapper: r["wrapper"] == w,
+                            lambda r: r["wrapper"] == "tag_document",
+                        )[0]
+                        break
+                swaps.append(value)
+            prose = [
                 paired(
                     g,
                     lambda r, ch=channel: r["channel"] == ch,
                     lambda r: r["channel"] == "delimited",
                 )[0]
-                for _label, channel in rows_spec
+                for _label, channel in PROSE_ROWS
             ]
-            series.append((name, color, values + [tag_value]))
+            series.append((name, color, swaps + prose))
         panels.append((title, series))
     if not panels:
-        print("skip fig2: needs a channel run with prose-guard channels")
+        print("skip fig2: needs a channel run with the falsehood guard")
         return
 
     fig, axes = plt.subplots(1, len(panels), figsize=(12.4, 4.6), sharey=True)
@@ -437,9 +424,13 @@ def figure_warning_channel(results: Path, out: Path) -> None:
     for ax, (title, series) in zip(axes, panels):
         grouped_barh(ax, labels, series, bar_h=0.33)
         span = max(abs(v) for _, _, values in series for v in values if np.isfinite(v))
-        ax.set_xlim(-span * 1.32, span * 0.55)
+        ax.set_xlim(-span * 1.32, span * 0.30)
         ax.set_ylim(len(labels) - 0.4, -0.75)
         ax.set_title(title, fontsize=12, loc="left", color=INK, pad=8)
+        # The two wrapper swaps and the three prose guards are different kinds
+        # of intervention; the rule keeps a reader from reading the five as one
+        # ordered ladder.
+        ax.axhline(len(WRAPPER_SWAP_ROWS) - 0.5, color=GRID, linewidth=1.0, zorder=1)
         offset = 0.33 / 2 + 0.012
         for index, (_, _, values) in enumerate(series):
             shift = offset if index == 0 else -offset
@@ -453,18 +444,27 @@ def figure_warning_channel(results: Path, out: Path) -> None:
                     color=INK_2,
                 )
         ax.set_xlabel("shift against the same paragraph\nin <document> with no warning")
-    # Upper-left of the first panel is empty in every model (those rows sit at
-    # or just past zero), so the legend goes inside rather than stealing height.
-    axes[0].legend(frameon=False, loc="upper left", fontsize=9.5, bbox_to_anchor=(0.01, 1.0))
+    # Every bar in this figure is negative and long, so there is no empty corner
+    # inside the axes; the legend sits under the title instead of over a row.
+    handles, legend_labels = axes[0].get_legend_handles_labels()
+    fig.legend(
+        handles,
+        legend_labels,
+        frameon=False,
+        loc="upper left",
+        bbox_to_anchor=(0.006, 0.885),
+        ncol=2,
+        fontsize=9.5,
+    )
     fig.suptitle(
-        "Four ways to say “do not trust this block”. Only the tag name works, in either model.\n"
+        "Five ways to warn the model off. All five work, and the prose works best.\n"
         "Note the two panels use different scales; Qwen's whole effect is about a fifth of Gemma's.",
         fontsize=12.5,
         x=0.006,
         ha="left",
         color=INK,
     )
-    fig.tight_layout(rect=(0, 0, 1, 0.89))
+    fig.tight_layout(rect=(0, 0, 1, 0.83))
     fig.savefig(out / "fig2_warning_channel.png", dpi=200)
     plt.close(fig)
     print(f"wrote {out / 'fig2_warning_channel.png'}")
