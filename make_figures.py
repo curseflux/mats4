@@ -338,19 +338,55 @@ def figure_wrapper_ladder(results: Path, out: Path) -> None:
 # --- figure 2: where a warning has to sit -------------------------------
 
 
+# Prose-guard rows, keyed by the channel names a run actually contains. The
+# 1.0.0 channel run carried one wording ("data, not instructions") in two
+# channels plus a first-person rewrite; 2.0.0 crosses two wordings by two
+# channels and drops the rewrite. Both shapes are plotted rather than one being
+# silently dropped, and the labels say which wording a bar is, because the two
+# wordings warn about different things and a reader cannot tell from the slot.
+GUARD_ROW_LAYOUTS = (
+    (
+        "system_guard_falsehood",
+        (
+            ("in the system prompt\n(“may be false”)", "system_guard_falsehood"),
+            ("in the user turn\n(“may be false”)", "user_guard_falsehood"),
+            ("in the system prompt\n(“data, not instructions”)", "system_guard_instruction"),
+            ("in the user turn\n(“data, not instructions”)", "user_guard_instruction"),
+        ),
+    ),
+    (
+        "user_guard",
+        (
+            ("in the system prompt", "system_guard"),
+            ("in the user turn,\nabove the block", "user_guard"),
+            ("in the user turn,\nfirst person", "user_guard_first_person"),
+        ),
+    ),
+)
+
+
+def guard_rows(rows: Sequence[Mapping[str, Any]]) -> tuple[tuple[str, str], ...]:
+    """Pick the row layout matching whichever channel run this is."""
+    present = {str(r.get("channel")) for r in rows}
+    for marker, layout in GUARD_ROW_LAYOUTS:
+        if marker in present:
+            return tuple((label, ch) for label, ch in layout if ch in present)
+    return ()
+
+
 def figure_warning_channel(results: Path, out: Path) -> None:
-    labels = [
-        "in the system prompt",
-        "in the user turn,\nabove the block",
-        "in the user turn,\nfirst person",
-        "as the tag name\n(<untrusted_content>)",
-    ]
+    labels: list[str] = []
     panels = []
     for model, title in (("gemma4_12b_conflict", "Gemma 4 12B"), ("qwen36_27b_conflict", "Qwen 3.6 27B")):
         base = results / model / "analysis"
         guard = live(load_jsonl(base / "channel" / "channel_results.jsonl"))
-        if not any(r.get("channel") == "user_guard" for r in guard):
+        if not guard_rows(guard):
             guard = live(load_jsonl(base / "channel_guard" / "channel_results.jsonl"))
+        rows_spec = guard_rows(guard)
+        if not rows_spec:
+            continue
+        if not labels:
+            labels = [label for label, _ in rows_spec] + ["as the tag name\n(<untrusted_content>)"]
         wrapper_rows = tag_runs(results, model)
         if not guard or not wrapper_rows:
             continue
@@ -381,21 +417,18 @@ def figure_warning_channel(results: Path, out: Path) -> None:
                         lambda r: r["wrapper"] == "tag_document",
                     )[0]
                     break
-            series.append(
-                (
-                    name,
-                    color,
-                    [
-                        paired(g, lambda r: r["channel"] == "system_guard", lambda r: r["channel"] == "delimited")[0],
-                        paired(g, lambda r: r["channel"] == "user_guard", lambda r: r["channel"] == "delimited")[0],
-                        paired(g, lambda r: r["channel"] == "user_guard_first_person", lambda r: r["channel"] == "delimited")[0],
-                        tag_value,
-                    ],
-                )
-            )
+            values = [
+                paired(
+                    g,
+                    lambda r, ch=channel: r["channel"] == ch,
+                    lambda r: r["channel"] == "delimited",
+                )[0]
+                for _label, channel in rows_spec
+            ]
+            series.append((name, color, values + [tag_value]))
         panels.append((title, series))
     if not panels:
-        print("skip fig2: needs a channel run with user_guard")
+        print("skip fig2: needs a channel run with prose-guard channels")
         return
 
     fig, axes = plt.subplots(1, len(panels), figsize=(12.4, 4.6), sharey=True)
