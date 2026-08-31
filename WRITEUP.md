@@ -174,7 +174,11 @@ So the model does not look like it is weighing evidence. It looks like it is dec
 
 ![Figure 2](figures/fig2_ladder.png)
 
-*Figure 2 — all 17 wrappers, ranked by Gemma. Colour is what the wrapper is, not how well it does. Note the two panels' x-scales differ by roughly 5x.*
+*Figure 2 — all 17 wrappers on element symbols, ranked by Gemma. Colour is what the wrapper is, not how well it does. Note the two panels' x-scales differ by roughly 5x.*
+
+![Figure 2b](figures/fig2b_ladder_capitals.png)
+
+*Figure 2b — the same ladder on capitals, in the same row order. The top and bottom of the ladder hold; the middle does not — `<>` and the `"""` fence are far stronger here (63% and 54%) than on elements (25% and 6%), which is the non-monotonicity noted in §7.1.*
 
 ---
 

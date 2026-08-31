@@ -158,16 +158,20 @@ def figure_headline(data: Mapping[str, Any], out: Path) -> None:
 
 # --- figure 2: the wrapper ladder ----------------------------------------
 
-def figure_ladder(data: Mapping[str, Any], out: Path) -> None:
-    """17 wrappers ranked by margin, coloured by what the wrapper is.
+def figure_ladder(data: Mapping[str, Any], out: Path, relation: str,
+                  relation_label: str, name: str) -> None:
+    """17 wrappers for one dataset, both models, coloured by what the wrapper is.
 
     Margin rather than rate on the x-axis, because Gemma saturates at 0% and
     100% across most of this range and the rate stops resolving anything.
+
+    Row order is always the Gemma element-symbol ranking, whichever dataset is
+    being drawn, so the two ladder figures line up row for row.
     """
     order = data["ladder_order"]
     fig, axes = plt.subplots(1, 2, figsize=(10.6, 6.2), sharey=True)
     for ax, (model, model_label) in zip(axes, MODELS):
-        cells = data["ladder"][model]
+        cells = data["ladder"][(model, relation)]
         baseline = cells["inline"][0]
         for y, wrapper in enumerate(order):
             margin, rate = cells[wrapper]
@@ -195,17 +199,18 @@ def figure_ladder(data: Mapping[str, Any], out: Path) -> None:
     fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False,
                fontsize=8, bbox_to_anchor=(0.5, -0.035), labelcolor=INK_2)
     fig.suptitle(
-        "The wrapper ladder",
+        f"The wrapper ladder \u2014 {relation_label}",
         fontsize=11.5, color=INK, x=0.008, ha="left", y=1.012,
     )
     fig.text(
         0.008, 0.963,
-        "Attributed false claim, element symbols, ranked by Gemma. Bars run from "
-        "each model's own no-wrapper baseline. % is the paragraph rate. The x-scales differ for the two models.",
+        f"Attributed false claim, {relation_label}, in the element-symbol order so "
+        "the two ladder figures line up. Bars run from each model's own no-wrapper "
+        "baseline. % is the paragraph rate. The x-scales differ for the two models.",
         fontsize=8, color=INK_2, ha="left",
     )
     fig.tight_layout(rect=(0, 0.02, 1, 0.95))
-    save(fig, out, "fig2_ladder")
+    save(fig, out, name)
 
 
 # --- figure 3: where the warning goes ------------------------------------
@@ -307,12 +312,15 @@ def load(results: Path) -> dict[str, Any]:
 
     ladder = {}
     for model, _ in MODELS:
-        ladder[model] = {
-            wrapper: (float(delimiter[model][("element_symbol", wrapper, "assert_r1")]["mean_margin"]),
-                      float(delimiter[model][("element_symbol", wrapper, "assert_r1")]["context_rate"]))
-            for wrapper in ROLE
-        }
-    ladder_order = sorted(ROLE, key=lambda w: -ladder["gemma"][w][0])
+        for relation, _ in RELATIONS:
+            ladder[(model, relation)] = {
+                wrapper: (float(delimiter[model][(relation, wrapper, "assert_r1")]["mean_margin"]),
+                          float(delimiter[model][(relation, wrapper, "assert_r1")]["context_rate"]))
+                for wrapper in ROLE
+            }
+    # One order for every ladder figure, taken from Gemma on element symbols, so
+    # the panels can be read against each other row by row.
+    ladder_order = sorted(ROLE, key=lambda w: -ladder[("gemma", "element_symbol")][w][0])
 
     # No longer plotted -- the rank agreement reads better as a sentence than as
     # a scatter -- but still computed, and printed, so the number in the text has
@@ -477,7 +485,9 @@ def main() -> None:
     data = load(args.results)
     print("figures:")
     figure_headline(data, args.out)
-    figure_ladder(data, args.out)
+    figure_ladder(data, args.out, "element_symbol", "element symbols", "fig2_ladder")
+    figure_ladder(data, args.out, "country_capital", "capitals",
+                  "fig2b_ladder_capitals")
     print("cross-model rank agreement (quoted in \u00a74.1, not plotted):")
     for (relation, cell), value in sorted(data["rho"].items()):
         print(f"  {relation:16s} {cell:10s} Spearman rho = {value:.2f}")
