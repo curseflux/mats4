@@ -144,12 +144,12 @@ def figure_headline(data: Mapping[str, Any], out: Path) -> None:
         Line2D([], [], color=BLUE_RAMP[2], lw=6, label="paragraph in a wrapper"),
         Line2D([], [], color=ORANGE, lw=6, label="explicit instruction, no wrapper"),
     ]
-    fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False,
-               fontsize=8, bbox_to_anchor=(0.5, -0.045), labelcolor=INK_2)
-    fig.suptitle("Two tags do the work of an explicit instruction",
+    # fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False,
+    #            fontsize=8, bbox_to_anchor=(0.5, -0.045), labelcolor=INK_2)
+    fig.suptitle("Tags vs explicit instruction",
                  fontsize=11.5, color=INK, x=0.008, ha="left", y=1.005)
     fig.text(0.008, 0.955,
-             "The same false claim throughout; only what surrounds it changes. "
+             "The same false claim throughout. Only what surrounds it changes. "
              "Labels are the paragraph rate and the margin in logits.",
              fontsize=8, color=INK_2, ha="left")
     fig.tight_layout(rect=(0, 0.02, 1, 0.945))
@@ -179,10 +179,10 @@ def figure_ladder(data: Mapping[str, Any], out: Path) -> None:
                     va="center", ha="left" if margin >= baseline else "right",
                     fontsize=7, color=INK_2, zorder=4)
         ax.axvline(baseline, color=INK_3, lw=1.0, zorder=2, ymax=0.96)
-        ax.annotate("no wrapper", xy=(baseline, -0.8), xytext=(12, 0),
-                    textcoords="offset points", fontsize=7.5, color=INK_2,
-                    ha="left", va="center",
-                    arrowprops=dict(arrowstyle="-", color=INK_3, lw=0.8))
+        # ax.annotate("no wrapper", xy=(baseline, -0.8), xytext=(12, 0),
+        #             textcoords="offset points", fontsize=7.5, color=INK_2,
+        #             ha="left", va="center",
+        #             arrowprops=dict(arrowstyle="-", color=INK_3, lw=0.8))
         ax.set_yticks(range(len(order)))
         ax.set_yticklabels([PRETTY[w] for w in order], fontsize=8)
         ax.invert_yaxis()
@@ -195,14 +195,13 @@ def figure_ladder(data: Mapping[str, Any], out: Path) -> None:
     fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False,
                fontsize=8, bbox_to_anchor=(0.5, -0.035), labelcolor=INK_2)
     fig.suptitle(
-        "The wrapper does not have to mean anything, but it does have to be a mark",
+        "The wrapper ladder",
         fontsize=11.5, color=INK, x=0.008, ha="left", y=1.012,
     )
     fig.text(
         0.008, 0.963,
         "Attributed false claim, element symbols, ranked by Gemma. Bars run from "
-        "each model's own no-wrapper baseline; % is the paragraph rate. The two "
-        "panels' x-scales differ.",
+        "each model's own no-wrapper baseline. % is the paragraph rate. The x-scales differ for the two models.",
         fontsize=8, color=INK_2, ha="left",
     )
     fig.tight_layout(rect=(0, 0.02, 1, 0.95))
@@ -250,11 +249,10 @@ def figure_guards(data: Mapping[str, Any], out: Path) -> None:
                for _cell, label, colour in cells]
     fig.legend(handles=handles, loc="lower center", ncol=2, frameon=False,
                fontsize=8, bbox_to_anchor=(0.5, -0.04), labelcolor=INK_2)
-    fig.suptitle("The warning has to name the threat",
+    fig.suptitle("Warning to undo a wrapped false claim.",
                  fontsize=11.5, color=INK, x=0.008, ha="left", y=1.005)
     fig.text(0.008, 0.955,
-             "Byte-identical warning text in every slot, same <document> wrapper throughout. "
-             "It neutralises a false claim from anywhere, and barely dents an instruction.",
+             "Byte-identical warning text in every slot, same <document> wrapper throughout.",
              fontsize=8, color=INK_2, ha="left")
     fig.tight_layout(rect=(0, 0.02, 1, 0.945))
     save(fig, out, "fig3_guards")
@@ -350,16 +348,19 @@ def load(results: Path) -> dict[str, Any]:
 
 # --- qualitative examples -------------------------------------------------
 
-EXAMPLE_SPECS = (
-    ("An attributed false claim, no wrapper",
-     "delimiter", lambda r: r.get("wrapper") == "inline" and r.get("cell_id") == "assert_r1"),
-    ("The same claim, wrapped in <document>",
-     "delimiter", lambda r: r.get("wrapper") == "tag_document" and r.get("cell_id") == "assert_r1"),
-    ("The same claim, wrapped in <qzx_block>",
-     "delimiter", lambda r: r.get("wrapper") == "tag_nonsense" and r.get("cell_id") == "assert_r1"),
-    ("An explicit instruction, no wrapper",
-     "conventionality", lambda r: r.get("cell_id") == "explicit_stipulation"
-     and r.get("policy_id") == "neutral"),
+# One fact per dataset, shown under four different surroundings. The claim
+# sentence, the false answer and the question are the same in all four; only
+# what wraps the paragraph changes. Each entry is (label, source file, the
+# field values that identify the variant).
+EXAMPLE_VARIANTS = (
+    ("no wrapper", "delimiter",
+     {"wrapper": "inline", "cell_id": "assert_r1"}),
+    ("wrapped in <document>", "delimiter",
+     {"wrapper": "tag_document", "cell_id": "assert_r1"}),
+    ("wrapped in <qzx_block>", "delimiter",
+     {"wrapper": "tag_nonsense", "cell_id": "assert_r1"}),
+    ("an explicit instruction instead, no wrapper", "conventionality",
+     {"cell_id": "explicit_stipulation", "policy_id": "neutral"}),
 )
 SOURCE_FILES = {
     "delimiter": ("delimiter", "delimiter_results.jsonl"),
@@ -372,45 +373,86 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
         return [json.loads(line) for line in handle if line.strip()]
 
 
-def write_examples(results: Path, out: Path, seed: int, per_spec: int) -> None:
+def matches(row: Mapping[str, Any], spec: Mapping[str, Any]) -> bool:
+    return all(row.get(key) == value for key, value in spec.items())
+
+
+def render_example(label: str, row: Mapping[str, Any]) -> str:
+    prompt = textwrap.indent(str(row["raw_prompt"]).strip(), "    ")
+    followed = ("the paragraph" if row["observed_knowledge_source"] == "contextual"
+                else "its own knowledge")
+    return (
+        f"**{label}**\n\n"
+        f"```\n{prompt}\n```\n\n"
+        f"> answered **`{row['generated_answer_stripped']}`** · "
+        f"true answer `{row['parametric_answer']}` · "
+        f"paragraph's answer `{row['context_answer']}` · "
+        f"margin {float(row['context_minus_parametric_logprob_margin']):+.1f} "
+        f"→ **followed {followed}**\n"
+    )
+
+
+def write_examples(results: Path, out: Path, seed: int, per_relation: int) -> None:
+    """One randomly chosen fact per dataset, shown under all four variants.
+
+    The fact is drawn once and then looked up in each variant, rather than
+    sampled per variant -- otherwise the four prompts would be four different
+    facts and nothing about them would be comparable.
+    """
     base = results / "gemma4_12b_conflict" / "analysis"
+    sources: dict[str, list[dict[str, Any]]] = {}
+    missing: list[str] = []
+    for name, (folder, filename) in SOURCE_FILES.items():
+        path = base / folder / filename
+        if path.exists():
+            sources[name] = read_jsonl(path)
+        elif str(path) not in missing:
+            missing.append(str(path))
+
+    # label -> relation -> fact_id -> row
+    index: dict[str, dict[str, dict[str, dict[str, Any]]]] = {}
+    for label, source, spec in EXAMPLE_VARIANTS:
+        by_relation: dict[str, dict[str, dict[str, Any]]] = {}
+        for row in sources.get(source, []):
+            if row.get("raw_prompt") and matches(row, spec):
+                by_relation.setdefault(str(row["relation_id"]), {})[str(row["fact_id"])] = row
+        index[label] = by_relation
+
+    labels = [label for label, _, _ in EXAMPLE_VARIANTS]
     rng = random.Random(seed)
     blocks: list[str] = []
-    missing: list[str] = []
-
-    for title, source, keep in EXAMPLE_SPECS:
-        folder, filename = SOURCE_FILES[source]
-        path = base / folder / filename
-        if not path.exists():
-            if str(path) not in missing:
-                missing.append(str(path))
+    for relation, relation_label in RELATIONS:
+        # Only facts present in every variant, so the four prompts below really
+        # are the same fact.
+        shared: set[str] | None = None
+        for label in labels:
+            ids = set(index.get(label, {}).get(relation, {}))
+            shared = ids if shared is None else (shared & ids)
+        candidates = sorted(shared or ())
+        if not candidates:
             continue
-        rows = [r for r in read_jsonl(path) if keep(r) and r.get("raw_prompt")]
-        for relation, relation_label in RELATIONS:
-            pool = sorted((r for r in rows if r.get("relation_id") == relation),
-                          key=lambda r: str(r["sample_id"]))
-            if not pool:
-                continue
-            for row in rng.sample(pool, min(per_spec, len(pool))):
-                prompt = textwrap.indent(str(row["raw_prompt"]).strip(), "    ")
-                blocks.append(
-                    f"**{title}** — {relation_label}, Gemma\n\n"
-                    f"```\n{prompt}\n```\n\n"
-                    f"> model answered **`{row['generated_answer_stripped']}`** · "
-                    f"true answer `{row['parametric_answer']}` · "
-                    f"paragraph's answer `{row['context_answer']}` · "
-                    f"margin {float(row['context_minus_parametric_logprob_margin']):+.1f} "
-                    f"→ **followed the {'paragraph' if row['observed_knowledge_source'] == 'contextual' else 'true answer'}**\n"
-                )
+        for fact_id in rng.sample(candidates, min(per_relation, len(candidates))):
+            rows = [index[label][relation][fact_id] for label in labels]
+            false_answers = {str(row["context_answer"]) for row in rows}
+            if len(false_answers) > 1:
+                print(f"  WARNING: {fact_id} carries different false answers across "
+                      f"variants ({sorted(false_answers)}) -- not like-for-like")
+            subject = fact_id.split(":", 1)[-1].replace("-", " ").title()
+            blocks.append(
+                f"### {relation_label}: {subject}\n\n"
+                "The same fact and the same false answer in all four prompts; "
+                "only the surroundings change.\n\n"
+                + "\n".join(render_example(label, row) for label, row in zip(labels, rows))
+            )
 
     path = out / "examples.md"
     if blocks:
         header = (
-            "<!-- Generated by make_figures.py. Randomly sampled with a fixed "
-            "seed, not chosen. Paste into Section 0. -->\n\n"
+            "<!-- Generated by make_figures.py. The fact is drawn at random with "
+            "a fixed seed, then shown under every variant. Paste into Section 0. -->\n\n"
         )
         path.write_text(header + "\n---\n\n".join(blocks))
-        print(f"  wrote {path} ({len(blocks)} examples)")
+        print(f"  wrote {path} ({len(blocks)} facts x {len(labels)} variants)")
     if missing:
         print("\n  NOTE: no examples written from:")
         for item in missing:
@@ -418,14 +460,13 @@ def write_examples(results: Path, out: Path, seed: int, per_spec: int) -> None:
         print("  Those files hold the prompt text and the model's actual output.")
         print("  Run the experiment scripts first, or copy the JSONL over.")
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--results", type=Path, default=Path("results"))
     parser.add_argument("--out", type=Path, default=Path("figures"))
-    parser.add_argument("--seed", type=int, default=20260816)
-    parser.add_argument("--examples-per-cell", type=int, default=1)
+    parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--examples-per-dataset", type=int, default=1)
     parser.add_argument("--skip-examples", action="store_true")
     return parser.parse_args()
 
@@ -443,7 +484,7 @@ def main() -> None:
     figure_guards(data, args.out)
     if not args.skip_examples:
         print("examples:")
-        write_examples(args.results, args.out, args.seed, args.examples_per_cell)
+        write_examples(args.results, args.out, args.seed, args.examples_per_dataset)
 
 
 if __name__ == "__main__":
