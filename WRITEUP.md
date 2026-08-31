@@ -172,7 +172,7 @@ So the model does not look like it is weighing evidence. It looks like it is dec
 
 **Both claim sentences give the same ladder**, which is why I ran `bare` alongside `assert_r1`: `<document>` gets 98.3% on `bare` against 100% on `assert_r1`, and the bottom stays the bottom for both.
 
-![Figure 2](figures/fig2_ladder.png)
+![Figure 2](figures/fig2a_ladder_elements.png)
 
 *Figure 2 — all 17 wrappers on element symbols, ranked by Gemma. Colour is what the wrapper is, not how well it does. Note the two panels' x-scales differ by roughly 5x.*
 

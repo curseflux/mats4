@@ -204,9 +204,7 @@ def figure_ladder(data: Mapping[str, Any], out: Path, relation: str,
     )
     fig.text(
         0.008, 0.963,
-        f"Attributed false claim, {relation_label}, in the element-symbol order so "
-        "the two ladder figures line up. Bars run from each model's own no-wrapper "
-        "baseline. % is the paragraph rate. The x-scales differ for the two models.",
+        f"Bars run from each model's own no-wrapper baseline. % is the paragraph rate. The x-scales differ for the two models.",
         fontsize=8, color=INK_2, ha="left",
     )
     fig.tight_layout(rect=(0, 0.02, 1, 0.95))
@@ -485,9 +483,8 @@ def main() -> None:
     data = load(args.results)
     print("figures:")
     figure_headline(data, args.out)
-    figure_ladder(data, args.out, "element_symbol", "element symbols", "fig2_ladder")
-    figure_ladder(data, args.out, "country_capital", "capitals",
-                  "fig2b_ladder_capitals")
+    figure_ladder(data, args.out, "element_symbol", "elements", "fig2a_ladder_elements")
+    figure_ladder(data, args.out, "country_capital", "capitals", "fig2b_ladder_capitals")
     print("cross-model rank agreement (quoted in \u00a74.1, not plotted):")
     for (relation, cell), value in sorted(data["rho"].items()):
         print(f"  {relation:16s} {cell:10s} Spearman rho = {value:.2f}")
