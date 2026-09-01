@@ -127,7 +127,8 @@ def figure_headline(data: Mapping[str, Any], out: Path) -> None:
                     ax.plot([0, 0], [y - 0.31, y + 0.31], color=colour,
                             lw=2.4, solid_capstyle="butt", zorder=3)
                 ax.text(rate * 100 + 2.5, y,
-                        f"{rate * 100:.0f}%   {margin:+.1f}",
+                        # f"{rate * 100:.0f}%   {margin:+.1f}",
+                        f"{rate * 100:.0f}%   {margin:.1f}",
                         va="center", ha="left", fontsize=7.5, color=INK_2)
             ax.set_yticks(range(len(conditions)))
             ax.set_yticklabels([c[0] for c in conditions] if col == 0 else [])
@@ -150,7 +151,8 @@ def figure_headline(data: Mapping[str, Any], out: Path) -> None:
                  fontsize=11.5, color=INK, x=0.008, ha="left", y=1.005)
     fig.text(0.008, 0.955,
              "The same false claim throughout. Only what surrounds it changes. "
-             "Labels are the paragraph rate and the margin in logits.",
+            #  "Labels are the paragraph rate and the margin in logits.",
+             "Labels are the paragraph rate and M.",
              fontsize=8, color=INK_2, ha="left")
     fig.tight_layout(rect=(0, 0.02, 1, 0.945))
     save(fig, out, "fig1_headline")
@@ -179,7 +181,10 @@ def figure_ladder(data: Mapping[str, Any], out: Path, relation: str,
             ax.barh(y, margin - baseline, left=baseline, height=0.62,
                     color=colour, zorder=3)
             offset = 0.6 if margin >= baseline else -0.6
-            ax.text(margin + offset, y, f"{rate * 100:.0f}%",
+            # ax.text(margin + offset, y, f"{rate * 100:.0f}%",
+            #         va="center", ha="left" if margin >= baseline else "right",
+            #         fontsize=7, color=INK_2, zorder=4)
+            ax.text(margin + offset, y, f"{rate * 100:.0f}% ({margin:.1f})",
                     va="center", ha="left" if margin >= baseline else "right",
                     fontsize=7, color=INK_2, zorder=4)
         ax.axvline(baseline, color=INK_3, lw=1.0, zorder=2, ymax=0.96)
@@ -190,7 +195,8 @@ def figure_ladder(data: Mapping[str, Any], out: Path, relation: str,
         ax.set_yticks(range(len(order)))
         ax.set_yticklabels([PRETTY[w] for w in order], fontsize=8)
         ax.invert_yaxis()
-        ax.set_xlabel("margin (logits)", fontsize=8, color=INK_2)
+        # ax.set_xlabel("margin (logits)", fontsize=8, color=INK_2)
+        ax.set_xlabel("M (logits)", fontsize=8, color=INK_2)
         ax.set_title(model_label, fontsize=9.5, color=INK, loc="left", pad=16)
         style_axes(ax)
     axes[0].set_ylim(len(order) - 0.4, -1.5)
@@ -204,7 +210,8 @@ def figure_ladder(data: Mapping[str, Any], out: Path, relation: str,
     )
     fig.text(
         0.008, 0.963,
-        f"Bars run from each model's own no-wrapper baseline. % is the paragraph rate. The x-scales differ for the two models.",
+        # f"Bars run from each model's own no-wrapper baseline. % is the paragraph rate. The x-scales differ for the two models.",
+        f"Bars run from each model's own no-wrapper baseline, so bar length is ΔM. Labels are the paragraph rate and M. The x-scales differ for the two models.",
         fontsize=8, color=INK_2, ha="left",
     )
     fig.tight_layout(rect=(0, 0.02, 1, 0.95))
