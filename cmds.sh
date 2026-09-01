@@ -185,7 +185,10 @@ runs = {
     "E8 ": cell(f"{G}/conventionality_random/conventionality_results.jsonl",
                 lambda r: r.get("policy_id") == "neutral"),
     "E11": cell(f"{G}/channel/channel_results.jsonl",
-                lambda r: r.get("policy_id") == "neutral" and r["channel"] == "inline"),
+                # .get default keeps this working on result files written before
+                # E11 dropped its second instruction condition.
+                lambda r: r.get("policy_id", "neutral") == "neutral"
+                and r["channel"] == "inline"),
     "E12": cell(f"{G}/delimiter/delimiter_results.jsonl",
                 lambda r: r["wrapper"] == "inline"),
 }

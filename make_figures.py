@@ -297,8 +297,12 @@ def load(results: Path) -> dict[str, Any]:
                    for r in read_csv(p / "conventionality_random"
                                      / "conventionality_cells.csv")}
                for m, p in paths.items()}
-    channel = {m: {(r["relation"], r["cell"], r["policy"], r["channel"]): r
-                   for r in read_csv(p / "channel" / "channel_cells.csv")}
+    # Older channel CSVs carry a `policy` column from a second instruction
+    # condition the experiment no longer runs; keep only its neutral rows so
+    # both the old and the current CSV layout key the same way.
+    channel = {m: {(r["relation"], r["cell"], r["channel"]): r
+                   for r in read_csv(p / "channel" / "channel_cells.csv")
+                   if r.get("policy", "neutral") == "neutral"}
                for m, p in paths.items()}
 
     headline: dict[tuple[str, str], dict[str, tuple[float, float]]] = {}
@@ -350,8 +354,8 @@ def load(results: Path) -> dict[str, Any]:
         for relation, _ in RELATIONS:
             for cell in ("assert_r1", "explicit_stipulation"):
                 guards[(model, relation, cell)] = {
-                    slot: (float(channel[model][(relation, cell, "neutral", ch)]["context_rate"]),
-                           float(channel[model][(relation, cell, "neutral", ch)]["mean_margin"]))
+                    slot: (float(channel[model][(relation, cell, ch)]["context_rate"]),
+                           float(channel[model][(relation, cell, ch)]["mean_margin"]))
                     for slot, ch in slot_channel.items()
                 }
 
