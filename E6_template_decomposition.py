@@ -41,9 +41,7 @@ from common import (
 
 ANALYSIS_VERSION = "1.1.0"
 
-# The four things that differ between bundles under the neutral policy. The
-# policy wording is a fifth factor but is an empty string when no instruction
-# is given, so it only matters for --include-policy-endpoints.
+# The four things that differ between bundles when no instruction is given.
 FACTORS = ("claim", "filler", "question", "constraint")
 FACTOR_FIELD = {
     "claim": "claim_template_index",
@@ -93,7 +91,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--include-policy-endpoints",
         action="store_true",
-        help="Also score endpoints A and B under the context and parametric "
+        help="Also score endpoints A and B under the context "
         "instructions, so the paraphrase and instruction effects are measured "
         "on the same facts in the same run.",
     )
@@ -193,7 +191,6 @@ def build_records(
                 ("endpoint_low", bundle_indices(low)),
             ]
             policy_plan.append(("context", endpoint_only))
-            policy_plan.append(("parametric", endpoint_only))
 
         for policy_id, plan in policy_plan:
             for cell_id, indices in plan:
@@ -398,9 +395,8 @@ def main() -> None:
     print(f"cells/fact: {len(records) / max(1, len(facts)):.1f}   prompts: {len(records)}")
 
     # ---- validation --------------------------------------------------------
-    # The endpoints must reconstruct the ORIGINAL prompts byte for byte. If they
-    # do not, the templates or the assembly have drifted and no comparison to
-    # the cached run is meaningful.
+    # The endpoints must reconstruct the original prompts byte for byte, or
+    # the templates have drifted and nothing here compares to the cached run.
     experiment_prompts: dict[tuple[str, str, str], str] = {}
     prompt_source = read_jsonl(args.experiment) if args.experiment else behaviour
     for row in prompt_source:
@@ -529,11 +525,8 @@ def main() -> None:
             best_parametric = max(parametric_candidates, key=lambda s: s.sum_logprob)
             generation = generations[index]
             text = generation["text"]
-            # Classify the answer with any reasoning preamble removed, as E8 and
-            # later scripts do. Gemma leaks one on unusual prompts, and
-            # classifying the raw decode put up to 41% of rows in "other" here
-            # while E8 saw 0% on the same model. Margins are teacher-forced and
-            # were never affected; only the rates were.
+            # Classify with any reasoning preamble removed, as E8 does;
+            # classifying the raw decode inflates the "other" rate.
             answer = str(generation.get("answer_text") or text)
             output.append(
                 {
@@ -790,7 +783,7 @@ def analyze(
                 flat = {
                     (f, policy): policy_margins[(f, endpoint, policy)]
                     for f in relation_facts
-                    for policy in ("neutral", "context", "parametric")
+                    for policy in ("neutral", "context")
                     if (f, endpoint, policy) in policy_margins
                 }
                 instruction = paired_cell_delta(

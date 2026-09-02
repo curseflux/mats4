@@ -172,10 +172,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--policies",
         default="neutral",
-        help="User instructions to cross with --policy-cells. 'parametric' is "
+        help="User instructions to cross with --policy-cells. "
         "the interesting one: it tells the model to ignore the paragraph, so "
         "an in-document imperative that survives it has beaten a user "
-        "instruction. e.g. neutral,context,parametric",
+        "instruction. e.g. neutral,context",
     )
     parser.add_argument(
         "--policy-cells",
@@ -271,10 +271,8 @@ def build_facts(
     facts: list[dict[str, Any]] = []
     for relation in relations:
         rows = base_facts(relation)
-        # Rotate over the FULL relation, then truncate. Deriving the false
-        # answer from a truncated list would make a pilot's false answers
-        # differ from the full run's -- and with one fact the rotation would
-        # pair it with itself and silently drop every row.
+        # Rotate over the full relation, then truncate, so a pilot's false
+        # answers match the full run's.
         if mode == "random":
             permutation = seeded_derangement(len(rows), stable_seed(seed, relation))
             assigned = {
@@ -468,9 +466,8 @@ def evaluate(
                 key=lambda s: s.sum_logprob,
             )
             generation = generations[index]
-            # `answer_text` has any reasoning preamble removed; Gemma leaks one
-            # on unusual prompts and Qwen thinks by default, so classifying the
-            # raw text would score the two models by different rules.
+            # `answer_text` drops any reasoning preamble, so both models are
+            # classified by the same rule.
             answer = str(generation.get("answer_text") or generation["text"])
             output.append(
                 {
@@ -797,8 +794,7 @@ def main() -> None:
     if policy_rows:
         print("\n" + "=" * 78)
         print("P4  in-document imperative vs the user's own instruction")
-        print("    'parametric' tells the model to ignore the paragraph. A cell that")
-        print("    still defers there has beaten an explicit user instruction.")
+        print("    A cell that still defers under a user instruction has beaten it.")
         print("=" * 78)
         by_key: dict[tuple[str, str, str], list[Mapping[str, Any]]] = collections.defaultdict(list)
         for row in all_live:
@@ -831,7 +827,7 @@ def main() -> None:
                     })
                 print(f"{relation:24s}{cell:22s}" + "".join(parts))
         print("\n  Each column is context-following% then mean margin.")
-        print("  The decisive cell is explicit_stipulation under `parametric`.")
+        print("  The decisive cell is explicit_stipulation under a user instruction.")
     report["policy_conflict"] = prong4
 
     cell_summary = []
@@ -944,8 +940,8 @@ def main() -> None:
         "is deliberating, which is itself worth reporting.\n"
         "- Screening is per model. Compare relations within a model freely; "
         "across models, remember the surviving fact sets differ.\n"
-        "- **P4 is the prompt-injection result.** `parametric` is the user "
-        "telling the model to ignore the paragraph. If `explicit_stipulation` "
+        "- **P4 is the prompt-injection result.** It scores the cells under a "
+        "user instruction rather than none. If `explicit_stipulation` "
         "still produces high deference there, an imperative buried in the "
         "retrieved document has overridden the user's own instruction, which is "
         "the concrete safety claim. Compare it against `assert_r1` under the "

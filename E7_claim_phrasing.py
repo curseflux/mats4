@@ -175,9 +175,8 @@ def build_records(
             records.append(
                 _record(fact, cell_id, levels, prompt, claim, answer, relevant=True)
             )
-        # Specificity control: the two extreme acts, but about a different
-        # entity. If phrasing still lifts the claim answer here, the effect is
-        # copying, not conflict resolution.
+        # Specificity control: same acts, different entity. A lift here would
+        # mean copying rather than conflict resolution.
         distractor = fact.get("distractor_subject")
         distractor_answer = fact.get("distractor_claim_answer")
         if distractor and distractor_answer:
@@ -422,9 +421,8 @@ def main() -> None:
         )
         max_input = int(config["chat"]["max_input_tokens"])
 
-        # This loop duplicates E6's rather than importing it: E6 has already been
-        # run successfully end to end, and refactoring proven GPU code to save
-        # fifty lines is a bad trade when each failure costs a 12B model load.
+        # Duplicates E6's loop rather than importing it; E6 has already run
+        # end to end and a refactor here costs a 12B model load per failure.
         for start in range(0, len(pending), generation_batch):
             chunk = pending[start : start + generation_batch]
             rendered = [render_dataset_record(bundle.processor, r, config) for r in chunk]

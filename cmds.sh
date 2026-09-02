@@ -113,14 +113,14 @@ python E7_claim_phrasing.py --config config.yaml \
 
 python E8_conventionality.py --config config.yaml \
   --out $G/analysis/conventionality_random \
-  --false-answer-mode random --policies neutral,context,parametric --validate-only
+  --false-answer-mode random --policies neutral,context --validate-only
 python E8_conventionality.py --config config.yaml \
   --out $G/analysis/conventionality_random \
-  --false-answer-mode random --policies neutral,context,parametric
+  --false-answer-mode random --policies neutral,context
 
 python E8_conventionality.py --config config_qwen36.yaml \
   --out $Q/analysis/conventionality_random \
-  --false-answer-mode random --policies neutral,context,parametric
+  --false-answer-mode random --policies neutral,context
 
 
 # ===========================================================================

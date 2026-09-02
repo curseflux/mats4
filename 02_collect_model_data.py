@@ -247,9 +247,8 @@ def classify_generation(
     else:
         source = "other"
 
-    if record["policy_id"] == "parametric":
-        policy_compliant: bool | None = matches_parametric
-    elif record["policy_id"] == "context" and context_answer is not None:
+    policy_compliant: bool | None
+    if record["policy_id"] == "context" and context_answer is not None:
         policy_compliant = matches_context
     else:
         policy_compliant = None

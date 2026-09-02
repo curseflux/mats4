@@ -37,9 +37,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument(
         "--policy",
-        default="parametric",
-        help="The policy the gradient is measured under. `parametric` is the "
-        "user telling the model to ignore the paragraph.",
+        default="neutral",
+        help="Which instruction condition to measure the gradient under, "
+        "matched against policy_id in the results file.",
     )
     parser.add_argument("--cells", default=",".join(DEFAULT_CELLS))
     parser.add_argument(
