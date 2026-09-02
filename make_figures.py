@@ -226,18 +226,19 @@ def figure_guards(data: Mapping[str, Any], out: Path) -> None:
             ax = axes[row][col]
             for offset, (cell, _label, colour) in zip((-height / 2, height / 2), cells):
                 for y, slot in enumerate(slots):
-                    rate, _margin = data["guards"][(model, relation, cell)][slot]
+                    rate, margin = data["guards"][(model, relation, cell)][slot]
                     ax.barh(y + offset, rate * 100, height=height - 0.03,
                             color=colour, zorder=3)
                     if rate == 0:
                         ax.plot([0, 0], [y + offset - 0.15, y + offset + 0.15],
                                 color=colour, lw=2.2, solid_capstyle="butt", zorder=3)
-                    ax.text(rate * 100 + 2.5, y + offset, f"{rate * 100:.0f}%",
+                    ax.text(rate * 100 + 2.5, y + offset,
+                            f"{rate * 100:.0f}% ({margin:.1f})",
                             va="center", ha="left", fontsize=7, color=INK_2)
             ax.set_yticks(range(len(slots)))
             ax.set_yticklabels(slots if col == 0 else [])
             ax.invert_yaxis()
-            ax.set_xlim(0, 122)
+            ax.set_xlim(0, 142)
             ax.set_xticks([0, 25, 50, 75, 100])
             ax.set_title(f"{model_label} \u00b7 {relation_label}",
                          fontsize=9, color=INK, loc="left", pad=6)
