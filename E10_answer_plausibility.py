@@ -48,9 +48,8 @@ ANALYSIS_VERSION = "1.0.0"
 
 RELATIONS = ("element_atomic_number", "element_symbol", "country_capital")
 
-# The six cells E8 uses for its act effect, minus the gap cells. Keeping the
-# same names and the same sentence templates means the numbers here are
-# directly comparable to E8's, cell for cell.
+# E8 act-effect cells minus the gap cells, same names and templates so the
+# numbers are comparable to E8 cell for cell.
 CELLS = ("stipulate_r1", "stipulate_r2", "assert_r1", "assert_r2", "bare", "explicit_stipulation")
 
 # Numeric offsets for the one relation where distance is a real number line.
@@ -66,8 +65,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--relations", default=",".join(RELATIONS))
     parser.add_argument(
         "--policies",
-        default="neutral,parametric",
-        help="`neutral` is where deference is graded; `parametric` is the "
+        default="neutral",
+        help="`neutral` is where deference is graded; "
         "ignore-the-paragraph instruction the leakage gradient lives under. "
         "`context` is saturated near 100% and is off by default.",
     )
@@ -116,7 +115,7 @@ def build_facts(relations: Sequence[str], seed: int, max_facts: int | None) -> l
         else:
             raise ValueError(f"Unknown relation {relation!r}")
 
-        # Derangement over the FULL relation, then truncate, so a pilot's
+        # Derange over the full relation, then truncate, so a pilot's
         # assignments match the full run's.
         permutation = seeded_derangement(len(rows), stable_seed(seed, relation, "random"))
         random_answer = {subject: rows[permutation[i]][1] for i, (subject, _) in enumerate(rows)}
@@ -494,7 +493,7 @@ def main() -> None:
                     f"  [{cell:22s}] "
                     f"{claim_sentence(relation, cell, fact['query_subject'], fact['claim_answer'])}"
                 )
-            print("\n  full prompt (parametric policy):")
+            print("\n  full prompt:")
             print(
                 assemble(
                     relation,
@@ -645,41 +644,6 @@ def main() -> None:
                 f"{f'[{low:+.2f}, {high:+.2f}]':>22}{result['n']:>6d}"
             )
     report["act_effect_by_distance"] = a2
-
-    print("\n" + "=" * 78)
-    print("A3  the leakage gradient under `ignore the paragraph`, by distance")
-    print("=" * 78)
-    a3 = []
-    leak = [r for r in rows if str(r["policy_id"]) == "parametric"]
-    if leak:
-        print(f"\n  {'relation':24s}{'distance':10s}"
-              + "".join(f"{c[:11]:>13s}" for c in ("bare", "assert_r1", "explicit_stipulation")))
-        for relation in relations:
-            for distance in distances_for(relation, leak):
-                parts = []
-                for cell in ("bare", "assert_r1", "explicit_stipulation"):
-                    group = [
-                        r for r in leak
-                        if r["relation_id"] == relation
-                        and r["distance_id"] == distance
-                        and r["cell_id"] == cell
-                    ]
-                    if not group:
-                        parts.append(f"{'--':>13s}")
-                        continue
-                    rate = float(np.mean(
-                        [r["observed_knowledge_source"] == "contextual" for r in group]
-                    ))
-                    parts.append(f"{100 * rate:>12.1f}%")
-                    a3.append({
-                        "relation": relation, "distance": distance, "cell": cell,
-                        "leak_rate": rate, "n": len(group),
-                    })
-                print(f"  {relation:24s}{distance:10s}" + "".join(parts))
-        print("\n  E8 saw bare 62.1% > assert 19.8% > explicit 0.0% on atomic numbers")
-        print("  and 0% everywhere else. If that gradient only exists at d=1, it was")
-        print("  a fact about near-miss claims, not about the relation.")
-    report["leakage_by_distance"] = a3
 
     print("\n" + "=" * 78)
     print("A4  does strength mediate it?  (entity fixed, distance varying)")

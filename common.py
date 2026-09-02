@@ -105,10 +105,8 @@ def load_config(path: str | Path) -> dict[str, Any]:
     if not isinstance(config["chat"]["enable_thinking"], bool):
         raise ValueError("chat.enable_thinking must be true or false")
     if config["chat"]["enable_thinking"]:
-        # Every result in this project was produced with thinking disabled, and
-        # the answer margin is read at the first answer token. With thinking on
-        # the model emits a reasoning span first, so margins are measured at a
-        # different point and are NOT comparable to the existing runs.
+        # All existing results were produced with thinking disabled. With it
+        # on, margins are read after a reasoning span and are not comparable.
         print(
             "WARNING: chat.enable_thinking=true. Margins from this run are not "
             "comparable to runs made with thinking disabled."
@@ -665,10 +663,8 @@ class ModelBundle:
     tokenizer: Any
 
 
-# Supported model families. Gemma 4 is multimodal and needs the processor path;
-# Qwen 3.x is text-only and uses AutoModelForCausalLM + AutoTokenizer. Qwen 3.6
-# ships no dedicated architecture in transformers -- it reuses the Qwen3 classes
-# -- so the expected class name is a config field rather than a constant here.
+# Gemma 4 is multimodal and needs the processor path; Qwen 3.x is text-only.
+# Qwen 3.6 reuses the Qwen3 classes, so its class name comes from config.
 MODEL_FAMILIES = {
     "gemma4": {
         "loader": "multimodal",
@@ -873,9 +869,8 @@ def generate_batch(
     return outputs
 
 
-# Closing delimiters of a reasoning span, across the supported families. Qwen
-# 3.x uses </think> (the template pre-opens <think>, so only the close appears);
-# Gemma 4's thought channel uses the end_of_thought marker.
+# Closing delimiters of a reasoning span. Qwen 3.x emits only </think>
+# because its template pre-opens the tag; Gemma 4 uses end_of_thought.
 REASONING_CLOSE_MARKERS = ("</think>", "<end_of_thought>", "</thought>", "</thinking>")
 
 

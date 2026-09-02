@@ -145,8 +145,6 @@ def figure_headline(data: Mapping[str, Any], out: Path) -> None:
         Line2D([], [], color=BLUE_RAMP[2], lw=6, label="paragraph in a wrapper"),
         Line2D([], [], color=ORANGE, lw=6, label="explicit instruction, no wrapper"),
     ]
-    # fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False,
-    #            fontsize=8, bbox_to_anchor=(0.5, -0.045), labelcolor=INK_2)
     fig.suptitle("Tags vs explicit instruction",
                  fontsize=11.5, color=INK, x=0.008, ha="left", y=1.005)
     fig.text(0.008, 0.955,
@@ -181,21 +179,13 @@ def figure_ladder(data: Mapping[str, Any], out: Path, relation: str,
             ax.barh(y, margin - baseline, left=baseline, height=0.62,
                     color=colour, zorder=3)
             offset = 0.6 if margin >= baseline else -0.6
-            # ax.text(margin + offset, y, f"{rate * 100:.0f}%",
-            #         va="center", ha="left" if margin >= baseline else "right",
-            #         fontsize=7, color=INK_2, zorder=4)
             ax.text(margin + offset, y, f"{rate * 100:.0f}% ({margin:.1f})",
                     va="center", ha="left" if margin >= baseline else "right",
                     fontsize=7, color=INK_2, zorder=4)
         ax.axvline(baseline, color=INK_3, lw=1.0, zorder=2, ymax=0.96)
-        # ax.annotate("no wrapper", xy=(baseline, -0.8), xytext=(12, 0),
-        #             textcoords="offset points", fontsize=7.5, color=INK_2,
-        #             ha="left", va="center",
-        #             arrowprops=dict(arrowstyle="-", color=INK_3, lw=0.8))
         ax.set_yticks(range(len(order)))
         ax.set_yticklabels([PRETTY[w] for w in order], fontsize=8)
         ax.invert_yaxis()
-        # ax.set_xlabel("margin (logits)", fontsize=8, color=INK_2)
         ax.set_xlabel("M (logits)", fontsize=8, color=INK_2)
         ax.set_title(model_label, fontsize=9.5, color=INK, loc="left", pad=16)
         style_axes(ax)
@@ -297,8 +287,12 @@ def load(results: Path) -> dict[str, Any]:
                    for r in read_csv(p / "conventionality_random"
                                      / "conventionality_cells.csv")}
                for m, p in paths.items()}
-    channel = {m: {(r["relation"], r["cell"], r["policy"], r["channel"]): r
-                   for r in read_csv(p / "channel" / "channel_cells.csv")}
+    # Older channel CSVs carry a `policy` column from a second instruction
+    # condition the experiment no longer runs; keep only its neutral rows so
+    # both the old and the current CSV layout key the same way.
+    channel = {m: {(r["relation"], r["cell"], r["channel"]): r
+                   for r in read_csv(p / "channel" / "channel_cells.csv")
+                   if r.get("policy", "neutral") == "neutral"}
                for m, p in paths.items()}
 
     headline: dict[tuple[str, str], dict[str, tuple[float, float]]] = {}
@@ -327,9 +321,8 @@ def load(results: Path) -> dict[str, Any]:
     # the panels can be read against each other row by row.
     ladder_order = sorted(ROLE, key=lambda w: -ladder[("gemma", "element_symbol")][w][0])
 
-    # No longer plotted -- the rank agreement reads better as a sentence than as
-    # a scatter -- but still computed, and printed, so the number in the text has
-    # a source that is re-derived on every run.
+    # Not plotted, but computed and printed so the number quoted in the
+    # write-up is re-derived on every run.
     rho = {}
     for relation, _ in RELATIONS:
         for cell in ("assert_r1", "bare"):
@@ -350,8 +343,8 @@ def load(results: Path) -> dict[str, Any]:
         for relation, _ in RELATIONS:
             for cell in ("assert_r1", "explicit_stipulation"):
                 guards[(model, relation, cell)] = {
-                    slot: (float(channel[model][(relation, cell, "neutral", ch)]["context_rate"]),
-                           float(channel[model][(relation, cell, "neutral", ch)]["mean_margin"]))
+                    slot: (float(channel[model][(relation, cell, ch)]["context_rate"]),
+                           float(channel[model][(relation, cell, ch)]["mean_margin"]))
                     for slot, ch in slot_channel.items()
                 }
 
@@ -361,10 +354,8 @@ def load(results: Path) -> dict[str, Any]:
 
 # --- qualitative examples -------------------------------------------------
 
-# One fact per dataset, shown under four different surroundings. The claim
-# sentence, the false answer and the question are the same in all four; only
-# what wraps the paragraph changes. Each entry is (label, source file, the
-# field values that identify the variant).
+# One fact per dataset under four surroundings; the claim, false answer and
+# question are fixed. Entries are (label, source file, identifying fields).
 EXAMPLE_VARIANTS = (
     ("no wrapper", "delimiter",
      {"wrapper": "inline", "cell_id": "assert_r1"}),

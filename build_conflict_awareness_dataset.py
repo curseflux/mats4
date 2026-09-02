@@ -128,18 +128,11 @@ CONDITIONS: tuple[dict[str, Any], ...] = (
 
 
 POLICY_TEMPLATES: dict[str, tuple[str, ...]] = {
-    # The absence of a source instruction is intentional: this recreates the
-    # user's observed neutral condition instead of inserting a synthetic cue.
     "neutral": ("", "", ""),
     "context": (
         "Based on this paragraph, answer the question below.",
         "Answer according to the paragraph.",
         "Use the paragraph to answer the question.",
-    ),
-    "parametric": (
-        "Ignoring this paragraph, answer the question below from your own knowledge.",
-        "Do not use the paragraph; rely on your own knowledge.",
-        "Set the paragraph aside and answer from what you already know.",
     ),
 }
 
@@ -148,17 +141,12 @@ POLICY_METADATA: dict[str, dict[str, Any]] = {
     "neutral": {
         "policy_target": "unspecified",
         "analysis_role": "primary",
-        "description": "No instruction chooses between context and parametric knowledge.",
+        "description": "No instruction chooses between context and memorised knowledge.",
     },
     "context": {
         "policy_target": "contextual",
         "analysis_role": "primary",
         "description": "The paragraph is presented as the basis for answering, without mentioning conflict.",
-    },
-    "parametric": {
-        "policy_target": "parametric",
-        "analysis_role": "anchor_control",
-        "description": "Explicit positive-control instruction to ignore the paragraph.",
     },
 }
 
@@ -1049,9 +1037,7 @@ def experiment_record(
     context_candidate = claim_answer if relevant else None
 
     expected_answer_under_policy: str | None
-    if policy_id == "parametric":
-        expected_answer_under_policy = query_fact.answer
-    elif policy_id == "context" and relevant:
+    if policy_id == "context" and relevant:
         expected_answer_under_policy = claim_answer
     else:
         expected_answer_under_policy = None
@@ -1310,7 +1296,6 @@ def build_dataset(
     output_dir: Path,
     seed: int,
     rounds: int,
-    include_parametric_policy: bool,
     overwrite: bool,
 ) -> dict[str, Any]:
     if rounds < 1:
@@ -1324,8 +1309,6 @@ def build_dataset(
         validate_relation_spec(spec)
 
     included_policies = ["neutral", "context"]
-    if include_parametric_policy:
-        included_policies.append("parametric")
 
     all_fact_records: list[dict[str, Any]] = []
     all_screening_records: list[dict[str, Any]] = []
@@ -1567,11 +1550,6 @@ def parse_args() -> argparse.Namespace:
         help="Comma-separated relation IDs to generate.",
     )
     parser.add_argument(
-        "--exclude-parametric-policy",
-        action="store_true",
-        help="Omit the explicit ignore-the-paragraph anchor control.",
-    )
-    parser.add_argument(
         "--overwrite",
         action="store_true",
         help="Replace files already present in --output-dir.",
@@ -1589,7 +1567,6 @@ def main() -> None:
         output_dir=args.output_dir,
         seed=args.seed,
         rounds=args.counterbalance_rounds,
-        include_parametric_policy=not args.exclude_parametric_policy,
         overwrite=args.overwrite,
     )
     print(f"Wrote dataset to {args.output_dir.resolve()}")
